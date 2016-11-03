@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/videotag.h"
+#include "C:/Observer/videotag.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

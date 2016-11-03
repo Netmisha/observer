@@ -49,7 +49,7 @@ public:
         Stop->setGeometry(QRect(200, 170, 80, 21));
         MainV = new CQtOpenCVViewerGl(VideoTag);
         MainV->setObjectName(QStringLiteral("MainV"));
-        MainV->setEnabled(true);
+        MainV->setEnabled(false);
         MainV->setGeometry(QRect(10, 30, 271, 141));
         MainV->setAutoFillBackground(false);
         AddTag = new QPushButton(VideoTag);
