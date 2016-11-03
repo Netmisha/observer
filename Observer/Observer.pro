@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    selectcamera.cpp
+    selectcamera.cpp \
+    cqtopencvviewergl.cpp
 
 HEADERS  += mainwindow.h \
-    selectcamera.h
+    selectcamera.h \
+    cqtopencvviewergl.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui

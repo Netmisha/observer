@@ -14,11 +14,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -27,6 +25,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "cqtopencvviewergl.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -53,8 +52,7 @@ public:
     QLineEdit *camera_passwordEdit;
     QSpacerItem *horizontalSpacer;
     QPushButton *camera_connectButton;
-    QFrame *videoFrame;
-    QLabel *label;
+    CQtOpenCVViewerGl *opencv_view;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_3;
@@ -152,15 +150,10 @@ public:
 
         verticalLayout_3->addWidget(remote_settingBox);
 
-        videoFrame = new QFrame(centralwidget);
-        videoFrame->setObjectName(QStringLiteral("videoFrame"));
-        videoFrame->setFrameShape(QFrame::Box);
-        videoFrame->setFrameShadow(QFrame::Raised);
-        label = new QLabel(videoFrame);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(70, 20, 551, 271));
+        opencv_view = new CQtOpenCVViewerGl(centralwidget);
+        opencv_view->setObjectName(QStringLiteral("opencv_view"));
 
-        verticalLayout_3->addWidget(videoFrame);
+        verticalLayout_3->addWidget(opencv_view);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -209,7 +202,6 @@ public:
         camera_portEdit->setPlaceholderText(QApplication::translate("SelectCamera", "Port", 0));
         camera_passwordEdit->setPlaceholderText(QApplication::translate("SelectCamera", "Password", 0));
         camera_connectButton->setText(QApplication::translate("SelectCamera", "Connect", 0));
-        label->setText(QString());
         previewButton->setText(QApplication::translate("SelectCamera", "Preview", 0));
         nextButton->setText(QApplication::translate("SelectCamera", "Next", 0));
     } // retranslateUi

@@ -1,6 +1,8 @@
 #include "selectcamera.h"
 #include "ui_selectcamera.h"
-using namespace cv;
+#include <thread>
+
+
 SelectCamera::SelectCamera(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SelectCamera)
@@ -11,6 +13,7 @@ SelectCamera::SelectCamera(QWidget *parent) :
 
 SelectCamera::~SelectCamera()
 {
+    run=false;
     delete ui;
 }
 
@@ -29,22 +32,25 @@ void SelectCamera::on_remote_cameraButton_clicked()
     ui->camera_portEdit->clear();
     ui->camera_passwordEdit->clear();
 }
-
-void SelectCamera::on_previewButton_clicked()
-{
-    //CQtOpenCVViewerGl m=new CQtOpenCVViewerGl(ui->videoFrame);
+void SelectCamera::ShowImg () {
     VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return;
-
-    //namedWindow("Video",1);
-    int i=1;
-    while(i)
+    while(run)
     {
         Mat frame;
         cap >> frame;
-        imwrite("tem.jpg",frame);
-        ui->label->setPixmap(QPixmap("tem.jpg"));
-        ui->label->repaint();
+        ui->opencv_view->showImage(frame);
     }
+}
+void SelectCamera::on_previewButton_clicked()
+{
+    run=true;
+    std::thread thr(&SelectCamera::ShowImg, this);
+    thr.detach();
+}
+
+void SelectCamera::on_nextButton_clicked()
+{
+    run=false;
 }
