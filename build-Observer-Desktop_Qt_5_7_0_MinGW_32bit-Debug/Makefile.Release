@@ -14,10 +14,17 @@ CXX           = g++
 DEFINES       = -DUNICODE -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -pipe -fno-keep-inline-dllexport -O2 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -std=gnu++11 -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
+<<<<<<< HEAD
 INCPATH       = -IC:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer -I. -IC:/OpenCV/opencv_mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -Irelease -I. -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
 LIBS        =        -lmingw32 -LC:/Qt/5.7/mingw53_32/lib C:/Qt/5.7/mingw53_32/lib/libqtmain.a -LC:/utils/postgresql/pgsql/lib -LC:/utils/my_sql/my_sql/lib -lshell32 C:/Qt/5.7/mingw53_32/lib/libQt5Core.a -LC:/OpenCV/opencv_mingw/install/x86/mingw/bin -LC:/OpenCV/opencv_mingw/install/x86/mingw/lib -lopencv_core2413d -lopencv_highgui2413d -lopencv_imgproc2413d -lopencv_features2d2413d -lopencv_calib3d2413d C:/Qt/5.7/mingw53_32/lib/libQt5OpenGL.a C:/Qt/5.7/mingw53_32/lib/libQt5Widgets.a C:/Qt/5.7/mingw53_32/lib/libQt5Gui.a C:/Qt/5.7/mingw53_32/lib/libQt5Core.a 
+=======
+INCPATH       = -I../Observer -I. -IC:/OpenCV/opencv-mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -Irelease -I. -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ 
+LINKER      =        g++
+LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
+LIBS        =        -lmingw32 -LC:/Qt/5.7/mingw53_32/lib C:/Qt/5.7/mingw53_32/lib/libqtmain.a -LC:/utils/postgresql/pgsql/lib -LC:/utils/my_sql/my_sql/lib -lshell32 C:/Qt/5.7/mingw53_32/lib/libQt5Core.a -LC:/OpenCV/opencv-mingw/install/x86/mingw/bin -LC:/OpenCV/opencv-mingw/install/x86/mingw/lib -lopencv_core2413d -lopencv_highgui2413d -lopencv_imgproc2413d -lopencv_features2d2413d -lopencv_calib3d2413d C:/Qt/5.7/mingw53_32/lib/libQt5OpenGL.a C:/Qt/5.7/mingw53_32/lib/libQt5Widgets.a C:/Qt/5.7/mingw53_32/lib/libQt5Gui.a C:/Qt/5.7/mingw53_32/lib/libQt5Core.a 
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 QMAKE         = C:/Qt/5.7/mingw53_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
@@ -214,7 +221,11 @@ release/moc_mainwindow.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qicon.h \
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/mainwindow.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
+<<<<<<< HEAD
 	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer -IC:/OpenCV/opencv_mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/mainwindow.h -o release/moc_mainwindow.cpp
+=======
+	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -ID:/Projects/observer/Observer -IC:/OpenCV/opencv-mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. ../Observer/mainwindow.h -o release/moc_mainwindow.cpp
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 
 release/moc_selectcamera.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qmainwindow.h \
@@ -316,6 +327,7 @@ release/moc_selectcamera.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qicon.h \
+<<<<<<< HEAD
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv_modules.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/core_c.h \
@@ -351,6 +363,43 @@ release/moc_selectcamera.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/selectcamera.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
 	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer -IC:/OpenCV/opencv_mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/selectcamera.h -o release/moc_selectcamera.cpp
+=======
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv_modules.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/miniflann.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/defines.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/config.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/video.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/tracking.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/background_segm.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/features2d/features2d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/objdetect/objdetect.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/calib3d/calib3d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/affine.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/ml/ml.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/contrib.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/retina.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/openfabmap.hpp \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QLabel \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qlabel.h \
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
+		../Observer/selectcamera.h \
+		C:/Qt/5.7/mingw53_32/bin/moc.exe
+	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -ID:/Projects/observer/Observer -IC:/OpenCV/opencv-mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. ../Observer/selectcamera.h -o release/moc_selectcamera.cpp
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 
 release/moc_cqtopencvviewergl.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QOpenGLWidget \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qopenglwidget.h \
@@ -377,6 +426,7 @@ release/moc_cqtopencvviewergl.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QOpenG
 		C:/Qt/5.7/mingw53_32/include/QtCore/qnumeric.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qversiontagging.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
+<<<<<<< HEAD
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qwindowdefs.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qobjectdefs.h \
@@ -510,6 +560,8 @@ release/moc_videotag.cpp: C:/OpenCV/opencv_mingw/install/include/opencv2/opencv.
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
+=======
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qwindowdefs.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qglobal.h \
@@ -606,10 +658,39 @@ release/moc_videotag.cpp: C:/OpenCV/opencv_mingw/install/include/opencv2/opencv.
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtouchdevice.h \
+<<<<<<< HEAD
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/videotag.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
 	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer -IC:/OpenCV/opencv_mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/videotag.h -o release/moc_videotag.cpp
+=======
+		C:/Qt/5.7/mingw53_32/include/QtGui/QSurfaceFormat \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qsurfaceformat.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopengl.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qt_windows.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES3/gl3.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES3/gl3platform.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/KHR/khrplatform.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES2/gl2.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES2/gl2platform.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopengles2ext.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglext.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QOpenGLFunctions_2_0 \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglfunctions_2_0.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QOpenGLVersionFunctions \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglversionfunctions.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglcontext.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QObject \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QScopedPointer \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp \
+		../Observer/cqtopencvviewergl.h \
+		C:/Qt/5.7/mingw53_32/bin/moc.exe
+	'C:\Qt\5.7\mingw53_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -ID:/Projects/observer/Observer -IC:/OpenCV/opencv-mingw/install/include -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtOpenGL -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtCore -I. ../Observer/cqtopencvviewergl.h -o release/moc_cqtopencvviewergl.cpp
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -620,9 +701,15 @@ ui_mainwindow.h: C:/Users/o.mandrychenko/Downloads/observer-master/observer-mast
 		C:/Qt/5.7/mingw53_32/bin/uic.exe
 	'C:\Qt\5.7\mingw53_32\bin\uic.exe' C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/mainwindow.ui -o ui_mainwindow.h
 
+<<<<<<< HEAD
 ui_selectcamera.h: C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/selectcamera.ui \
 		C:/Qt/5.7/mingw53_32/bin/uic.exe \
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/cqtopencvviewergl.h \
+=======
+ui_selectcamera.h: ../Observer/selectcamera.ui \
+		C:/Qt/5.7/mingw53_32/bin/uic.exe \
+		../Observer/cqtopencvviewergl.h \
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QOpenGLWidget \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qopenglwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qglobal.h \
@@ -740,6 +827,7 @@ ui_selectcamera.h: C:/Users/o.mandrychenko/Downloads/observer-master/observer-ma
 		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QObject \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QScopedPointer \
+<<<<<<< HEAD
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/core.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/types_c.h \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/version.hpp \
@@ -873,6 +961,14 @@ ui_videotag.h: C:/Users/o.mandrychenko/Downloads/observer-master/observer-master
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/operations.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/mat.hpp
 	'C:\Qt\5.7\mingw53_32\bin\uic.exe' C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/videotag.ui -o ui_videotag.h
+=======
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp
+	'C:\Qt\5.7\mingw53_32\bin\uic.exe' ../Observer/selectcamera.ui -o ui_selectcamera.h
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -987,6 +1083,7 @@ release/main.o: C:/Users/o.mandrychenko/Downloads/observer-master/observer-maste
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qicon.h \
+<<<<<<< HEAD
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/selectcamera.h \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv_modules.hpp \
@@ -1017,6 +1114,38 @@ release/main.o: C:/Users/o.mandrychenko/Downloads/observer-master/observer-maste
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/contrib.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/retina.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/openfabmap.hpp \
+=======
+		../Observer/selectcamera.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv_modules.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/miniflann.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/defines.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/config.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/video.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/tracking.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/background_segm.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/features2d/features2d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/objdetect/objdetect.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/calib3d/calib3d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/affine.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/ml/ml.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/contrib.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/retina.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/openfabmap.hpp \
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
@@ -1274,6 +1403,7 @@ release/selectcamera.o: C:/Users/o.mandrychenko/Downloads/observer-master/observ
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtabwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qicon.h \
+<<<<<<< HEAD
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/opencv_modules.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/core/core_c.h \
@@ -1303,6 +1433,37 @@ release/selectcamera.o: C:/Users/o.mandrychenko/Downloads/observer-master/observ
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/contrib.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/retina.hpp \
 		C:/OpenCV/opencv_mingw/install/include/opencv2/contrib/openfabmap.hpp \
+=======
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv_modules.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/miniflann.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/defines.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/config.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/video.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/tracking.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/background_segm.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/features2d/features2d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/objdetect/objdetect.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/calib3d/calib3d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/affine.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/ml/ml.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/contrib.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/retina.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/openfabmap.hpp \
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
@@ -1360,6 +1521,7 @@ release/selectcamera.o: C:/Users/o.mandrychenko/Downloads/observer-master/observ
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QStatusBar \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstatusbar.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QVBoxLayout \
+<<<<<<< HEAD
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
 		C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/cqtopencvviewergl.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QOpenGLWidget \
@@ -1385,6 +1547,12 @@ release/selectcamera.o: C:/Users/o.mandrychenko/Downloads/observer-master/observ
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/selectcamera.o C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/selectcamera.cpp
 
 release/cqtopencvviewergl.o: C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/cqtopencvviewergl.cpp C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/cqtopencvviewergl.h \
+=======
+		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/selectcamera.o ../Observer/selectcamera.cpp
+
+release/cqtopencvviewergl.o: ../Observer/cqtopencvviewergl.cpp ../Observer/cqtopencvviewergl.h \
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QOpenGLWidget \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qopenglwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qglobal.h \
@@ -1410,6 +1578,7 @@ release/cqtopencvviewergl.o: C:/Users/o.mandrychenko/Downloads/observer-master/o
 		C:/Qt/5.7/mingw53_32/include/QtCore/qnumeric.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qversiontagging.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
+<<<<<<< HEAD
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qwindowdefs.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qobjectdefs.h \
@@ -1568,6 +1737,8 @@ release/videotag.o: C:/Users/o.mandrychenko/Downloads/observer-master/observer-m
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qframe.h \
+=======
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qwidget.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qwindowdefs.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qglobal.h \
@@ -1664,9 +1835,62 @@ release/videotag.o: C:/Users/o.mandrychenko/Downloads/observer-master/observer-m
 		C:/Qt/5.7/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtouchdevice.h \
+<<<<<<< HEAD
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
 		ui_videotag.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/videotag.o C:/Users/o.mandrychenko/Downloads/observer-master/observer-master/Observer/videotag.cpp
+=======
+		C:/Qt/5.7/mingw53_32/include/QtGui/QSurfaceFormat \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qsurfaceformat.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopengl.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/qt_windows.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES3/gl3.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES3/gl3platform.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/KHR/khrplatform.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES2/gl2.h \
+		C:/Qt/5.7/mingw53_32/include/QtANGLE/GLES2/gl2platform.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopengles2ext.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglext.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QOpenGLFunctions_2_0 \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglfunctions_2_0.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QOpenGLVersionFunctions \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglversionfunctions.h \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglcontext.h \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QObject \
+		C:/Qt/5.7/mingw53_32/include/QtCore/QScopedPointer \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/version.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/operations.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/mat.hpp \
+		C:/Qt/5.7/mingw53_32/include/QtGui/QOpenGLFunctions \
+		C:/Qt/5.7/mingw53_32/include/QtGui/qopenglfunctions.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/opencv_modules.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/core_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/miniflann.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/defines.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/flann/config.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/types_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/imgproc/imgproc.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/photo/photo_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/video.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/tracking.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/video/background_segm.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/features2d/features2d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/objdetect/objdetect.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/calib3d/calib3d.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/core/affine.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/ml/ml.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui_c.h \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/highgui/highgui.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/contrib.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/retina.hpp \
+		C:/OpenCV/opencv-mingw/install/include/opencv2/contrib/openfabmap.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/cqtopencvviewergl.o ../Observer/cqtopencvviewergl.cpp
+>>>>>>> 18246caf5fdf0f3c5649c39f195306479651e665
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_mainwindow.o release/moc_mainwindow.cpp
