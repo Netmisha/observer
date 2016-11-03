@@ -79,7 +79,7 @@ void CQtOpenCVViewerGl::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->imageSizeChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 1: { bool _r = _t->showImage((*reinterpret_cast< cv::Mat(*)>(_a[1])));
+        case 1: { bool _r = _t->showImage((*reinterpret_cast< const cv::Mat(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
         default: ;
         }

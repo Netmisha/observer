@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -26,6 +25,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "cqtopencvviewergl.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -52,7 +52,7 @@ public:
     QLineEdit *camera_passwordEdit;
     QSpacerItem *horizontalSpacer;
     QPushButton *camera_connectButton;
-    QFrame *videoFrame;
+    CQtOpenCVViewerGl *opencv_view;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_3;
@@ -72,7 +72,7 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setMaximumSize(QSize(16777215, 50));
+        groupBox->setMaximumSize(QSize(16777215, 70));
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -150,17 +150,16 @@ public:
 
         verticalLayout_3->addWidget(remote_settingBox);
 
-        videoFrame = new QFrame(centralwidget);
-        videoFrame->setObjectName(QStringLiteral("videoFrame"));
-        videoFrame->setFrameShape(QFrame::Box);
-        videoFrame->setFrameShadow(QFrame::Raised);
+        opencv_view = new CQtOpenCVViewerGl(centralwidget);
+        opencv_view->setObjectName(QStringLiteral("opencv_view"));
 
-        verticalLayout_3->addWidget(videoFrame);
+        verticalLayout_3->addWidget(opencv_view);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         previewButton = new QPushButton(centralwidget);
         previewButton->setObjectName(QStringLiteral("previewButton"));
+        previewButton->setMaximumSize(QSize(16777215, 25));
 
         horizontalLayout_3->addWidget(previewButton);
 
@@ -170,6 +169,7 @@ public:
 
         nextButton = new QPushButton(centralwidget);
         nextButton->setObjectName(QStringLiteral("nextButton"));
+        nextButton->setMaximumSize(QSize(16777215, 25));
 
         horizontalLayout_3->addWidget(nextButton);
 

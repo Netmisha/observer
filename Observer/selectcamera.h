@@ -2,7 +2,10 @@
 #define SELECTCAMERA_H
 
 #include <QMainWindow>
-
+#include "opencv2/opencv.hpp"
+#include <QLabel>
+#include <mutex>
+using namespace cv;
 namespace Ui {
 class SelectCamera;
 }
@@ -24,8 +27,13 @@ private slots:
 
     void on_previewButton_clicked();
 
+    void on_nextButton_clicked();
+
 private:
+    void ShowImg ();
     Ui::SelectCamera *ui;
+    volatile bool run=false;
+    std::mutex mut;
 };
 
 #endif // SELECTCAMERA_H
