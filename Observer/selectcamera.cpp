@@ -42,6 +42,7 @@ void SelectCamera::ShowImg () {
         cap >> frame;
         ui->opencv_view->showImage(frame);
     }
+
 }
 void SelectCamera::on_previewButton_clicked()
 {
