@@ -22,6 +22,8 @@ private slots:
 
     void on_remote_cameraButton_clicked();
 
+    void on_previewButton_clicked();
+
 private:
     Ui::SelectCamera *ui;
 };

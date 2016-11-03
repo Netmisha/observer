@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,15 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    select_camera.cpp \
-    selectcamera.cpp
+    selectcamera.cpp \
+    cqtopencvviewergl.cpp
 
 HEADERS  += mainwindow.h \
-    select_camera.h \
-    selectcamera.h
+    selectcamera.h \
+    cqtopencvviewergl.h
 
 FORMS    += mainwindow.ui \
-    select_camera.ui \
     selectcamera.ui
 
 INCLUDEPATH += C:\\opencv-mingw\\install\\include
