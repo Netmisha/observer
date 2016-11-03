@@ -1,7 +1,6 @@
 #include "selectcamera.h"
 #include "ui_selectcamera.h"
-#include "cqtopencvviewergl.h"
-
+using namespace cv;
 SelectCamera::SelectCamera(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SelectCamera)
@@ -34,18 +33,18 @@ void SelectCamera::on_remote_cameraButton_clicked()
 void SelectCamera::on_previewButton_clicked()
 {
     //CQtOpenCVViewerGl m=new CQtOpenCVViewerGl(ui->videoFrame);
-    /*VideoCapture cap(NULL); // open the default camera
+    VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return;
 
-    namedWindow("Video",1);
-    while(1)
+    //namedWindow("Video",1);
+    int i=1;
+    while(i)
     {
         Mat frame;
-        cap >> frame;         // get a new frame from camera
-        imshow("Video", frame);
-
-        // Press 'c' to escape
-        if(waitKey(30) == 'c') break;
-    }*/
+        cap >> frame;
+        imwrite("tem.jpg",frame);
+        ui->label->setPixmap(QPixmap("tem.jpg"));
+        ui->label->repaint();
+    }
 }

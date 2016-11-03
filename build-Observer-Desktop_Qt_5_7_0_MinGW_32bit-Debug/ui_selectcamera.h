@@ -18,6 +18,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -53,6 +54,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *camera_connectButton;
     QFrame *videoFrame;
+    QLabel *label;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_3;
@@ -72,7 +74,7 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setMaximumSize(QSize(16777215, 50));
+        groupBox->setMaximumSize(QSize(16777215, 70));
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -154,6 +156,9 @@ public:
         videoFrame->setObjectName(QStringLiteral("videoFrame"));
         videoFrame->setFrameShape(QFrame::Box);
         videoFrame->setFrameShadow(QFrame::Raised);
+        label = new QLabel(videoFrame);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(70, 20, 551, 271));
 
         verticalLayout_3->addWidget(videoFrame);
 
@@ -161,6 +166,7 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         previewButton = new QPushButton(centralwidget);
         previewButton->setObjectName(QStringLiteral("previewButton"));
+        previewButton->setMaximumSize(QSize(16777215, 25));
 
         horizontalLayout_3->addWidget(previewButton);
 
@@ -170,6 +176,7 @@ public:
 
         nextButton = new QPushButton(centralwidget);
         nextButton->setObjectName(QStringLiteral("nextButton"));
+        nextButton->setMaximumSize(QSize(16777215, 25));
 
         horizontalLayout_3->addWidget(nextButton);
 
@@ -202,6 +209,7 @@ public:
         camera_portEdit->setPlaceholderText(QApplication::translate("SelectCamera", "Port", 0));
         camera_passwordEdit->setPlaceholderText(QApplication::translate("SelectCamera", "Password", 0));
         camera_connectButton->setText(QApplication::translate("SelectCamera", "Connect", 0));
+        label->setText(QString());
         previewButton->setText(QApplication::translate("SelectCamera", "Preview", 0));
         nextButton->setText(QApplication::translate("SelectCamera", "Next", 0));
     } // retranslateUi

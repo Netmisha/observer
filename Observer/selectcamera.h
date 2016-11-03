@@ -2,6 +2,7 @@
 #define SELECTCAMERA_H
 
 #include <QMainWindow>
+#include "opencv2/opencv.hpp"
 
 namespace Ui {
 class SelectCamera;
