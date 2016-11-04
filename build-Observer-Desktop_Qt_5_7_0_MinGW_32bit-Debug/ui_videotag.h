@@ -32,38 +32,42 @@ public:
     QPushButton *DeleteTag;
     QPushButton *RenameTag;
     QPushButton *Pause;
+    CQtOpenCVViewerGl *TagStream;
 
     void setupUi(QWidget *VideoTag)
     {
         if (VideoTag->objectName().isEmpty())
             VideoTag->setObjectName(QStringLiteral("VideoTag"));
-        VideoTag->resize(400, 300);
+        VideoTag->resize(419, 317);
         Tags = new QComboBox(VideoTag);
         Tags->setObjectName(QStringLiteral("Tags"));
-        Tags->setGeometry(QRect(280, 30, 111, 22));
+        Tags->setGeometry(QRect(270, 30, 121, 22));
         Start = new QPushButton(VideoTag);
         Start->setObjectName(QStringLiteral("Start"));
-        Start->setGeometry(QRect(10, 170, 80, 21));
+        Start->setGeometry(QRect(10, 230, 71, 21));
         Stop = new QPushButton(VideoTag);
         Stop->setObjectName(QStringLiteral("Stop"));
-        Stop->setGeometry(QRect(200, 170, 80, 21));
+        Stop->setGeometry(QRect(190, 230, 71, 21));
         MainV = new CQtOpenCVViewerGl(VideoTag);
         MainV->setObjectName(QStringLiteral("MainV"));
         MainV->setEnabled(false);
-        MainV->setGeometry(QRect(10, 30, 271, 141));
+        MainV->setGeometry(QRect(10, 30, 251, 191));
         MainV->setAutoFillBackground(false);
         AddTag = new QPushButton(VideoTag);
         AddTag->setObjectName(QStringLiteral("AddTag"));
-        AddTag->setGeometry(QRect(10, 200, 80, 21));
+        AddTag->setGeometry(QRect(10, 260, 71, 21));
         DeleteTag = new QPushButton(VideoTag);
         DeleteTag->setObjectName(QStringLiteral("DeleteTag"));
-        DeleteTag->setGeometry(QRect(100, 200, 80, 21));
+        DeleteTag->setGeometry(QRect(100, 260, 71, 21));
         RenameTag = new QPushButton(VideoTag);
         RenameTag->setObjectName(QStringLiteral("RenameTag"));
-        RenameTag->setGeometry(QRect(200, 200, 81, 21));
+        RenameTag->setGeometry(QRect(190, 260, 71, 21));
         Pause = new QPushButton(VideoTag);
         Pause->setObjectName(QStringLiteral("Pause"));
-        Pause->setGeometry(QRect(100, 170, 80, 21));
+        Pause->setGeometry(QRect(100, 230, 71, 21));
+        TagStream = new CQtOpenCVViewerGl(VideoTag);
+        TagStream->setObjectName(QStringLiteral("TagStream"));
+        TagStream->setGeometry(QRect(270, 70, 121, 81));
 
         retranslateUi(VideoTag);
 
@@ -73,7 +77,7 @@ public:
     void retranslateUi(QWidget *VideoTag)
     {
         VideoTag->setWindowTitle(QApplication::translate("VideoTag", "Form", 0));
-        Start->setText(QApplication::translate("VideoTag", "Start|Continue", 0));
+        Start->setText(QApplication::translate("VideoTag", "Start|Cont.", 0));
         Stop->setText(QApplication::translate("VideoTag", "Stop", 0));
         AddTag->setText(QApplication::translate("VideoTag", "Add Tag", 0));
         DeleteTag->setText(QApplication::translate("VideoTag", "Delete Tag", 0));

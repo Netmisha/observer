@@ -7,14 +7,13 @@
 #include <QToolTip>
 #include <QString>
 #include <QDebug>
+#include <math.h>
 using namespace cv;
 VideoTag::VideoTag(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VideoTag)
 {
        ui->setupUi(this);
-
-
 }
 
 VideoTag::~VideoTag()
@@ -32,46 +31,80 @@ void VideoTag::on_Start_clicked()
     std::thread thr(&VideoTag::ThreadStream, this);
     thr.detach();
 }
+void VideoTag::on_AddTag_clicked()
+{
+    std::thread thr (&VideoTag::TagStreamThread, this);
+    thr.detach();
+}
+void VideoTag::TagStreamThread(){
+    int RectW = abs(abs(A.x()) - abs(B.x()));
+    int RectH = abs(abs(C.y()) - abs(A.y()));
+    qDebug()<<"RectW"<<RectW;
+    qDebug()<<"RectH"<<RectH;
+    VideoCapture cp(0);
+ while(1){
+     Mat f;
+    cp>>f;
+    Mat crop = f(Rect(A.x()-10,A.y()-30,RectW,RectH));
+    ui->TagStream->showImage(crop);
+ }
 
-void VideoTag::ThreadStream(){
-
-    VideoCapture cap(0); // open the default camera
+}
+void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
+    Mat frame;
+    VideoCapture cap(0);
     while(stream)
     {
-        Mat frame;
         cap >> frame;
+
         ui->MainV->showImage(frame);
     }
 }
 
 void VideoTag::mousePressEvent(QMouseEvent *event){
+    qDebug()<<ui->TagStream->width();
+     qDebug()<<ui->TagStream->height();
+     qDebug()<<ui->TagStream->x();
+     qDebug()<<ui->TagStream->y();
+    A  = event->pos();
     if(lock_rect == true){
         rubber->close();
     }
     if (event->pos().x() < 10 || event->pos().y() < 30 || (event->pos().x() > 10 && event->pos().y() > 170) ||
-             (event->pos().x() > 280 && event->pos().y() < 170)){
-        qDebug()<<event->pos();
+             (event->pos().x() > 280 && event->pos().y() < 170)){ // Make sure rectangle is in MainVideoWindow
         in_bound = false;
         return;
     }
     in_bound =true;
     rubber_offset = event->pos();
-    qDebug()<<rubber_offset;
    rubber = new QRubberBand(QRubberBand::Rectangle, this);
    QToolTip::showText(event->pos(),QString("%1,%2").arg(rubber->size().width()).arg(rubber->size().height()),this);
 }
 void VideoTag::mouseMoveEvent(QMouseEvent *event){
+   D = event->pos();
+   B.setX(D.x());
+   B.setY(A.y());
+   C.setX(A.x());
+   C.setY(D.y());
+   if((B.x() > 260 && B.y() > 30) || C.y() > 220 || D.y() < 30 || B.x()<11){ // Check if the RECT is not crossing the bounds
+       qDebug()<<"Out";
+       rubber->close();
+       return;
+
+   }
     if (in_bound == false){
         return;
 
     }
     rubber->setGeometry(QRect(rubber_offset,event->pos()).normalized());
-   // QToolTip::showText(rubber_offset);
-   // event->globalPos(),QString("%1,%2").arg(rubber->size().width()).arg(rubber->size().height()),this
     rubber->show();
 }
 
 void VideoTag::mouseReleaseEvent(QMouseEvent *event){
+   qDebug()<<"A"<<A;
+   qDebug()<<"B"<<B;
+   qDebug()<<"C"<<C;
+   qDebug()<<"D"<<D;
     if(in_bound == false){
         return;
 
@@ -90,4 +123,16 @@ void VideoTag::on_Pause_clicked()
 {
     start = false;
     stream = false;
+}
+
+
+
+void VideoTag::on_DeleteTag_clicked()
+{
+
+}
+
+void VideoTag::on_RenameTag_clicked()
+{
+
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>419</width>
+    <height>317</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QComboBox" name="Tags">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>270</x>
      <y>30</y>
-     <width>111</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
@@ -27,21 +27,21 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>170</y>
-     <width>80</width>
+     <y>230</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Start|Continue</string>
+    <string>Start|Cont.</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Stop">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>170</y>
-     <width>80</width>
+     <x>190</x>
+     <y>230</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -57,8 +57,8 @@
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>271</width>
-     <height>141</height>
+     <width>251</width>
+     <height>191</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -69,8 +69,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
-     <width>80</width>
+     <y>260</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -82,8 +82,8 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>200</y>
-     <width>80</width>
+     <y>260</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -94,9 +94,9 @@
   <widget class="QPushButton" name="RenameTag">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>200</y>
-     <width>81</width>
+     <x>190</x>
+     <y>260</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -108,13 +108,23 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>170</y>
-     <width>80</width>
+     <y>230</y>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string>Pause</string>
+   </property>
+  </widget>
+  <widget class="CQtOpenCVViewerGl" name="TagStream" native="true">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>70</y>
+     <width>121</width>
+     <height>81</height>
+    </rect>
    </property>
   </widget>
  </widget>
