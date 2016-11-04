@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -25,6 +26,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <myframe.h>
 #include "cqtopencvviewergl.h"
 
 QT_BEGIN_NAMESPACE
@@ -53,6 +55,11 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *camera_connectButton;
     CQtOpenCVViewerGl *opencv_view;
+    QFrame *frame_point_2;
+    QFrame *frame_point_4;
+    QFrame *frame_point_1;
+    QFrame *frame_point_3;
+    myFrame *frame;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_3;
@@ -63,7 +70,7 @@ public:
     {
         if (SelectCamera->objectName().isEmpty())
             SelectCamera->setObjectName(QStringLiteral("SelectCamera"));
-        SelectCamera->resize(800, 600);
+        SelectCamera->resize(800, 672);
         centralwidget = new QWidget(SelectCamera);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout_4 = new QVBoxLayout(centralwidget);
@@ -152,6 +159,49 @@ public:
 
         opencv_view = new CQtOpenCVViewerGl(centralwidget);
         opencv_view->setObjectName(QStringLiteral("opencv_view"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(opencv_view->sizePolicy().hasHeightForWidth());
+        opencv_view->setSizePolicy(sizePolicy);
+        opencv_view->setMinimumSize(QSize(780, 400));
+        frame_point_2 = new QFrame(opencv_view);
+        frame_point_2->setObjectName(QStringLiteral("frame_point_2"));
+        frame_point_2->setGeometry(QRect(9, 282, 16, 16));
+        sizePolicy.setHeightForWidth(frame_point_2->sizePolicy().hasHeightForWidth());
+        frame_point_2->setSizePolicy(sizePolicy);
+        frame_point_2->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
+        frame_point_2->setFrameShape(QFrame::Box);
+        frame_point_2->setFrameShadow(QFrame::Plain);
+        frame_point_4 = new QFrame(opencv_view);
+        frame_point_4->setObjectName(QStringLiteral("frame_point_4"));
+        frame_point_4->setGeometry(QRect(9, 314, 16, 16));
+        sizePolicy.setHeightForWidth(frame_point_4->sizePolicy().hasHeightForWidth());
+        frame_point_4->setSizePolicy(sizePolicy);
+        frame_point_4->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
+        frame_point_4->setFrameShape(QFrame::Box);
+        frame_point_4->setFrameShadow(QFrame::Plain);
+        frame_point_1 = new QFrame(opencv_view);
+        frame_point_1->setObjectName(QStringLiteral("frame_point_1"));
+        frame_point_1->setGeometry(QRect(9, 266, 16, 16));
+        sizePolicy.setHeightForWidth(frame_point_1->sizePolicy().hasHeightForWidth());
+        frame_point_1->setSizePolicy(sizePolicy);
+        frame_point_1->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
+        frame_point_1->setFrameShape(QFrame::Box);
+        frame_point_1->setFrameShadow(QFrame::Plain);
+        frame_point_3 = new QFrame(opencv_view);
+        frame_point_3->setObjectName(QStringLiteral("frame_point_3"));
+        frame_point_3->setGeometry(QRect(9, 298, 16, 16));
+        sizePolicy.setHeightForWidth(frame_point_3->sizePolicy().hasHeightForWidth());
+        frame_point_3->setSizePolicy(sizePolicy);
+        frame_point_3->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
+        frame_point_3->setFrameShape(QFrame::Box);
+        frame_point_3->setFrameShadow(QFrame::Plain);
+        frame = new myFrame(opencv_view);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setGeometry(QRect(9, 9, 761, 381));
+        frame->setFrameShape(QFrame::Box);
+        frame->setFrameShadow(QFrame::Plain);
 
         verticalLayout_3->addWidget(opencv_view);
 
