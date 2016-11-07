@@ -5,9 +5,11 @@ INPUT(
 ./debug/cqtopencvviewergl.o
 ./debug/videotag.o
 ./debug/myframe.o
+./debug/movableframe.o
 ./debug/moc_mainwindow.o
 ./debug/moc_selectcamera.o
 ./debug/moc_cqtopencvviewergl.o
 ./debug/moc_videotag.o
 ./debug/moc_myframe.o
+./debug/moc_movableframe.o
 );

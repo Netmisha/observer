@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -26,6 +25,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <movableframe.h>
 #include <myframe.h>
 #include "cqtopencvviewergl.h"
 
@@ -55,11 +55,12 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *camera_connectButton;
     CQtOpenCVViewerGl *opencv_view;
-    QFrame *frame_point_2;
-    QFrame *frame_point_4;
-    QFrame *frame_point_1;
-    QFrame *frame_point_3;
+    QVBoxLayout *verticalLayout_6;
     myFrame *frame;
+    MovableFrame *frame_point_4;
+    MovableFrame *frame_point_2;
+    MovableFrame *frame_point_3;
+    MovableFrame *frame_point_1;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_3;
@@ -70,7 +71,7 @@ public:
     {
         if (SelectCamera->objectName().isEmpty())
             SelectCamera->setObjectName(QStringLiteral("SelectCamera"));
-        SelectCamera->resize(800, 672);
+        SelectCamera->resize(1060, 687);
         centralwidget = new QWidget(SelectCamera);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout_4 = new QVBoxLayout(centralwidget);
@@ -79,6 +80,11 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy);
         groupBox->setMaximumSize(QSize(16777215, 70));
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -107,7 +113,9 @@ public:
 
         select_cameraBox = new QGroupBox(centralwidget);
         select_cameraBox->setObjectName(QStringLiteral("select_cameraBox"));
-        select_cameraBox->setMinimumSize(QSize(0, 70));
+        sizePolicy.setHeightForWidth(select_cameraBox->sizePolicy().hasHeightForWidth());
+        select_cameraBox->setSizePolicy(sizePolicy);
+        select_cameraBox->setMinimumSize(QSize(0, 58));
         select_cameraBox->setMaximumSize(QSize(16777215, 70));
         verticalLayout_5 = new QVBoxLayout(select_cameraBox);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
@@ -121,6 +129,8 @@ public:
 
         remote_settingBox = new QGroupBox(centralwidget);
         remote_settingBox->setObjectName(QStringLiteral("remote_settingBox"));
+        sizePolicy.setHeightForWidth(remote_settingBox->sizePolicy().hasHeightForWidth());
+        remote_settingBox->setSizePolicy(sizePolicy);
         remote_settingBox->setMaximumSize(QSize(16777215, 70));
         verticalLayout_2 = new QVBoxLayout(remote_settingBox);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
@@ -159,49 +169,59 @@ public:
 
         opencv_view = new CQtOpenCVViewerGl(centralwidget);
         opencv_view->setObjectName(QStringLiteral("opencv_view"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(opencv_view->sizePolicy().hasHeightForWidth());
-        opencv_view->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(opencv_view->sizePolicy().hasHeightForWidth());
+        opencv_view->setSizePolicy(sizePolicy1);
         opencv_view->setMinimumSize(QSize(780, 400));
-        frame_point_2 = new QFrame(opencv_view);
-        frame_point_2->setObjectName(QStringLiteral("frame_point_2"));
-        frame_point_2->setGeometry(QRect(9, 282, 16, 16));
-        sizePolicy.setHeightForWidth(frame_point_2->sizePolicy().hasHeightForWidth());
-        frame_point_2->setSizePolicy(sizePolicy);
-        frame_point_2->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
-        frame_point_2->setFrameShape(QFrame::Box);
-        frame_point_2->setFrameShadow(QFrame::Plain);
-        frame_point_4 = new QFrame(opencv_view);
-        frame_point_4->setObjectName(QStringLiteral("frame_point_4"));
-        frame_point_4->setGeometry(QRect(9, 314, 16, 16));
-        sizePolicy.setHeightForWidth(frame_point_4->sizePolicy().hasHeightForWidth());
-        frame_point_4->setSizePolicy(sizePolicy);
-        frame_point_4->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
-        frame_point_4->setFrameShape(QFrame::Box);
-        frame_point_4->setFrameShadow(QFrame::Plain);
-        frame_point_1 = new QFrame(opencv_view);
-        frame_point_1->setObjectName(QStringLiteral("frame_point_1"));
-        frame_point_1->setGeometry(QRect(9, 266, 16, 16));
-        sizePolicy.setHeightForWidth(frame_point_1->sizePolicy().hasHeightForWidth());
-        frame_point_1->setSizePolicy(sizePolicy);
-        frame_point_1->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
-        frame_point_1->setFrameShape(QFrame::Box);
-        frame_point_1->setFrameShadow(QFrame::Plain);
-        frame_point_3 = new QFrame(opencv_view);
-        frame_point_3->setObjectName(QStringLiteral("frame_point_3"));
-        frame_point_3->setGeometry(QRect(9, 298, 16, 16));
-        sizePolicy.setHeightForWidth(frame_point_3->sizePolicy().hasHeightForWidth());
-        frame_point_3->setSizePolicy(sizePolicy);
-        frame_point_3->setStyleSheet(QStringLiteral("background-color: rgb(0, 0, 0);"));
-        frame_point_3->setFrameShape(QFrame::Box);
-        frame_point_3->setFrameShadow(QFrame::Plain);
+        verticalLayout_6 = new QVBoxLayout(opencv_view);
+        verticalLayout_6->setSpacing(0);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
         frame = new myFrame(opencv_view);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(9, 9, 761, 381));
-        frame->setFrameShape(QFrame::Box);
+        frame->setFrameShape(QFrame::NoFrame);
         frame->setFrameShadow(QFrame::Plain);
+        frame->setLineWidth(0);
+        frame_point_4 = new MovableFrame(frame);
+        frame_point_4->setObjectName(QStringLiteral("frame_point_4"));
+        frame_point_4->setGeometry(QRect(200, 230, 16, 16));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(frame_point_4->sizePolicy().hasHeightForWidth());
+        frame_point_4->setSizePolicy(sizePolicy2);
+        frame_point_4->setStyleSheet(QStringLiteral("background-color:rgb(0, 0, 255);"));
+        frame_point_4->setFrameShape(QFrame::Box);
+        frame_point_4->setFrameShadow(QFrame::Plain);
+        frame_point_2 = new MovableFrame(frame);
+        frame_point_2->setObjectName(QStringLiteral("frame_point_2"));
+        frame_point_2->setGeometry(QRect(370, 100, 16, 16));
+        sizePolicy2.setHeightForWidth(frame_point_2->sizePolicy().hasHeightForWidth());
+        frame_point_2->setSizePolicy(sizePolicy2);
+        frame_point_2->setStyleSheet(QStringLiteral("background-color:rgb(0, 0, 255);"));
+        frame_point_2->setFrameShape(QFrame::Box);
+        frame_point_2->setFrameShadow(QFrame::Plain);
+        frame_point_3 = new MovableFrame(frame);
+        frame_point_3->setObjectName(QStringLiteral("frame_point_3"));
+        frame_point_3->setGeometry(QRect(370, 240, 16, 16));
+        sizePolicy2.setHeightForWidth(frame_point_3->sizePolicy().hasHeightForWidth());
+        frame_point_3->setSizePolicy(sizePolicy2);
+        frame_point_3->setStyleSheet(QStringLiteral("background-color:rgb(0, 0, 255);"));
+        frame_point_3->setFrameShape(QFrame::Box);
+        frame_point_3->setFrameShadow(QFrame::Plain);
+        frame_point_1 = new MovableFrame(frame);
+        frame_point_1->setObjectName(QStringLiteral("frame_point_1"));
+        frame_point_1->setGeometry(QRect(200, 110, 16, 16));
+        sizePolicy2.setHeightForWidth(frame_point_1->sizePolicy().hasHeightForWidth());
+        frame_point_1->setSizePolicy(sizePolicy2);
+        frame_point_1->setStyleSheet(QStringLiteral("background-color:rgb(0, 0, 255);"));
+        frame_point_1->setFrameShape(QFrame::Box);
+        frame_point_1->setFrameShadow(QFrame::Plain);
+
+        verticalLayout_6->addWidget(frame);
+
 
         verticalLayout_3->addWidget(opencv_view);
 
@@ -226,11 +246,11 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_3);
 
-        verticalLayout_3->setStretch(3, 5);
 
         verticalLayout_4->addLayout(verticalLayout_3);
 
         SelectCamera->setCentralWidget(centralwidget);
+        frame->raise();
         statusbar = new QStatusBar(SelectCamera);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         SelectCamera->setStatusBar(statusbar);

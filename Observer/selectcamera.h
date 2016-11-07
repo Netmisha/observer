@@ -3,12 +3,10 @@
 
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
-#include <QRubberBand>
 #include <QWidget>
-#include <QMouseEvent>
-#include <QDebug>
-#include <QEvent>
 #include <QPainter>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions_2_0>
 
 using namespace cv;
 namespace Ui {
@@ -20,7 +18,6 @@ namespace literals {
 class SelectCamera : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
@@ -34,6 +31,7 @@ private slots:
     void on_nextButton_clicked();
 
     void on_list_of_cameras_comboBox_currentIndexChanged(int index);
+    void FrameMoving ();
 signals:
     void RepaintLines(QVector<QPoint> &);
 private:
@@ -45,6 +43,7 @@ private:
     volatile bool run=false;
     QPoint press_pos;
     QVector<QPainter *> lines;
+    VideoCapture cap;
 };
 
 #endif // SELECTCAMERA_H
