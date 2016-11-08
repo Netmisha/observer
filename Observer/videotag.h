@@ -6,6 +6,14 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include "opencv2/opencv.hpp"
+#include<opencv2/highgui/highgui.hpp>
+#include <QRect>
+#include <QMenu>
+#include <tagclass.h>
+#include <QListView>
+#include <QListWidgetItem>
+#include <QPushButton>
+#include <QGridLayout>
 using namespace cv;
 namespace Ui {
 class VideoTag;
@@ -27,12 +35,13 @@ private slots:
     void on_Pause_clicked();
 
     void on_AddTag_clicked();
-
-    void on_DeleteTag_clicked();
-
-    void on_RenameTag_clicked();
-
+    void on_dbl_clicked(QListWidgetItem *item);
+    void tag_rename(QListWidgetItem *item);
+    void showContextMenu(const QPoint&);
 private:
+    QPushButton *m_button;
+    QGridLayout *layout;
+    volatile bool isEditable =false;
     volatile bool start=false;
     void ThreadStream();
     void TagStreamThread();
@@ -44,6 +53,24 @@ private:
     volatile bool in_bound = true;
     volatile bool lock_rect = false;
     QPoint A,B,C,D;
+     QPoint clickPosPres;
+     VideoCapture cap;
+    int MainVW, MainVH;
+    QRect DrawRect;
+     QPoint clickPosMove;
+     Mat frame;
+     Mat f;
+
+     float WCalibre;
+     float HCalibre;
+
+     Point point1, point2;
+     int drag = 0;
+     cv::Rect rect;
+     cv:: Mat img,roiImg;
+     int select_flag = 0;
+      void tag_delete(const QPoint& pos);
+     void mouseHandler(int event, int x, int y, int flags, void* param);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);

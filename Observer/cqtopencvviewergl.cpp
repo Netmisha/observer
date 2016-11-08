@@ -89,6 +89,7 @@ void CQtOpenCVViewerGl::renderImage()
         glFlush();
     }
 }
+
 void CQtOpenCVViewerGl::recalculatePosition()
 {
     mImgRatio = (float)mOrigImage.cols/(float)mOrigImage.rows;

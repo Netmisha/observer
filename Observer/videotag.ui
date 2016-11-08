@@ -6,23 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>419</width>
-    <height>317</height>
+    <width>442</width>
+    <height>261</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QComboBox" name="Tags">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>30</y>
-     <width>121</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="Start">
    <property name="geometry">
     <rect>
@@ -57,51 +47,12 @@
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>251</width>
-     <height>191</height>
+     <width>250</width>
+     <height>190</height>
     </rect>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="AddTag">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>260</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add Tag</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="DeleteTag">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>260</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Delete Tag</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="RenameTag">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>260</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Rename Tag</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Pause">
@@ -121,12 +72,42 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>70</y>
-     <width>121</width>
-     <height>81</height>
+     <y>160</y>
+     <width>161</width>
+     <height>91</height>
     </rect>
    </property>
   </widget>
+  <widget class="QListWidget" name="TagList">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>30</y>
+     <width>161</width>
+     <height>111</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="AddTag">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>140</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Tag</string>
+   </property>
+  </widget>
+  <zorder>TagList</zorder>
+  <zorder>Start</zorder>
+  <zorder>Stop</zorder>
+  <zorder>MainV</zorder>
+  <zorder>Pause</zorder>
+  <zorder>TagStream</zorder>
+  <zorder>AddTag</zorder>
  </widget>
  <customwidgets>
   <customwidget>

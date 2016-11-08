@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,15 +17,13 @@ SOURCES += main.cpp\
     selectcamera.cpp \
     cqtopencvviewergl.cpp \
     videotag.cpp \
-    myframe.cpp \
-    movableframe.cpp
+    tagclass.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
     cqtopencvviewergl.h \
     videotag.h \
-    myframe.h \
-    movableframe.h
+    tagclass.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \
