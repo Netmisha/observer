@@ -1,36 +1,16 @@
 #include "videotag.h"
 #include "ui_videotag.h"
-#include "opencv2/opencv.hpp"
-#include <thread>
-#include <QRubberBand>
-#include <QMouseEvent>
-#include <QToolTip>
-#include <QString>
-#include <QDebug>
-#include <math.h>
-#include <tagclass.h>
-#include <QMenu>
-#include <QListView>
+
 using namespace cv;
 VideoTag::VideoTag(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VideoTag)
 {
        ui->setupUi(this);
-       A = ui->MainV->pos();
-       MainVH = ui->MainV->height();
-       MainVW = ui->MainV->width();
-       B = ui->MainV->geometry().topRight();
-       C =ui->MainV->geometry().bottomLeft();
-       D = ui->MainV->geometry().bottomRight();
-       WCalibre = (MainVW / ui->TagStream->geometry().width())+0.5;
-       HCalibre = (MainVH / ui->TagStream->geometry().height())+0.5;
-       qDebug()<<WCalibre;
        ui->TagList->addItem("Test1");
        ui->TagList->addItem("Test2");
         connect(ui->TagList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(on_dbl_clicked(QListWidgetItem*)));
-        connect(ui->TagList, SIGNAL(itemChanged(QListWidgetItem*)),this,SLOT(tag_rename(QListWidgetItem*)));
-         layout = new QGridLayout(ui->TagList);
+        connect(ui->TagList->itemDelegate(),&QAbstractItemDelegate::commitData,this,VideoTag::OnDataRename);
         ui->TagList->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
 }
@@ -39,6 +19,7 @@ VideoTag::~VideoTag()
 {
     delete ui;
 }
+
 void VideoTag::showContextMenu(const QPoint &pos){
     QPoint item = ui->TagList->mapToGlobal(pos);
     QMenu submenu;
@@ -47,29 +28,29 @@ void VideoTag::showContextMenu(const QPoint &pos){
     if(rightclick && rightclick->text().contains("Delete")){
         tag_delete(pos);
     }
+}
+
+void VideoTag::OnDataRename(QWidget *EditLine){
+    QString str = reinterpret_cast<QLineEdit*>(EditLine)->text();
+    //int nRow = ui->TagList->currentRow();
+    qDebug()<<"changed";
 
 }
 void VideoTag::tag_delete(const QPoint& pos){
  ui->TagList->takeItem(ui->TagList->indexAt(pos).row());
 
 }
-void VideoTag::tag_rename(QListWidgetItem *it){
-    if(isEditable){
-    QString text;
-    text.append(it->text());
-    qDebug()<<text;
-    isEditable = false;
-    }
-}
+
 void VideoTag::on_dbl_clicked(QListWidgetItem* it){
 it->setFlags(it->flags() | Qt::ItemIsEditable);
 ui->TagList->editItem(it);
-isEditable = true;
+temp = it->text();
+
 }
 
 void VideoTag::on_Start_clicked()
 {
-    if(VideoTag::start==true){
+   if(VideoTag::start==true){
         return;
     }
     VideoTag::start = true;
@@ -80,74 +61,54 @@ void VideoTag::on_Start_clicked()
 
 void VideoTag::on_AddTag_clicked()
 {
-
     std::thread thr (&VideoTag::TagStreamThread, this);
     thr.detach();
 }
 void VideoTag::TagStreamThread(){
-   // VideoCapture cp(0);
-
  while(1){
-     Mat f;
-    cap>>f;
-   //Mat crop = f(Rect(clickPosPres.x()-10,clickPosPres.y()-30,2.5*DrawRect.width(),2.5*DrawRect.height()));
-    rectangle(f,Rect(clickPosPres.x()*1.3,clickPosPres.y()*1.5,WCalibre*DrawRect.width(),HCalibre*DrawRect.height()),CV_RGB(255,0,0),3,8,0);
-    qDebug()<<clickPosPres;
-    ui->TagStream->showImage(f);
+    mutex.lock();
+    shot_ = shot_.copy(CropArea);
+    shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio);
+    ui->TagVideo->setPixmap(QPixmap::fromImage(shot_));
+    mutex.unlock();
  }
 
 }
 void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
     cap = 0;
-    while(stream)
+    while(1)
     {
-        cap >> frame;
-        ui->MainV->showImage(frame);
-
+      mutex.lock();
+      cap >> frame;
+      cvtColor(frame,frame,COLOR_BGR2RGB);
+      QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
+      shot_ = qimgOriginal;
+      shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio);
+      qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+      ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
+      mutex.unlock();
     }
 }
 
 void VideoTag::mousePressEvent(QMouseEvent *event){
-    clickPosPres = event->pos();
-    qDebug()<<event->pos();
-    if(lock_rect == true){
-        rubber->close();
-    }
-    if (clickPosPres.x() < A.x() || clickPosPres.x() > B.x() || clickPosPres.x() > D.x() ||
-            clickPosPres.y() < A.y() || clickPosPres.y() > C.y()){
-        qDebug()<<"Cursor out of MainVideoStream Window bounds";
-        in_bound = false;
-        return;
-    }
-    in_bound =true;
-    rubber_offset = clickPosPres;
-   rubber = new QRubberBand(QRubberBand::Rectangle, this);
+ if(lock_rect == true){
+     rubber->close();
+ }
+origin = ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()));
+rubber = new QRubberBand(QRubberBand::Rectangle,ui->MainVideo);
+rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));//
+rubber->show();
+
 }
 void VideoTag::mouseMoveEvent(QMouseEvent *event){
-    QPoint clickPosMove = event->pos();
-   if(clickPosMove.x() < A.x() || clickPosMove.x() > B.x() || clickPosMove.x() > D.x() ||
-           clickPosMove.y() < A.y() || clickPosMove.y() > C.y()){ // Check if the RECT is not crossing the bounds
-       qDebug()<<"Rectangle crossed the bounds";
-       rubber->close();
-       return;
-
-   }
-    if (in_bound == false){
-        return;
-
-    }
-    rubber->setGeometry(QRect(rubber_offset,event->pos()));
-    rubber->show();
-    DrawRect = rubber->geometry();
+rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));//
 }
 
 void VideoTag::mouseReleaseEvent(QMouseEvent *event){
-    if(in_bound == false){
-        return;
+lock_rect = true;
+CropArea = QRect(origin,rubber->size());
+qDebug()<<CropArea;
 
-    }
-    move_rubber = false;
-    lock_rect = true;
 }
 void VideoTag::on_Stop_clicked()
 {
@@ -158,10 +119,17 @@ void VideoTag::on_Stop_clicked()
 
 void VideoTag::on_Pause_clicked()
 {
-    start = false;
-    stream = false;
+
 }
 
+void VideoTag::paintEvent(QPaintEvent *event){
+    QPainter p,p1;
+    p.begin(this);
+    p.setPen(Qt::PenStyle::DashLine);
+    p.drawRect(ui->MainVideo->x()-2,ui->MainVideo->y()+3,ui->MainVideo->width()+3,ui->MainVideo->height()-8);
+    p.end();
 
+
+}
 
 

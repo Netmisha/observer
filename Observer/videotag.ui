@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>261</height>
+    <width>648</width>
+    <height>388</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,22 +39,6 @@
     <string>Stop</string>
    </property>
   </widget>
-  <widget class="CQtOpenCVViewerGl" name="MainV" native="true">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>250</width>
-     <height>190</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="QPushButton" name="Pause">
    <property name="geometry">
     <rect>
@@ -68,22 +52,12 @@
     <string>Pause</string>
    </property>
   </widget>
-  <widget class="CQtOpenCVViewerGl" name="TagStream" native="true">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>160</y>
-     <width>161</width>
-     <height>91</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QListWidget" name="TagList">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>30</y>
-     <width>161</width>
+     <x>10</x>
+     <y>260</y>
+     <width>631</width>
      <height>111</height>
     </rect>
    </property>
@@ -91,8 +65,8 @@
   <widget class="QPushButton" name="AddTag">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>140</y>
+     <x>400</x>
+     <y>230</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -101,22 +75,40 @@
     <string>Add Tag</string>
    </property>
   </widget>
+  <widget class="QLabel" name="MainVideo">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>241</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="TagVideo">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>30</y>
+     <width>241</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>TagList</zorder>
   <zorder>Start</zorder>
   <zorder>Stop</zorder>
-  <zorder>MainV</zorder>
   <zorder>Pause</zorder>
-  <zorder>TagStream</zorder>
   <zorder>AddTag</zorder>
+  <zorder>MainVideo</zorder>
+  <zorder>TagVideo</zorder>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>CQtOpenCVViewerGl</class>
-   <extends>QWidget</extends>
-   <header>cqtopencvviewergl.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
