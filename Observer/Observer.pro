@@ -17,13 +17,17 @@ SOURCES += main.cpp\
     selectcamera.cpp \
     cqtopencvviewergl.cpp \
     videotag.cpp \
-    tagclass.cpp
+    tagclass.cpp \
+    movableframe.cpp \
+    myframe.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
     cqtopencvviewergl.h \
     videotag.h \
-    tagclass.h
+    tagclass.h \
+    movableframe.h \
+    myframe.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

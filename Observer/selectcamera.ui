@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1063</width>
+    <height>813</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Add camera</string>
@@ -16,9 +22,21 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,5,0">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0,0">
       <item>
        <widget class="QGroupBox" name="groupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -68,6 +86,12 @@
       </item>
       <item>
        <widget class="QGroupBox" name="select_cameraBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -85,13 +109,32 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QComboBox" name="list_of_cameras_comboBox"/>
+          <widget class="QComboBox" name="list_of_cameras_comboBox">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
       <item>
        <widget class="QGroupBox" name="remote_settingBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -106,6 +149,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QLineEdit" name="camera_ipEdit">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="placeholderText">
               <string>IP</string>
              </property>
@@ -113,6 +162,12 @@
            </item>
            <item>
             <widget class="QLineEdit" name="camera_portEdit">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="placeholderText">
               <string>Port</string>
              </property>
@@ -120,6 +175,12 @@
            </item>
            <item>
             <widget class="QLineEdit" name="camera_passwordEdit">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="echoMode">
               <enum>QLineEdit::Password</enum>
              </property>
@@ -130,6 +191,12 @@
            </item>
            <item>
             <spacer name="horizontalSpacer">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -143,6 +210,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="camera_connectButton">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>25</height>
+              </size>
+             </property>
              <property name="text">
               <string>Connect</string>
              </property>
@@ -154,7 +227,6 @@
        </widget>
       </item>
       <item>
-<<<<<<< HEAD
        <widget class="CQtOpenCVViewerGl" name="opencv_view" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -186,6 +258,12 @@
          </property>
          <item>
           <widget class="myFrame" name="frame">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -200,8 +278,8 @@
              <rect>
               <x>200</x>
               <y>230</y>
-              <width>16</width>
-              <height>16</height>
+              <width>5</width>
+              <height>5</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -210,23 +288,29 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="cursor">
+             <cursorShape>SizeBDiagCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 0, 255);</string>
+             <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::Box</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
             </property>
            </widget>
            <widget class="MovableFrame" name="frame_point_2">
             <property name="geometry">
              <rect>
-              <x>560</x>
-              <y>90</y>
-              <width>16</width>
-              <height>16</height>
+              <x>370</x>
+              <y>100</y>
+              <width>5</width>
+              <height>5</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -235,23 +319,29 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="cursor">
+             <cursorShape>SizeBDiagCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 0, 255);</string>
+             <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::Box</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
             </property>
            </widget>
            <widget class="MovableFrame" name="frame_point_3">
             <property name="geometry">
              <rect>
-              <x>550</x>
-              <y>260</y>
-              <width>16</width>
-              <height>16</height>
+              <x>370</x>
+              <y>230</y>
+              <width>5</width>
+              <height>5</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -260,23 +350,29 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="cursor">
+             <cursorShape>SizeFDiagCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 0, 255);</string>
+             <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::Box</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
             </property>
            </widget>
            <widget class="MovableFrame" name="frame_point_1">
             <property name="geometry">
              <rect>
-              <x>190</x>
-              <y>70</y>
-              <width>16</width>
-              <height>16</height>
+              <x>200</x>
+              <y>110</y>
+              <width>5</width>
+              <height>5</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -285,28 +381,37 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="cursor">
+             <cursorShape>SizeFDiagCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(0, 0, 255);</string>
+             <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::Box</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
             </property>
            </widget>
           </widget>
          </item>
         </layout>
        </widget>
-=======
-       <widget class="CQtOpenCVViewerGl" name="opencv_view" native="true"/>
->>>>>>> 761f1f10c020c61af79c178058402399ee8e1e39
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QPushButton" name="cutButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -320,6 +425,24 @@
         </item>
         <item>
          <widget class="QPushButton" name="originalButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Original</string>
           </property>
@@ -333,13 +456,19 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
-            <height>20</height>
+            <height>25</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
          <widget class="QPushButton" name="nextButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -364,6 +493,18 @@
    <class>CQtOpenCVViewerGl</class>
    <extends>QWidget</extends>
    <header>cqtopencvviewergl.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>myFrame</class>
+   <extends>QFrame</extends>
+   <header location="global">myframe.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MovableFrame</class>
+   <extends>QFrame</extends>
+   <header location="global">movableframe.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

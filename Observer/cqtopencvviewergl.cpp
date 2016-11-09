@@ -7,6 +7,20 @@ CQtOpenCVViewerGl::CQtOpenCVViewerGl(QWidget *parent) :
 QOpenGLWidget(parent)
 {
     mBgColor = QColor::fromRgb(150, 150, 150);
+    mRenderWidth=this->size().width();
+    mRenderHeight=this->size().height();
+    mRenderPosX=this->pos().x();
+    mRenderPosY=this->pos().y();
+}
+
+QPoint CQtOpenCVViewerGl::getRenderPos()
+{
+    return QPoint(mRenderPosX,mRenderPosY);
+}
+
+QSize CQtOpenCVViewerGl::getRenderSize()
+{
+    return QSize(mRenderWidth,mRenderHeight);
 }
 
 void CQtOpenCVViewerGl::initializeGL()
@@ -14,10 +28,10 @@ void CQtOpenCVViewerGl::initializeGL()
     makeCurrent();
     initializeOpenGLFunctions();
 
-    float r = ((float)mBgColor.darker().red())/255.0f;
+    /*float r = ((float)mBgColor.darker().red())/255.0f;
     float g = ((float)mBgColor.darker().green())/255.0f;
     float b = ((float)mBgColor.darker().blue())/255.0f;
-    glClearColor(r,g,b,1.0f);
+    glClearColor(r,g,b,1.0f);*/
 }
 
 void CQtOpenCVViewerGl::resizeGL(int width, int height)
@@ -34,7 +48,7 @@ void CQtOpenCVViewerGl::resizeGL(int width, int height)
 
     recalculatePosition();
 
-    emit imageSizeChanged(mRenderWidth, mRenderHeight);
+    //emit imageSizeChanged(mRenderWidth, mRenderHeight);
 
     updateScene();
 }

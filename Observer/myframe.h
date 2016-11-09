@@ -5,26 +5,21 @@
 #include <QFrame>
 #include <QPainter>
 #include <QVector>
-#include <QMouseEvent>
-#include <QLabel>
 
 class myFrame : public QFrame
 {
     Q_OBJECT
 public:
     myFrame(QWidget * );
-    ~myFrame();
+    QVector<QPoint> &getPoints();
 private slots:
     void setLinePos(QVector<QPoint> &);
 protected:
     void paintEvent(QPaintEvent *);
-    void mouseMoveEvent(QMouseEvent *event) {
-    }
 private:
     void RepaintLines();
     QVector<QPoint> points_;
     QPainter painter_;
-    QLabel l;
 };
 
 #endif // MYFRAME_H
