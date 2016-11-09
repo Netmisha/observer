@@ -4,15 +4,18 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_2_0>
 #include <opencv2/core/core.hpp>
+#include <mutex>
 
 class CQtOpenCVViewerGl : public QOpenGLWidget, protected QOpenGLFunctions_2_0
 {
     Q_OBJECT
 public:
     explicit CQtOpenCVViewerGl(QWidget *parent = 0);
+    QPoint getRenderPos();
+    QSize getRenderSize();
 
 signals:
-    void    imageSizeChanged( int outW, int outH ); /// Used to resize the image outside the widget
+    //    imageSizeChanged( int outW, int outH ); /// Used to resize the image outside the widget
 
 public slots:
     bool    showImage(const cv::Mat& image); /// Used to set the image to be viewed
