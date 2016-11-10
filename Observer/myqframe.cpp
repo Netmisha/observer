@@ -1,33 +1,29 @@
-#include "myframe.h"
+#include "myqframe.h"
 
-myFrame::myFrame(QWidget *parent):QFrame(parent)
+MyQFrame::MyQFrame(QWidget *parent): QFrame(parent)
 {
 
 }
-
-void myFrame::setLinePos(QVector<QPoint> &points)
+void MyQFrame::setLinePos(QVector<QPoint> &points)
 {
     points_.clear();
     for(auto &iter:points) {
         points_.push_back(iter);
     }
-    RepaintLines();
 }
-
-QVector<QPoint> &myFrame::getPoints()
+QVector<QPoint> & MyQFrame::getPoints()
 {
     return points_;
 }
-void myFrame::paintEvent(QPaintEvent *)
+void MyQFrame::paintEvent(QPaintEvent *)
 {
     RepaintLines();
 }
-
-void myFrame::RepaintLines()
+void MyQFrame::RepaintLines()
 {
-    painter_.begin(this);
     QPen pen(Qt::DashLine);
     pen.setColor(Qt::blue);
+    painter_.begin(this);
     painter_.setPen(pen);
     if(!points_.isEmpty()) {
          painter_.drawLine(points_[0],points_[1]);

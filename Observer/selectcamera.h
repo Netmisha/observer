@@ -8,6 +8,7 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_2_0>
 #include <thread>
+#include <mutex>
 
 using namespace cv;
 namespace Ui {
@@ -24,6 +25,9 @@ public:
     ~SelectCamera();
     Mat ProcessingImage(Mat);
 private slots:
+    void paintEvent(QPaintEvent *);
+    void resizeEvent(QResizeEvent *);
+    void addImage(Mat);
     void on_select_from_listButton_clicked();
 
     void on_remote_cameraButton_clicked();
@@ -46,11 +50,10 @@ private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
     void CalculateHomography();
-    void paintEvent(QPaintEvent *);
-    void resizeEvent(QResizeEvent *);
     void InitializationFrame();
     void ShowImg ();
     void ShowDeviceList();
+    void ResizeImage();
     Ui::SelectCamera *ui;
     volatile bool run_=false;
     QPoint press_pos_;
@@ -59,6 +62,10 @@ private:
     bool cuted_=false;
     Size img_out_size_;
     Mat img_scr_;
+    QSize img_size;
+    QPoint img_pos;
+    QImage image;
+    std::mutex mtx_;
 };
 
 #endif // SELECTCAMERA_H

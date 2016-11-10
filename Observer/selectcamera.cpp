@@ -9,8 +9,13 @@ SelectCamera::SelectCamera(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->remote_settingBox->setVisible(false);
-    connect(this,SIGNAL(RepaintLines(QVector<QPoint>&)), ui->frame, SLOT(setLinePos(QVector<QPoint>&)));
+    connect(this, SIGNAL(RepaintLines(QVector<QPoint>&)), ui->select_area, SLOT(setLinePos(QVector<QPoint>&)));
     connect(ui->frame_point_1,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
+    connect(ui->frame_point_2,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
+    connect(ui->frame_point_3,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
+    connect(ui->frame_point_4,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
+    img_pos=QPoint(0,0);
+    img_size=QSize(0,0);
     ShowDeviceList();
     InitializationFrame();
 }
@@ -20,7 +25,6 @@ SelectCamera::~SelectCamera()
     Sleep(1000);
     delete ui;
 }
-
 Mat SelectCamera::ProcessingImage(Mat img_src)
 {
     Mat img_out;
@@ -48,7 +52,6 @@ void SelectCamera::on_select_from_listButton_clicked()
         run_=false;
     }
 }
-
 void SelectCamera::on_remote_cameraButton_clicked()
 {
     if(!ui->remote_settingBox->isVisible()) {
@@ -68,18 +71,57 @@ void SelectCamera::ShowImg () {
     {
         cap_ >> img_scr_;
         if(cuted_){
-            ui->opencv_view->showImage(ProcessingImage(img_scr_));
+            img_scr_=ProcessingImage(img_scr_);
+            addImage(img_scr_);
         }
-        ui->opencv_view->showImage(img_scr_);
+        else {
+            addImage(img_scr_);
+        }
     }
     cap_.release();
+}
+void SelectCamera::addImage( Mat img_scr_)
+{
+    if(mtx_.try_lock()) {
+        cvtColor(img_scr_,img_scr_,COLOR_BGR2RGB);
+        image = QImage((const unsigned char*)(img_scr_.data),
+                              img_scr_.cols, img_scr_.rows,
+                              img_scr_.step, QImage::Format_RGB888);
+        ResizeImage();
+        ui->image_scene->setPixmap(QPixmap::fromImage(image));
+        mtx_.unlock();
+    }
+}
+void SelectCamera::ResizeImage()
+{
+    int width=ui->widget->width();
+    int height=ui->widget->height();
+    float kof=(float)image.width()/(float)width;
+    if(kof==0) {
+        return;
+    }
+    if(kof>(float)image.height()/(float)height) {
+        kof=(float)image.height()/(float)height;
+    }
+    if(kof!=1 && kof!=0) {
+        image=image.scaled(QSize(width, height),Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+    img_size=image.size();
+    img_pos.setX(floor((width - image.width()) / 2));
+    img_pos.setY(-floor((height - image.height()) / 2));
 }
 void SelectCamera::paintEvent(QPaintEvent *) {
     FrameMoving();
 }
-
 void SelectCamera::resizeEvent(QResizeEvent *)
 {
+    if(img_size.width()==0) {
+        ui->image_scene->setGeometry(QRect(QPoint(0,0), ui->widget->size()));
+    }else {
+        ui->image_scene->setGeometry(QRect(img_pos, img_size));
+    }
+    ResizeImage();
+    ui->select_area->setGeometry(QRect(ui->image_scene->pos(), ui->image_scene->size()));
     InitializationFrame();
 }
 Point2f SelectCamera::CrossingLine(std::vector<Point2f> &pts_src) {
@@ -102,7 +144,6 @@ Point2f SelectCamera::CrossingLine(std::vector<Point2f> &pts_src) {
     cross.y=b1+k1*cross.x;
     return cross;
 }
-
 Point2f SelectCamera::GravityCenter(std::vector<Point2f> &pts_src)
 {
     std::vector<Point2f> centr(pts_src.size());
@@ -128,13 +169,12 @@ Point2f SelectCamera::GravityCenter(std::vector<Point2f> &pts_src)
     cent.y=(c1.y*s1+c2.y*s2)/(s1+s2);
     return cent;
 }
-
 void SelectCamera::CalculateHomography()
 {
     std::vector<Point2f> pts_src;
     std:: vector<Point2f> pts_dst;
     Point2f cent, cross;
-    auto points=ui->frame->getPoints();
+    auto points=ui->select_area->getPoints();
     pts_src.push_back(Point2f(points[0].x(),points[0].y()));
     pts_src.push_back(Point2f(points[2].x(),points[2].y()));
     pts_src.push_back(Point2f(points[1].x(),points[1].y()));
@@ -149,10 +189,10 @@ void SelectCamera::CalculateHomography()
     pts_src.push_back(Point2f(points[3].x(),points[3].y()));
     double width=(dis(pts_src[0],pts_src[1])+dis(pts_src[2],pts_src[3]))/2+2*fabs(cross.x-cent.x);
     double height=(dis(pts_src[0],pts_src[3])+dis(pts_src[1],pts_src[2]))/2+2*fabs(cross.y-cent.y);
-    int left=ui->opencv_view->getRenderPos().x();
-    int top=ui->opencv_view->getRenderPos().y();
-    double kof_x=(double)(img_scr_.cols)/ui->opencv_view->getRenderSize().width();
-    double kof_y=(double)(img_scr_.rows)/ui->opencv_view->getRenderSize().height();
+    int left=0;
+    int top=0;
+    double kof_x=(double)(img_scr_.cols)/ui->select_area->width();
+    double kof_y=(double)(img_scr_.rows)/ui->select_area->height();
     pts_src.clear();
     pts_src.push_back(Point2f((points[0].x()-left)*kof_x,(points[0].y()-top)*kof_y));
     pts_src.push_back(Point2f((points[1].x()-left)*kof_x,(points[1].y()-top)*kof_y));
@@ -182,6 +222,7 @@ void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index)
 }
 void SelectCamera::FrameMoving()
 {
+    mtx_.lock();
     int w=ui->frame_point_1->size().width();
     int h=ui->frame_point_1->size().height();
     QVector<QPoint> points;
@@ -190,18 +231,17 @@ void SelectCamera::FrameMoving()
     points.push_back(QPoint(ui->frame_point_3->pos().x()+w,ui->frame_point_3->pos().y()+h));
     points.push_back(QPoint(ui->frame_point_4->pos().x(),ui->frame_point_4->pos().y()+h));
     emit RepaintLines(points);
+    mtx_.unlock();
 }
-
 void SelectCamera::InitializationFrame()
 {
     int w=ui->frame_point_1->size().width();
     int h=ui->frame_point_1->size().height();
-    ui->frame_point_1->setGeometry(ui->opencv_view->getRenderPos().x(),ui->opencv_view->getRenderPos().y(),w,h);
-    ui->frame_point_2->setGeometry(ui->opencv_view->getRenderPos().x()+ui->opencv_view->getRenderSize().width()-w,ui->opencv_view->getRenderPos().y(),w,h);
-    ui->frame_point_3->setGeometry(ui->opencv_view->getRenderPos().x()+ui->opencv_view->getRenderSize().width()-w,ui->opencv_view->getRenderPos().y()+ui->opencv_view->getRenderSize().height()-h,w,h);
-    ui->frame_point_4->setGeometry(ui->opencv_view->getRenderPos().x(),ui->opencv_view->getRenderPos().y()+ui->opencv_view->getRenderSize().height()-h,w,h);
+    ui->frame_point_1->setGeometry(1,1,w,h);
+    ui->frame_point_2->setGeometry(ui->select_area->width()-w-1,1,w,h);
+    ui->frame_point_3->setGeometry(ui->select_area->width()-w-1,ui->select_area->height()-h-1,w,h);
+    ui->frame_point_4->setGeometry(1,ui->select_area->height()-h-1,w,h);
 }
-
 void SelectCamera::on_cutButton_clicked()
 {
     if(img_scr_.empty()) {
@@ -211,13 +251,11 @@ void SelectCamera::on_cutButton_clicked()
     InitializationFrame();
     cuted_=true;
 }
-
 void SelectCamera::on_originalButton_clicked()
 {
     InitializationFrame();
     cuted_=false;
 }
-
 void SelectCamera::on_camera_connectButton_clicked()
 {
     InitializationFrame();
