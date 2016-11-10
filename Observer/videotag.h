@@ -27,8 +27,11 @@
 #include <QMutex>
 #include <QDebug>
 #include <thread>
+#include <QThread>
 #include <QPainter>
 #include <QBrush>
+#include <tagclass.h>
+#include <QVector>
 using namespace cv;
 namespace Ui {
 class VideoTag;
@@ -47,8 +50,12 @@ private slots:
     void on_AddTag_clicked();
     void on_dbl_clicked(QListWidgetItem *item);
     void showContextMenu(const QPoint&);
+    void itemClicked();
 private:
    Ui::VideoTag *ui;
+   TagClass *NewTag;
+   QVector <TagClass*> TagContainer;
+   QThread MainV,ChildV;
    QRubberBand *rubber;
    QImage shot_;
    QImage TagImg;
@@ -56,6 +63,10 @@ private:
    QMutex mutex;
    QString temp;
    QPoint origin;
+   QString TagName;
+   QPoint TagListItem;
+   volatile int VPos=-1;
+   bool firstTag = true;
    volatile bool start=false;
    volatile bool lock_rect = false;
    volatile bool stream = false;
@@ -65,7 +76,6 @@ private:
    void TagStreamThread();
    void OnDataRename(QWidget* EditLine);
    void tag_delete(const QPoint& pos);
-   void mouseHandler(int event, int x, int y, int flags, void* param);
    void mousePressEvent(QMouseEvent *event);
    void mouseMoveEvent(QMouseEvent *event);
    void mouseReleaseEvent(QMouseEvent *event);

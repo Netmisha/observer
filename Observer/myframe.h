@@ -11,7 +11,7 @@ class myFrame : public QFrame
     Q_OBJECT
 public:
     myFrame(QWidget * );
-    QVector<QPoint> &getPoints();
+    ~myFrame();
 private slots:
     void setLinePos(QVector<QPoint> &);
 protected:

@@ -7,21 +7,28 @@ VideoTag::VideoTag(QWidget *parent) :
     ui(new Ui::VideoTag)
 {
        ui->setupUi(this);
-       ui->TagList->addItem("Test1");
-       ui->TagList->addItem("Test2");
-        connect(ui->TagList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(on_dbl_clicked(QListWidgetItem*)));
-        connect(ui->TagList->itemDelegate(),&QAbstractItemDelegate::commitData,this,VideoTag::OnDataRename);
-        ui->TagList->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
+       //ui->TagList->addItem("Test1");
+       //ui->TagList->addItem("Test2");
+       connect(ui->TagList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(on_dbl_clicked(QListWidgetItem*)));
+       connect(ui->TagList,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(itemClicked()));
+       connect(ui->TagList->itemDelegate(),&QAbstractItemDelegate::commitData,this,VideoTag::OnDataRename);
+       ui->TagList->setContextMenuPolicy(Qt::CustomContextMenu);
+       connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
 }
 
 VideoTag::~VideoTag()
 {
     delete ui;
 }
+void VideoTag::itemClicked(){
 
+    //ui->TagList->currentRow();
+    CropArea = TagContainer.at(ui->TagList->currentRow())->TagPosition;
+
+}
 void VideoTag::showContextMenu(const QPoint &pos){
     QPoint item = ui->TagList->mapToGlobal(pos);
+    TagListItem = item;
     QMenu submenu;
     submenu.addAction("Delete");
     QAction* rightclick = submenu.exec(item);
@@ -33,7 +40,13 @@ void VideoTag::showContextMenu(const QPoint &pos){
 void VideoTag::OnDataRename(QWidget *EditLine){
     QString str = reinterpret_cast<QLineEdit*>(EditLine)->text();
     //int nRow = ui->TagList->currentRow();
-    qDebug()<<"changed";
+    if(str == temp){
+
+        qDebug()<<"Text not change";
+    }else{
+
+    qDebug()<<"Text has ben changed";
+    }
 
 }
 void VideoTag::tag_delete(const QPoint& pos){
@@ -58,13 +71,38 @@ void VideoTag::on_Start_clicked()
     std::thread thr(&VideoTag::ThreadStream, this);
     thr.detach();
 }
-
 void VideoTag::on_AddTag_clicked()
 {
+    if(firstTag == false){
+      VPos++;
+      qDebug()<<"Second tag";
+      NewTag = new TagClass;
+      NewTag->TagPosition = CropArea;
+      NewTag->tag_id = VPos;
+      NewTag->tag_name = "Temp" + QString::number(NewTag->tag_id);
+      TagContainer.push_back(NewTag);
+      NewTag = nullptr;
+      ui->TagList->addItem(TagContainer.at(VPos)->tag_name);
+       //ui->TagList->count();
+    }
+    else{
     std::thread thr (&VideoTag::TagStreamThread, this);
     thr.detach();
+    }
 }
 void VideoTag::TagStreamThread(){
+    if(firstTag == true){
+
+        VPos++;
+        NewTag = new TagClass;
+        NewTag->TagPosition = CropArea;
+        NewTag->tag_id = VPos;  //
+        NewTag->tag_name = "FirstTag";   // setName for the tag
+        TagContainer.push_back(NewTag);
+        NewTag = nullptr;
+        ui->TagList->addItem(TagContainer.at(VPos)->tag_name);
+        firstTag = false;
+    }
  while(1){
     mutex.lock();
     shot_ = shot_.copy(CropArea);

@@ -5,6 +5,11 @@ myFrame::myFrame(QWidget *parent):QFrame(parent)
 
 }
 
+myFrame::~myFrame()
+{
+
+}
+
 void myFrame::setLinePos(QVector<QPoint> &points)
 {
     points_.clear();
@@ -12,11 +17,6 @@ void myFrame::setLinePos(QVector<QPoint> &points)
         points_.push_back(iter);
     }
     RepaintLines();
-}
-
-QVector<QPoint> &myFrame::getPoints()
-{
-    return points_;
 }
 void myFrame::paintEvent(QPaintEvent *)
 {
@@ -26,9 +26,8 @@ void myFrame::paintEvent(QPaintEvent *)
 void myFrame::RepaintLines()
 {
     painter_.begin(this);
-    QPen pen(Qt::DashLine);
-    pen.setColor(Qt::blue);
-    painter_.setPen(pen);
+    painter_.setPen(Qt::blue);
+    painter_.setBrush(Qt::Dense7Pattern);
     if(!points_.isEmpty()) {
          painter_.drawLine(points_[0],points_[1]);
          painter_.drawLine(points_[1],points_[2]);

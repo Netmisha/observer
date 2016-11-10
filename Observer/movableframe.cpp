@@ -1,20 +1,8 @@
 #include "movableframe.h"
-#include "cqtopencvviewergl.h"
 
 MovableFrame::MovableFrame(QWidget *parent) : QFrame(parent), parent_(parent)
 {
 
-}
-
-bool MovableFrame::CheckLimits(const QPoint &pos)
-{
-    CQtOpenCVViewerGl * opencv_view=(CQtOpenCVViewerGl *)this->parent()->parent();
-    if(pos.x()>opencv_view->getRenderPos().x() && pos.x()<opencv_view->getRenderPos().x()+opencv_view->getRenderSize().width()) {
-        if(pos.y()>opencv_view->getRenderPos().y() && pos.y()<opencv_view->getRenderPos().y()+opencv_view->getRenderSize().height()) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void MovableFrame::mousePressEvent(QMouseEvent *event)
@@ -25,7 +13,7 @@ void MovableFrame::mousePressEvent(QMouseEvent *event)
 void MovableFrame::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint new_pos=event->pos()-start_pos_+this->pos();
-    if(CheckLimits(event->pos()-start_pos_+this->pos())) {
+    if(( new_pos.x() > 0 && new_pos.x()<parent_->width()-this->width())&& ( new_pos.y() > 0 && new_pos.y()<parent_->height()-this->height())) {
         this->setGeometry(QRect(new_pos, this->size()));
     }
     emit FrameMoving();
