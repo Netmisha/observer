@@ -1,0 +1,14 @@
+INPUT(
+./debug/main.o
+./debug/mainwindow.o
+./debug/selectcamera.o
+./debug/videotag.o
+./debug/tagclass.o
+./debug/movableframe.o
+./debug/myqframe.o
+./debug/moc_mainwindow.o
+./debug/moc_selectcamera.o
+./debug/moc_videotag.o
+./debug/moc_movableframe.o
+./debug/moc_myqframe.o
+);

@@ -1,5 +1,4 @@
 #include "movableframe.h"
-#include "cqtopencvviewergl.h"
 
 MovableFrame::MovableFrame(QWidget *parent) : QFrame(parent), parent_(parent) {}
 
