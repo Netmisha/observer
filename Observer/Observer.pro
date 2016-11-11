@@ -15,6 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     selectcamera.cpp \
+<<<<<<< HEAD
     videotag.cpp \
     tagclass.cpp \
     movableframe.cpp \
@@ -26,6 +27,21 @@ HEADERS  += mainwindow.h \
     tagclass.h \
     movableframe.h \
     myqframe.h
+=======
+    cqtopencvviewergl.cpp \
+    videotag.cpp \
+    tagclass.cpp \
+    movableframe.cpp \
+    myframe.cpp
+
+HEADERS  += mainwindow.h \
+    selectcamera.h \
+    cqtopencvviewergl.h \
+    videotag.h \
+    tagclass.h \
+    movableframe.h \
+    myframe.h
+>>>>>>> 308241a7847dfd01a02293d314c8ac01f84adcd7
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

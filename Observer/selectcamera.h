@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
+<<<<<<< HEAD
 #include <QWidget>
 #include <QPainter>
 #include <QOpenGLWidget>
@@ -10,16 +11,25 @@
 #include <thread>
 #include <mutex>
 
+=======
+#include <QLabel>
+#include <mutex>
+>>>>>>> 308241a7847dfd01a02293d314c8ac01f84adcd7
 using namespace cv;
 namespace Ui {
 class SelectCamera;
 }
 namespace literals {
+<<<<<<< HEAD
     const char kDefaultIndex=-1;
+=======
+    const char kDefoultIndex=-1;
+>>>>>>> 308241a7847dfd01a02293d314c8ac01f84adcd7
 }
 class SelectCamera : public QMainWindow
 {
     Q_OBJECT
+<<<<<<< HEAD
 public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
@@ -59,6 +69,27 @@ private:
     bool resized_=false;
     bool cuted_=false;
     volatile bool run_=false;
+=======
+
+public:
+    explicit SelectCamera(QWidget *parent = 0);
+    ~SelectCamera();
+
+private slots:
+    void on_select_from_listButton_clicked();
+
+    void on_remote_cameraButton_clicked();
+
+    void on_previewButton_clicked();
+
+    void on_nextButton_clicked();
+
+private:
+    void ShowImg ();
+    Ui::SelectCamera *ui;
+    volatile bool run=false;
+    std::mutex mut;
+>>>>>>> 308241a7847dfd01a02293d314c8ac01f84adcd7
 };
 
 #endif // SELECTCAMERA_H
