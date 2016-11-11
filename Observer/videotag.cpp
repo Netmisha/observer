@@ -7,7 +7,7 @@ VideoTag::VideoTag(QWidget *parent) :
     ui(new Ui::VideoTag)
 {
        ui->setupUi(this);
-       this->setFixedSize(648,437);
+       this->setFixedSize(this->geometry().width(),this->geometry().height());
        connect(ui->TagList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(on_dbl_clicked(QListWidgetItem*)));
        connect(ui->TagList,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(itemClicked()));
        connect(ui->TagList->itemDelegate(),&QAbstractItemDelegate::commitData,this,VideoTag::OnDataRename);
