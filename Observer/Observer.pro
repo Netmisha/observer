@@ -15,17 +15,19 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     selectcamera.cpp \
+    cqtopencvviewergl.cpp \
     videotag.cpp \
     tagclass.cpp \
     movableframe.cpp \
-    myqframe.cpp
+    myframe.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
+    cqtopencvviewergl.h \
     videotag.h \
     tagclass.h \
     movableframe.h \
-    myqframe.h
+    myframe.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

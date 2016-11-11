@@ -32,6 +32,9 @@
 #include <QBrush>
 #include <tagclass.h>
 #include <QVector>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QFont>
 using namespace cv;
 namespace Ui {
 class VideoTag;
@@ -51,13 +54,18 @@ private slots:
     void on_dbl_clicked(QListWidgetItem *item);
     void showContextMenu(const QPoint&);
     void itemClicked();
+    void on_Back_clicked();
+
+    void on_Next_clicked();
+
 private:
    Ui::VideoTag *ui;
+   QFont setF;
    TagClass *NewTag;
    QVector <TagClass*> TagContainer;
    QThread MainV,ChildV;
    QRubberBand *rubber;
-   QImage shot_;
+   QImage shot_; QImage EmptyList;
    QImage TagImg;
    QRect CropArea;
    QMutex mutex;
@@ -65,6 +73,9 @@ private:
    QPoint origin;
    QString TagName;
    QPoint TagListItem;
+   QMessageBox Messa;
+   QInputDialog *GetTagName; bool ok;
+   bool StartThread = false;
    volatile int VPos=-1;
    bool firstTag = true;
    volatile bool start=false;

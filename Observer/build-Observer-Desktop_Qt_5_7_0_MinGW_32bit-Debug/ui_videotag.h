@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
@@ -31,33 +32,47 @@ public:
     QPushButton *AddTag;
     QLabel *MainVideo;
     QLabel *TagVideo;
+    QFrame *line;
+    QPushButton *Back;
+    QPushButton *Next;
 
     void setupUi(QWidget *VideoTag)
     {
         if (VideoTag->objectName().isEmpty())
             VideoTag->setObjectName(QStringLiteral("VideoTag"));
-        VideoTag->resize(648, 388);
+        VideoTag->resize(648, 437);
         Start = new QPushButton(VideoTag);
         Start->setObjectName(QStringLiteral("Start"));
-        Start->setGeometry(QRect(10, 230, 71, 21));
+        Start->setGeometry(QRect(20, 230, 71, 31));
         Stop = new QPushButton(VideoTag);
         Stop->setObjectName(QStringLiteral("Stop"));
-        Stop->setGeometry(QRect(190, 230, 71, 21));
+        Stop->setGeometry(QRect(200, 230, 71, 31));
         Pause = new QPushButton(VideoTag);
         Pause->setObjectName(QStringLiteral("Pause"));
-        Pause->setGeometry(QRect(100, 230, 71, 21));
+        Pause->setGeometry(QRect(110, 230, 71, 31));
         TagList = new QListWidget(VideoTag);
         TagList->setObjectName(QStringLiteral("TagList"));
-        TagList->setGeometry(QRect(10, 260, 631, 111));
+        TagList->setGeometry(QRect(10, 280, 631, 111));
         AddTag = new QPushButton(VideoTag);
         AddTag->setObjectName(QStringLiteral("AddTag"));
-        AddTag->setGeometry(QRect(400, 230, 71, 21));
+        AddTag->setGeometry(QRect(390, 230, 71, 31));
         MainVideo = new QLabel(VideoTag);
         MainVideo->setObjectName(QStringLiteral("MainVideo"));
         MainVideo->setGeometry(QRect(20, 30, 241, 191));
         TagVideo = new QLabel(VideoTag);
         TagVideo->setObjectName(QStringLiteral("TagVideo"));
         TagVideo->setGeometry(QRect(390, 30, 241, 191));
+        line = new QFrame(VideoTag);
+        line->setObjectName(QStringLiteral("line"));
+        line->setGeometry(QRect(313, 20, 20, 221));
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
+        Back = new QPushButton(VideoTag);
+        Back->setObjectName(QStringLiteral("Back"));
+        Back->setGeometry(QRect(10, 400, 71, 31));
+        Next = new QPushButton(VideoTag);
+        Next->setObjectName(QStringLiteral("Next"));
+        Next->setGeometry(QRect(570, 400, 71, 31));
         TagList->raise();
         Start->raise();
         Stop->raise();
@@ -65,6 +80,9 @@ public:
         AddTag->raise();
         MainVideo->raise();
         TagVideo->raise();
+        line->raise();
+        Back->raise();
+        Next->raise();
 
         retranslateUi(VideoTag);
 
@@ -74,12 +92,14 @@ public:
     void retranslateUi(QWidget *VideoTag)
     {
         VideoTag->setWindowTitle(QApplication::translate("VideoTag", "Form", 0));
-        Start->setText(QApplication::translate("VideoTag", "Start|Cont.", 0));
+        Start->setText(QApplication::translate("VideoTag", "Start", 0));
         Stop->setText(QApplication::translate("VideoTag", "Stop", 0));
         Pause->setText(QApplication::translate("VideoTag", "Pause", 0));
         AddTag->setText(QApplication::translate("VideoTag", "Add Tag", 0));
         MainVideo->setText(QString());
         TagVideo->setText(QString());
+        Back->setText(QApplication::translate("VideoTag", "Back", 0));
+        Next->setText(QApplication::translate("VideoTag", "Next", 0));
     } // retranslateUi
 
 };

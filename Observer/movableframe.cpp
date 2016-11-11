@@ -1,20 +1,10 @@
 #include "movableframe.h"
 
-MovableFrame::MovableFrame(QWidget *parent) : QFrame(parent), parent_(parent) {}
-
-<<<<<<< HEAD
-=======
-bool MovableFrame::CheckLimits(const QPoint &pos)
+MovableFrame::MovableFrame(QWidget *parent) : QFrame(parent), parent_(parent)
 {
-    if(pos.x()>0 && pos.x()+this->width()<this->parent_->width()) {
-        if(pos.y()>0 && pos.y()+this->height()<parent_->height()) {
-            return true;
-        }
-    }
-    return false;
+
 }
 
->>>>>>> e9c1bb0359ccd1f61c8f36615adef41abfe79301
 void MovableFrame::mousePressEvent(QMouseEvent *event)
 {
     start_pos_=event->pos();
