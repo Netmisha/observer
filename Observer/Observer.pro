@@ -18,14 +18,22 @@ SOURCES += main.cpp\
     videotag.cpp \
     tagclass.cpp \
     movableframe.cpp \
+<<<<<<< HEAD
     myframe.cpp
+=======
+    myqframe.cpp
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
     videotag.h \
     tagclass.h \
     movableframe.h \
+<<<<<<< HEAD
     myframe.h
+=======
+    myqframe.h
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

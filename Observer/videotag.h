@@ -27,6 +27,7 @@
 #include <QMutex>
 #include <QDebug>
 #include <thread>
+<<<<<<< HEAD
 #include <QThread>
 #include <QPainter>
 #include <QBrush>
@@ -35,6 +36,10 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QFont>
+=======
+#include <QPainter>
+#include <QBrush>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
 using namespace cv;
 namespace Ui {
 class VideoTag;
@@ -53,6 +58,7 @@ private slots:
     void on_AddTag_clicked();
     void on_dbl_clicked(QListWidgetItem *item);
     void showContextMenu(const QPoint&);
+<<<<<<< HEAD
     void itemClicked();
     void on_Back_clicked();
 
@@ -66,11 +72,18 @@ private:
    QThread MainV,ChildV;
    QRubberBand *rubber;
    QImage shot_; QImage EmptyList;
+=======
+private:
+   Ui::VideoTag *ui;
+   QRubberBand *rubber;
+   QImage shot_;
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
    QImage TagImg;
    QRect CropArea;
    QMutex mutex;
    QString temp;
    QPoint origin;
+<<<<<<< HEAD
    QString TagName;
    QPoint TagListItem;
    QMessageBox Messa;
@@ -78,6 +91,8 @@ private:
    bool StartThread = false;
    volatile int VPos=-1;
    bool firstTag = true;
+=======
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
    volatile bool start=false;
    volatile bool lock_rect = false;
    volatile bool stream = false;
@@ -87,6 +102,10 @@ private:
    void TagStreamThread();
    void OnDataRename(QWidget* EditLine);
    void tag_delete(const QPoint& pos);
+<<<<<<< HEAD
+=======
+   void mouseHandler(int event, int x, int y, int flags, void* param);
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
    void mousePressEvent(QMouseEvent *event);
    void mouseMoveEvent(QMouseEvent *event);
    void mouseReleaseEvent(QMouseEvent *event);

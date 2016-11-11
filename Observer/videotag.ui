@@ -7,7 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>648</width>
+<<<<<<< HEAD
     <height>437</height>
+=======
+    <height>388</height>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +20,7 @@
   <widget class="QPushButton" name="Start">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>20</x>
      <y>230</y>
      <width>71</width>
@@ -24,15 +29,32 @@
    </property>
    <property name="text">
     <string>Start</string>
+=======
+     <x>10</x>
+     <y>230</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Start|Cont.</string>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
    </property>
   </widget>
   <widget class="QPushButton" name="Stop">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>200</x>
      <y>230</y>
      <width>71</width>
      <height>31</height>
+=======
+     <x>190</x>
+     <y>230</y>
+     <width>71</width>
+     <height>21</height>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
     </rect>
    </property>
    <property name="text">
@@ -42,10 +64,17 @@
   <widget class="QPushButton" name="Pause">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>110</x>
      <y>230</y>
      <width>71</width>
      <height>31</height>
+=======
+     <x>100</x>
+     <y>230</y>
+     <width>71</width>
+     <height>21</height>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
     </rect>
    </property>
    <property name="text">
@@ -56,7 +85,11 @@
    <property name="geometry">
     <rect>
      <x>10</x>
+<<<<<<< HEAD
      <y>280</y>
+=======
+     <y>260</y>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
      <width>631</width>
      <height>111</height>
     </rect>
@@ -65,10 +98,17 @@
   <widget class="QPushButton" name="AddTag">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>390</x>
      <y>230</y>
      <width>71</width>
      <height>31</height>
+=======
+     <x>400</x>
+     <y>230</y>
+     <width>71</width>
+     <height>21</height>
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
     </rect>
    </property>
    <property name="text">
@@ -101,6 +141,7 @@
     <string/>
    </property>
   </widget>
+<<<<<<< HEAD
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
@@ -140,6 +181,8 @@
     <string>Next</string>
    </property>
   </widget>
+=======
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
   <zorder>TagList</zorder>
   <zorder>Start</zorder>
   <zorder>Stop</zorder>
@@ -147,9 +190,12 @@
   <zorder>AddTag</zorder>
   <zorder>MainVideo</zorder>
   <zorder>TagVideo</zorder>
+<<<<<<< HEAD
   <zorder>line</zorder>
   <zorder>Back</zorder>
   <zorder>Next</zorder>
+=======
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
  </widget>
  <resources/>
  <connections/>

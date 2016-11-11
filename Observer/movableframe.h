@@ -16,6 +16,10 @@ public:
 signals:
     void FrameMoving();
 private:
+<<<<<<< HEAD
+=======
+    bool CheckLimits(const QPoint &);
+>>>>>>> e5c87a470dae447102e6f6e38b83b461d38a34d8
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     QPoint start_pos_;
