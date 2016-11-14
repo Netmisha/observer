@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_2_0>
-#include <thread>
+#include <QTimer>
 #include <mutex>
 using namespace cv;
 namespace Ui {
@@ -14,6 +14,7 @@ class SelectCamera;
 }
 namespace literals {
     const char kDefaultIndex=-1;
+    const int kDefaultFPS=40;
 }
 class SelectCamera : public QMainWindow
 {
@@ -22,10 +23,13 @@ public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
     Mat ProcessingImage(Mat);
+    void showWindow(int id);
 private slots:
     void paintEvent(QPaintEvent *);
+    void getImage(int);
     void resizeEvent(QResizeEvent *);
     void addImage(Mat);
+    void on_timer();
     void on_select_from_listButton_clicked();
     void ResizeImage();
     void on_remote_cameraButton_clicked();
@@ -35,9 +39,12 @@ private slots:
     void on_cutButton_clicked();
     void on_originalButton_clicked();
     void on_camera_connectButton_clicked();
+    void closeEvent(QCloseEvent *);
 signals:
     void RepaintLines(QVector<QPoint> &);
     void SizeChange(QResizeEvent *);
+    void SendImage(Mat);
+    void OpenTagsWindow();
 private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
@@ -56,6 +63,7 @@ private:
     std::mutex mtx_;
     bool resized_=false;
     bool cuted_=false;
-    volatile bool run_=false;
+    bool run_=false;
+    QTimer *timer_;
 };
 #endif // SELECTCAMERA_H

@@ -1,12 +1,13 @@
 #include "selectcamera.h"
 #include "ui_selectcamera.h"
-#include <QImage>
-#include <QGraphicsPixmapItem>
+#include <QMessageBox>
 SelectCamera::SelectCamera(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SelectCamera) {
     ui->setupUi(this);
     ui->remote_settingBox->setVisible(false);
+    timer_=new QTimer();
+    connect(timer_, SIGNAL(timeout()), this, SLOT(on_timer()));
     connect(this, SIGNAL(RepaintLines(QVector<QPoint>&)), ui->select_area, SLOT(setLinePos(QVector<QPoint>&)));
     connect(this, SIGNAL(SizeChange(QResizeEvent*)), this, SLOT(resizeEvent(QResizeEvent*)));
     connect(ui->frame_point_1,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
@@ -22,7 +23,6 @@ SelectCamera::SelectCamera(QWidget *parent) :
 }
 SelectCamera::~SelectCamera() {
     run_=false;
-    Sleep(1000);
     delete ui;
 }
 Mat SelectCamera::ProcessingImage(Mat img_src) {
@@ -62,29 +62,22 @@ void SelectCamera::on_remote_cameraButton_clicked() {
     }
 }
 void SelectCamera::ShowImg () {
-    cap_.open(ui->list_of_cameras_comboBox->currentIndex());
-    if(!cap_.isOpened())
-        return;
-    while(run_)
-    {
-        cap_ >> img_scr_;
-        if(cuted_){
-            img_scr_=ProcessingImage(img_scr_);
-            addImage(img_scr_);
-            if(!resized_ || img_size_!=ui->image_scene->size()) {
-                emit SizeChange(nullptr);
-                resized_=!resized_;
-            }
-        }
-        else {
-            addImage(img_scr_);
-            if(!resized_ || img_size_!=ui->image_scene->size()) {
-                emit SizeChange(nullptr);
-                resized_=!resized_;
-            }
+    cap_ >> img_scr_;
+    if(cuted_){
+        img_scr_=ProcessingImage(img_scr_);
+        addImage(img_scr_);
+        if(!resized_ || img_size_!=ui->image_scene->size()) {
+            emit SizeChange(nullptr);
+            resized_=!resized_;
         }
     }
-    cap_.release();
+    else {
+        addImage(img_scr_);
+        if(!resized_ || img_size_!=ui->image_scene->size()) {
+            emit SizeChange(nullptr);
+            resized_=!resized_;
+        }
+    }
 }
 void SelectCamera::addImage( Mat img_scr_) {
     if(mtx_.try_lock()) {
@@ -96,6 +89,9 @@ void SelectCamera::addImage( Mat img_scr_) {
         ui->image_scene->setPixmap(QPixmap::fromImage(image_));
         mtx_.unlock();
     }
+}
+void SelectCamera::on_timer() {
+    ShowImg();
 }
 void SelectCamera::ResizeImage() {
     int width=ui->widget->width();
@@ -117,6 +113,21 @@ void SelectCamera::ResizeImage() {
 void SelectCamera::paintEvent(QPaintEvent *) {
     FrameMoving();
 }
+
+void SelectCamera::getImage(int id)
+{
+    cap_.open(id);
+    if(!cap_.isOpened())
+        return;
+    cap_ >> img_scr_;
+    if(cuted_){
+        emit SendImage(ProcessingImage(img_scr_));
+    }
+    else {
+        emit SendImage(img_scr_);
+    }
+    cap_.release();
+}
 void SelectCamera::resizeEvent(QResizeEvent *) {
     ResizeImage();
     if(img_size_.width()==0) {
@@ -126,6 +137,16 @@ void SelectCamera::resizeEvent(QResizeEvent *) {
     }
     ui->select_area->setGeometry(QRect(ui->image_scene->pos(), ui->image_scene->size()));
     InitializationFrame();
+}
+
+void SelectCamera::showWindow(int id)
+{
+    if(id>=0) {
+        ui->list_of_cameras_comboBox->setCurrentIndex(id);
+        timer_->start(literals::kDefaultFPS);
+        run_=true;
+    }
+    this->show();
 }
 Point2f SelectCamera::CrossingLine(std::vector<Point2f> &pts_src) {
     Point2f cross;
@@ -207,20 +228,23 @@ void SelectCamera::CalculateHomography() {
     img_out_size_=Size(width, height);
 }
 void SelectCamera::on_nextButton_clicked() {
-    run_=false;
-    this->close();
+    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
+    emit OpenTagsWindow();
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
     run_=false;
+    timer_->stop();
+    cap_.release();
     ui->image_scene->setVisible(run_);
-    Sleep(500);
     if(index!=-1) {
         run_=true;
         resized_=!run_;
         ui->image_scene->setVisible(run_);
         cap_.open(ui->list_of_cameras_comboBox->currentIndex());
-        std::thread thr(&SelectCamera::ShowImg, this);
-        thr.detach();
+        if(!cap_.isOpened())
+            return;
+        ShowImg();
+        timer_->start(40);
     }
 }
 void SelectCamera::FrameMoving() {
@@ -259,4 +283,21 @@ void SelectCamera::on_originalButton_clicked() {
 }
 void SelectCamera::on_camera_connectButton_clicked() {
     InitializationFrame();
+    run_=false;
+    timer_->stop();
+    cap_.release();
+    ui->image_scene->setVisible(run_);
+        run_=true;
+        resized_=!run_;
+        ui->image_scene->setVisible(run_);
+        cap_.open("http://200.242.95.222:1080/axis-cgi/mjpg/video.cgi?resolution=320x240");
+        if(!cap_.isOpened())
+            return;
+        ShowImg();
+        timer_->start(40);
+}
+
+void SelectCamera::closeEvent(QCloseEvent *) {
+    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
+    emit OpenTagsWindow();
 }
