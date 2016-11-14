@@ -117,17 +117,6 @@
     <string>Next</string>
    </property>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>320</y>
-     <width>161</width>
-     <height>53</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2"/>
-  </widget>
   <zorder>TagList</zorder>
   <zorder>Start</zorder>
   <zorder>AddTag</zorder>
@@ -136,7 +125,6 @@
   <zorder>line</zorder>
   <zorder>Back</zorder>
   <zorder>Next</zorder>
-  <zorder>verticalLayoutWidget_2</zorder>
  </widget>
  <resources/>
  <connections/>
