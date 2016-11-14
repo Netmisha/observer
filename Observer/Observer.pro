@@ -18,14 +18,14 @@ SOURCES += main.cpp\
     videotag.cpp \
     tagclass.cpp \
     movableframe.cpp \
-    myframe.cpp
+    myqframe.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
     videotag.h \
     tagclass.h \
     movableframe.h \
-    myframe.h
+    myqframe.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \
