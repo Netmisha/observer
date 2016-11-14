@@ -35,7 +35,9 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QFont>
+#include <selectcamera.h>
 using namespace cv;
+
 namespace Ui {
 class VideoTag;
 }
@@ -48,14 +50,11 @@ public:
     ~VideoTag();
 private slots:
     void on_Start_clicked();
-    void on_Stop_clicked();
-    void on_Pause_clicked();
     void on_AddTag_clicked();
     void on_dbl_clicked(QListWidgetItem *item);
     void showContextMenu(const QPoint&);
     void itemClicked();
     void on_Back_clicked();
-
     void on_Next_clicked();
 
 private:
@@ -80,7 +79,7 @@ private:
    bool firstTag = true;
    volatile bool start=false;
    volatile bool lock_rect = false;
-   volatile bool stream = false;
+   volatile bool stream = true;
    VideoCapture cap;
    Mat frame;
    void ThreadStream();

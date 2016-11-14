@@ -9,6 +9,7 @@ SelectCamera::SelectCamera(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->remote_settingBox->setVisible(false);
+
 }
 
 SelectCamera::~SelectCamera()
@@ -51,7 +52,3 @@ void SelectCamera::on_previewButton_clicked()
     thr.detach();
 }
 
-void SelectCamera::on_nextButton_clicked()
-{
-    run=false;
-}
