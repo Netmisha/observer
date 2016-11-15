@@ -186,7 +186,7 @@ void VideoTag::mouseMoveEvent(QMouseEvent *event){
     rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));
     qDebug()<<rubber->geometry();
 }
-void VideoTag::mouseReleaseEvent(QMouseEvent *event){
+void VideoTag::mouseReleaseEvent(QMouseEvent *){
 lock_rect = true;
 if(rubber->width() == 1 && rubber->height() == 1){
    QRect r(0,0,0,0);
@@ -197,7 +197,7 @@ CropArea = QRect(origin,rubber->size());
 qDebug()<<CropArea;
 
 }
-void VideoTag::paintEvent(QPaintEvent *event){
+void VideoTag::paintEvent(QPaintEvent *){
     QPainter p,p1;
     p.begin(this);
     p.setPen(Qt::PenStyle::DashLine);
@@ -210,12 +210,10 @@ void VideoTag::paintEvent(QPaintEvent *event){
 }
 void VideoTag::on_Back_clicked()
 {
-   auto SC = new SelectCamera;
-   this->hide();
-   SC->show();
+   emit OpenSelectCamera();
 }
 
 void VideoTag::on_Next_clicked()
 {
-
+    emit OpenSettings();
 }

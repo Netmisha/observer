@@ -21,6 +21,8 @@ public:
 private slots:
     void on_pushButton_clicked();
     void CloseSettings();
+    void OpenTags();
+    void CloseTags();
     void CloseSelectCamera();
     void OpenSelectCamera();
 private:

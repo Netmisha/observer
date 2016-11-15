@@ -56,7 +56,9 @@ private slots:
     void itemClicked();
     void on_Back_clicked();
     void on_Next_clicked();
-
+signals:
+    void OpenSettings();
+    void OpenSelectCamera();
 private:
    Ui::VideoTag *ui;
    QFont setF;

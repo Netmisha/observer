@@ -10,8 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     video_tag_=new VideoTag (parent);
     select_camera_=new SelectCamera(parent);
     connect(settings_, SIGNAL(OpenMainWindow()), this, SLOT(CloseSettings()));
-    connect(settings_, SIGNAL(OpenTagsWindow()), this, SLOT(OpenSelectCamera()));
+    connect(settings_, SIGNAL(OpenTagsWindow()), this, SLOT(OpenTags()));
     connect(select_camera_, SIGNAL(OpenTagsWindow()), this, SLOT(CloseSelectCamera()));
+    connect(video_tag_, SIGNAL(OpenSelectCamera()), this, SLOT(OpenSelectCamera()));
+    connect(video_tag_, SIGNAL(OpenSettings()), this, SLOT(CloseTags()));
 }
 
 MainWindow::~MainWindow()
@@ -34,14 +36,26 @@ void MainWindow::CloseSettings()
     this->show();
 }
 
+void MainWindow::OpenTags()
+{
+    settings_->hide();
+    video_tag_->show();
+}
+
+void MainWindow::CloseTags()
+{
+    video_tag_->hide();
+    settings_->show();
+}
+
 void MainWindow::CloseSelectCamera()
 {
     select_camera_->hide();
-    settings_->show();
+    video_tag_->show();
 }
 
 void MainWindow::OpenSelectCamera()
 {
-    settings_->hide();
+    video_tag_->hide();
     select_camera_->showWindow(0);
 }
