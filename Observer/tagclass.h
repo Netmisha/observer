@@ -3,16 +3,16 @@
 #include <string>
 #include <iostream>
 #include <QPoint>
+#include <QRect>
+#include <QString>
+
 using namespace  std;
 class TagClass
 {
-private:
-   string tag_name;
-   int tag_id;
-   QPoint Ax,Ay;
-   int Width;
-   int Heigth;
 public:
+    QString tag_name;
+    int tag_id;
+    QRect TagPosition;
     TagClass();
 
 };

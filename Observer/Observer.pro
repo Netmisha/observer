@@ -18,21 +18,18 @@ SOURCES += main.cpp\
     videotag.cpp \
     tagclass.cpp \
     movableframe.cpp \
-    myqframe.cpp \
-    settingswindow.cpp
+    myframe.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
     videotag.h \
     tagclass.h \
     movableframe.h \
-    myqframe.h \
-    settingswindow.h
+    myframe.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \
-    videotag.ui \
-    settingswindow.ui
+    videotag.ui
 
 INCLUDEPATH += C:\\OpenCV\\opencv_mingw\\install\\include
 
