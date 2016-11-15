@@ -62,6 +62,7 @@ void SelectCamera::on_remote_cameraButton_clicked() {
     }
 }
 void SelectCamera::ShowImg () {
+
     cap_ >> img_scr_;
     if(cuted_){
         img_scr_=ProcessingImage(img_scr_);
@@ -290,7 +291,7 @@ void SelectCamera::on_camera_connectButton_clicked() {
         run_=true;
         resized_=!run_;
         ui->image_scene->setVisible(run_);
-        cap_.open("http://200.242.95.222:1080/axis-cgi/mjpg/video.cgi?resolution=320x240");
+        cap_.open(0);
         if(!cap_.isOpened())
             return;
         ShowImg();

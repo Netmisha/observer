@@ -6,8 +6,8 @@ VideoTag::VideoTag(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VideoTag)
 {
+    //emit SendId(int id) to send camera id
        ui->setupUi(this);
-       this->setFixedSize(this->geometry().width(),this->geometry().height());
        connect(ui->TagList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(on_dbl_clicked(QListWidgetItem*)));
        connect(ui->TagList,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(itemClicked()));
        connect(ui->TagList->itemDelegate(),&QAbstractItemDelegate::commitData,this,VideoTag::OnDataRename);
@@ -87,8 +87,10 @@ void VideoTag::on_Start_clicked()
     std::thread thr(&VideoTag::ThreadStream, this);
     thr.detach();
 }
+
 void VideoTag::on_AddTag_clicked()
 {
+
     if(firstTag == false){
       GetTagName = new QInputDialog;
       GetTagName->setOption(QInputDialog::NoButtons);
@@ -144,6 +146,7 @@ void VideoTag::on_AddTag_clicked()
     }
 
 }
+
 void VideoTag::TagStreamThread(){
 
  while(stream){
@@ -155,12 +158,23 @@ void VideoTag::TagStreamThread(){
  }
 
 }
+
+void VideoTag::ReceiveImage(Mat imgsrc){
+    qDebug()<<"received";
+    TM = imgsrc;
+    cvtColor(TM,TM,COLOR_BGR2RGB);
+    QImage qimgOriginal((uchar*)TM.data,TM.cols,TM.rows, TM.step,QImage::Format_RGB888);
+    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+    ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
+
+}
+
 void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
     cap = 0;
     while(stream)
     {
       mutex.lock();
-      cap >> frame;
+      cap >> frame; // make frame receive imgsrc
       cvtColor(frame,frame,COLOR_BGR2RGB);
       QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
       shot_ = qimgOriginal;
@@ -217,3 +231,5 @@ void VideoTag::on_Next_clicked()
 {
     emit OpenSettings();
 }
+
+

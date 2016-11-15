@@ -56,12 +56,16 @@ private slots:
     void itemClicked();
     void on_Back_clicked();
     void on_Next_clicked();
+    void ReceiveImage(Mat imgsrc);
+
 signals:
+    void SendID(int id);
     void OpenSettings();
     void OpenSelectCamera();
 private:
    Ui::VideoTag *ui;
    QFont setF;
+   Mat TM;
    TagClass *NewTag;
    QVector <TagClass*> TagContainer;
    QThread MainV,ChildV;
