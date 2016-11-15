@@ -50,3 +50,6 @@ LIBS += -LC:\\OpenCV\\opencv_mingw\\install\\x86\\mingw\\lib \
     libopencv_features2d2413d \
     libopencv_calib3d2413d \
 
+RESOURCES += \
+    image.qrc
+

@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),video_tag_,SLOT(ReceiveImage(Mat)));
 
-    pixmapS = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square.png");
+    /*pixmapS = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square.png");
     ButtonIcon = new QIcon(*pixmapS);
     ui->SQ->setIcon(*ButtonIcon);
     ui->SQ->setIconSize(ui->SQ->size());
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pixmapS3 = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square4.png");
     ButtonIcon3 = new QIcon(*pixmapS3);
     ui->SQ3->setIcon(*ButtonIcon3);
-    ui->SQ3->setIconSize(ui->SQ3->size());
+    ui->SQ3->setIconSize(ui->SQ3->size());*/
 }
 
 MainWindow::~MainWindow()

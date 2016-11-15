@@ -30,7 +30,7 @@ private slots:
     void resizeEvent(QResizeEvent *);
     void addImage(Mat);
     void on_timer_show();
-    void on_timer_send();
+    void on_timer_send(); // emits the signal
     void send_stop();
     void on_select_from_listButton_clicked();
     void ResizeImage();

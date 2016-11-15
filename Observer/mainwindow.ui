@@ -66,6 +66,19 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/img/CROSS/Square2.png</normaloff>:/img/CROSS/Square2.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>61</width>
+      <height>51</height>
+     </size>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="SQ3">
     <property name="geometry">
@@ -78,6 +91,22 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/img/CROSS/Square4.png</normaloff>:/img/CROSS/Square4.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>61</width>
+      <height>51</height>
+     </size>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="StreamArea">
@@ -105,14 +134,20 @@
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/img/CROSS/Square.png</normaloff>:/img/CROSS/Square.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>61</width>
+      <height>51</height>
+     </size>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
    </widget>
-   <zorder>pushButton</zorder>
-   <zorder>CameraList</zorder>
-   <zorder>SQ</zorder>
-   <zorder>SQ2</zorder>
-   <zorder>SQ3</zorder>
-   <zorder>StreamArea</zorder>
-   <zorder>SQ</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -135,6 +170,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
  <connections/>
 </ui>

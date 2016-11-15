@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
-    <height>437</height>
+    <width>619</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -112,16 +112,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>TagList</zorder>
-  <zorder>Start</zorder>
-  <zorder>AddTag</zorder>
-  <zorder>MainVideo</zorder>
-  <zorder>TagVideo</zorder>
-  <zorder>line</zorder>
-  <zorder>Back</zorder>
-  <zorder>Next</zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>horizontalSpacer_2</zorder>
  </widget>
  <resources/>
  <connections/>

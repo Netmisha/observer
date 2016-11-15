@@ -22,7 +22,6 @@ private slots:
     void on_open_tags_window_clicked();
     void closeEvent(QCloseEvent *);
     void on_close_settings_clicked();
-
     void on_open_dialogButton_clicked();
 
 private:
