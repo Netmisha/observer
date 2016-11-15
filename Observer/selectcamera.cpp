@@ -6,8 +6,10 @@ SelectCamera::SelectCamera(QWidget *parent) :
     ui(new Ui::SelectCamera) {
     ui->setupUi(this);
     ui->remote_settingBox->setVisible(false);
-    timer_=new QTimer();
-    connect(timer_, SIGNAL(timeout()), this, SLOT(on_timer()));
+    timer_show_=new QTimer();
+    timer_send_=new QTimer();
+    connect(timer_show_, SIGNAL(timeout()), this, SLOT(on_timer_show()));
+    connect(timer_send_, SIGNAL(timeout()), this, SLOT(on_timer_send()));
     connect(this, SIGNAL(RepaintLines(QVector<QPoint>&)), ui->select_area, SLOT(setLinePos(QVector<QPoint>&)));
     connect(this, SIGNAL(SizeChange(QResizeEvent*)), this, SLOT(resizeEvent(QResizeEvent*)));
     connect(ui->frame_point_1,SIGNAL(FrameMoving()), this, SLOT(FrameMoving()));
@@ -90,7 +92,22 @@ void SelectCamera::addImage( Mat img_scr_) {
         mtx_.unlock();
     }
 }
-void SelectCamera::on_timer() {
+
+void SelectCamera::on_timer_send() {
+    cap_ >> img_scr_;
+    if(cuted_){
+        emit SendImage(ProcessingImage(img_scr_));
+    }
+    else {
+        emit SendImage(img_scr_);
+    }
+}
+
+void SelectCamera::send_stop() {
+    timer_send_->stop();
+    cap_.release();
+}
+void SelectCamera::on_timer_show() {
     ShowImg();
 }
 void SelectCamera::ResizeImage() {
@@ -119,14 +136,7 @@ void SelectCamera::getImage(int id)
     cap_.open(id);
     if(!cap_.isOpened())
         return;
-    cap_ >> img_scr_;
-    if(cuted_){
-        emit SendImage(ProcessingImage(img_scr_));
-    }
-    else {
-        emit SendImage(img_scr_);
-    }
-    cap_.release();
+    timer_send_->start(literals::kDefaultFPS);
 }
 void SelectCamera::resizeEvent(QResizeEvent *) {
     ResizeImage();
@@ -143,7 +153,7 @@ void SelectCamera::showWindow(int id)
 {
     if(id>=0) {
         ui->list_of_cameras_comboBox->setCurrentIndex(id);
-        timer_->start(literals::kDefaultFPS);
+        timer_show_->start(literals::kDefaultFPS);
         run_=true;
     }
     this->show();
@@ -233,7 +243,7 @@ void SelectCamera::on_nextButton_clicked() {
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
     run_=false;
-    timer_->stop();
+    timer_show_->stop();
     cap_.release();
     ui->image_scene->setVisible(run_);
     if(index!=-1) {
@@ -244,7 +254,7 @@ void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
         if(!cap_.isOpened())
             return;
         ShowImg();
-        timer_->start(40);
+        timer_show_->start(literals::kDefaultFPS);
     }
 }
 void SelectCamera::FrameMoving() {
@@ -284,7 +294,7 @@ void SelectCamera::on_originalButton_clicked() {
 void SelectCamera::on_camera_connectButton_clicked() {
     InitializationFrame();
     run_=false;
-    timer_->stop();
+    timer_show_->stop();
     cap_.release();
     ui->image_scene->setVisible(run_);
         run_=true;
@@ -294,7 +304,7 @@ void SelectCamera::on_camera_connectButton_clicked() {
         if(!cap_.isOpened())
             return;
         ShowImg();
-        timer_->start(40);
+        timer_show_->start(literals::kDefaultFPS);
 }
 
 void SelectCamera::closeEvent(QCloseEvent *) {

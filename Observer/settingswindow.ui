@@ -10,6 +10,12 @@
     <height>565</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <pointsize>8</pointsize>
@@ -42,9 +48,9 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_11">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0,0">
+              <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
                <item>
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="setting_fileEdit">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -60,7 +66,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QToolButton" name="toolButton">
+                <widget class="QToolButton" name="open_dialogButton">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -78,48 +84,49 @@
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_3">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>View</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_4">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>25</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>Save</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit"/>
+              <widget class="QTextEdit" name="setting_textEdit"/>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="save_fileButton">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>25</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -163,7 +170,7 @@
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_5">
                     <item>
-                     <widget class="QRadioButton" name="radioButton_3">
+                     <widget class="QRadioButton" name="both_radioButton">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -182,7 +189,7 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="radioButton">
+                     <widget class="QRadioButton" name="on_change_radioButton">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -201,7 +208,7 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="radioButton_2">
+                     <widget class="QRadioButton" name="timer_radioButton">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -260,7 +267,7 @@
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout">
                       <item>
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                       <widget class="QDoubleSpinBox" name="time_spinBox">
                         <property name="minimumSize">
                          <size>
                           <width>0</width>
@@ -344,7 +351,7 @@
                        </spacer>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="pushButton">
+                       <widget class="QPushButton" name="save_timeButton">
                         <property name="minimumSize">
                          <size>
                           <width>50</width>
@@ -415,7 +422,7 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QListWidget" name="listWidget_2">
+                 <widget class="QListWidget" name="tags_listWidget">
                   <property name="frameShape">
                    <enum>QFrame::NoFrame</enum>
                   </property>
@@ -435,7 +442,7 @@
                    <bool>false</bool>
                   </property>
                   <property name="dragDropMode">
-                   <enum>QAbstractItemView::NoDragDrop</enum>
+                   <enum>QAbstractItemView::DragDrop</enum>
                   </property>
                   <property name="alternatingRowColors">
                    <bool>false</bool>

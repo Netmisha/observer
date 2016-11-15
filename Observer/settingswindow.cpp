@@ -27,3 +27,14 @@ void SettingsWindow::on_close_settings_clicked()
 {
     emit OpenMainWindow();
 }
+
+void SettingsWindow::on_open_dialogButton_clicked()
+{
+    QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath());
+    QFile settings_file(file_name);
+    settings_file.open(QIODevice::ReadWrite);
+    if(!settings_file.isOpen()) {
+        return ;
+    }
+    ui->setting_textEdit->setText(settings_file.readAll());
+}

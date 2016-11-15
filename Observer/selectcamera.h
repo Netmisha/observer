@@ -29,7 +29,9 @@ private slots:
     void getImage(int);
     void resizeEvent(QResizeEvent *);
     void addImage(Mat);
-    void on_timer();
+    void on_timer_show();
+    void on_timer_send();
+    void send_stop();
     void on_select_from_listButton_clicked();
     void ResizeImage();
     void on_remote_cameraButton_clicked();
@@ -64,6 +66,7 @@ private:
     bool resized_=false;
     bool cuted_=false;
     bool run_=false;
-    QTimer *timer_;
+    QTimer *timer_show_;
+    QTimer *timer_send_;
 };
 #endif // SELECTCAMERA_H
