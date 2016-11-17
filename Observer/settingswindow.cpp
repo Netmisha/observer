@@ -41,6 +41,8 @@ void SettingsWindow::on_open_dialogButton_clicked()
     //ui->setting_textEdit->setText(settings_file.readAll());
     ui->setting_textEdit->setPlainText(settings_file.readAll());
     settings_file.close();
+    s.setFileName(file_name);
+    s.ReadSettings();
 }
 
 void SettingsWindow::on_setting_fileEdit_editingFinished()
@@ -65,7 +67,6 @@ void SettingsWindow::ClearAll()
 
 void SettingsWindow::Initialize()
 {
-    xml_hl_=new XMLHighlighter (ui->setting_textEdit->document());
 }
 
 void SettingsWindow::on_save_fileButton_clicked()
@@ -78,4 +79,5 @@ void SettingsWindow::on_save_fileButton_clicked()
         return ;
     }
     settings_file.write(ui->setting_textEdit->toPlainText().toLatin1());
+    s.SaveSettings();
 }

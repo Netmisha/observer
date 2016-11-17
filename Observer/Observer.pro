@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     tagclass.cpp \
     movableframe.cpp \
     myqframe.cpp \
-    settingswindow.cpp
+    settingswindow.cpp \
+    settingsfile.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
@@ -28,7 +29,7 @@ HEADERS  += mainwindow.h \
     movableframe.h \
     myqframe.h \
     settingswindow.h \
-    xmlhighlighter.h
+    settingsfile.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

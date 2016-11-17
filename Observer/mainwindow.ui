@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>494</height>
+    <width>624</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -106,21 +106,14 @@
      <string/>
     </property>
    </widget>
-   <zorder>pushButton</zorder>
-   <zorder>CameraList</zorder>
-   <zorder>SQ</zorder>
-   <zorder>SQ2</zorder>
-   <zorder>SQ3</zorder>
-   <zorder>StreamArea</zorder>
-   <zorder>SQ</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>594</width>
-     <height>17</height>
+     <width>624</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>

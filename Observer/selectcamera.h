@@ -2,6 +2,7 @@
 #define SELECTCAMERA_H
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
+#include "opencv2/video.hpp"
 #include <QWidget>
 #include <QPainter>
 #include <QOpenGLWidget>

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include "xmlhighlighter.h"
+#include "settingsfile.h"
 
 class XMLHighlighter;
 namespace Ui {
@@ -37,7 +37,7 @@ private:
     void ClearAll();
     void Initialize();
     Ui::SettingsWindow *ui;
-    XMLHighlighter *xml_hl_;
+    settings_file::SettingsFile s;
 };
 
 #endif // SETTINGSWINDOW_H
