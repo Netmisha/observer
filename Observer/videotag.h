@@ -86,6 +86,7 @@ private:
    volatile bool start=false;
    volatile bool lock_rect = false;
    volatile bool stream = true;
+   bool LabelEmpty = true;
    VideoCapture cap;
    Mat frame;
    void ThreadStream();

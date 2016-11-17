@@ -15,7 +15,7 @@ VideoTag::VideoTag(QWidget *parent) :
        connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
        ui->TagVideo->setText("Offline"); ui->TagVideo->setAlignment(Qt::AlignCenter); setF = ui->TagVideo->font();setF.setItalic(true);setF.setPointSize(10); ui->TagVideo->setFont(setF);
        ui->MainVideo->setText("Offline"); ui->MainVideo->setAlignment(Qt::AlignCenter); ui->MainVideo->setFont(setF);
-        TM = new Mat;
+
 }
 
 VideoTag::~VideoTag()
@@ -148,21 +148,18 @@ void VideoTag::ReceiveImage(Mat imgsrc){
     cvtColor(frame,frame,COLOR_BGR2RGB);
     QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
     shot_ = qimgOriginal;
-    shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio);
-    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+    shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
     mutex.unlock();
 }
 
 void VideoTag::on_Start_clicked()
 {
-    if(ui->MainVideo->width() != ui->TagVideo->width()){
-     ui->TagVideo->resize(ui->TagVideo->width() + 1,ui->TagVideo->height());
-    }
     if(VideoTag::start==true){
         return;
     }
-    emit SendID(0);    // Pass Camera ID. default is 0
+    emit SendID(0);// Pass Camera ID. default is 0
     VideoTag::start = true;
     stream=true;
 }
@@ -172,6 +169,7 @@ void VideoTag::mousePressEvent(QMouseEvent *event){
      rubber->close();
  }
 origin = ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()));
+qDebug()<<origin;
 rubber = new QRubberBand(QRubberBand::Rectangle,ui->MainVideo); // passing parent for QRubberBand
 rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));//
 rubber->show();
@@ -204,10 +202,12 @@ void VideoTag::paintEvent(QPaintEvent *){
 void VideoTag::on_Back_clicked()
 {
    emit OpenSelectCamera();
+
 }
 
 void VideoTag::on_Next_clicked()
 {
+
     emit OpenSettings();
 }
 

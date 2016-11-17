@@ -239,7 +239,7 @@ void SelectCamera::CalculateHomography() {
     img_out_size_=Size(width, height);
 }
 void SelectCamera::on_nextButton_clicked() {
-    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
+    //ui->list_of_cameras_comboBox->setCurrentIndex(-1); // this line makes TagWindow crash
     emit OpenTagsWindow();
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
@@ -285,6 +285,7 @@ void SelectCamera::on_cutButton_clicked() {
     CalculateHomography();
     cuted_=true;
     resized_=!cuted_;
+    // emit that img is cutted
 }
 void SelectCamera::on_originalButton_clicked() {
     cuted_=false;
