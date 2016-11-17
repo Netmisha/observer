@@ -2,6 +2,10 @@
 #define SELECTCAMERA_H
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
+<<<<<<< HEAD
+=======
+#include "opencv2/video.hpp"
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 #include <QWidget>
 #include <QPainter>
 #include <QOpenGLWidget>
@@ -30,7 +34,11 @@ private slots:
     void resizeEvent(QResizeEvent *);
     void addImage(Mat);
     void on_timer_show();
+<<<<<<< HEAD
     void on_timer_send(); // emits the signal
+=======
+    void on_timer_send();
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
     void send_stop();
     void on_select_from_listButton_clicked();
     void ResizeImage();

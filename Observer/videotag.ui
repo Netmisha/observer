@@ -112,6 +112,19 @@
     </layout>
    </item>
   </layout>
+<<<<<<< HEAD
+=======
+  <zorder>TagList</zorder>
+  <zorder>Start</zorder>
+  <zorder>AddTag</zorder>
+  <zorder>MainVideo</zorder>
+  <zorder>TagVideo</zorder>
+  <zorder>line</zorder>
+  <zorder>Back</zorder>
+  <zorder>Next</zorder>
+  <zorder>horizontalSpacer</zorder>
+  <zorder>horizontalSpacer_2</zorder>
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
  </widget>
  <resources/>
  <connections/>

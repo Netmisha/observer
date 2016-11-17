@@ -239,7 +239,11 @@ void SelectCamera::CalculateHomography() {
     img_out_size_=Size(width, height);
 }
 void SelectCamera::on_nextButton_clicked() {
+<<<<<<< HEAD
     //ui->list_of_cameras_comboBox->setCurrentIndex(-1); // this line makes TagWindow crash
+=======
+    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
     emit OpenTagsWindow();
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
@@ -285,7 +289,10 @@ void SelectCamera::on_cutButton_clicked() {
     CalculateHomography();
     cuted_=true;
     resized_=!cuted_;
+<<<<<<< HEAD
     // emit that img is cutted
+=======
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 }
 void SelectCamera::on_originalButton_clicked() {
     cuted_=false;

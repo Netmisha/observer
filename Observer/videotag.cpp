@@ -77,6 +77,20 @@ temp = it->text();
 
 }
 
+<<<<<<< HEAD
+=======
+void VideoTag::on_Start_clicked()
+{
+    if(VideoTag::start==true){
+        return;
+    }
+    VideoTag::start = true;
+    stream=true;
+    std::thread thr(&VideoTag::ThreadStream, this);
+    thr.detach();
+}
+
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 void VideoTag::on_AddTag_clicked()
 {
 
@@ -132,6 +146,11 @@ void VideoTag::on_AddTag_clicked()
         firstTag = false; 
     }
 }
+<<<<<<< HEAD
+=======
+
+void VideoTag::TagStreamThread(){
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 
 void VideoTag::TagStreamThread(){
     mutex.lock();
@@ -154,10 +173,36 @@ void VideoTag::ReceiveImage(Mat imgsrc){
     mutex.unlock();
 }
 
+<<<<<<< HEAD
 void VideoTag::on_Start_clicked()
 {
     if(VideoTag::start==true){
         return;
+=======
+void VideoTag::ReceiveImage(Mat imgsrc){
+    qDebug()<<"received";
+    TM = imgsrc;
+    cvtColor(TM,TM,COLOR_BGR2RGB);
+    QImage qimgOriginal((uchar*)TM.data,TM.cols,TM.rows, TM.step,QImage::Format_RGB888);
+    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+    ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
+
+}
+
+void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
+    cap = 0;
+    while(stream)
+    {
+      mutex.lock();
+      cap >> frame; // make frame receive imgsrc
+      cvtColor(frame,frame,COLOR_BGR2RGB);
+      QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
+      shot_ = qimgOriginal;
+      shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio);
+      qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+      ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
+      mutex.unlock();
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
     }
     emit SendID(0);// Pass Camera ID. default is 0
     VideoTag::start = true;
@@ -202,14 +247,23 @@ void VideoTag::paintEvent(QPaintEvent *){
 void VideoTag::on_Back_clicked()
 {
    emit OpenSelectCamera();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 }
 
 void VideoTag::on_Next_clicked()
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
     emit OpenSettings();
 }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84

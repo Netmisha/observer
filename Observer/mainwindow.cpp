@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(select_camera_, SIGNAL(OpenTagsWindow()), this, SLOT(CloseSelectCamera()));
     connect(video_tag_, SIGNAL(OpenSelectCamera()), this, SLOT(OpenSelectCamera()));
     connect(video_tag_, SIGNAL(OpenSettings()), this, SLOT(CloseTags()));
+<<<<<<< HEAD
     QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),video_tag_,SLOT(ReceiveImage(Mat)));
     QObject::connect(this,SIGNAL(CameraID(int)),select_camera_,SLOT(getImage(int)));
@@ -36,6 +37,26 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
 }
 void MainWindow::itemClicked(QListWidgetItem *item){
  emit CameraID(ui->CameraList->currentRow());
+=======
+
+    QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
+    QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),video_tag_,SLOT(ReceiveImage(Mat)));
+
+    pixmapS = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square.png");
+    ButtonIcon = new QIcon(*pixmapS);
+    ui->SQ->setIcon(*ButtonIcon);
+    ui->SQ->setIconSize(ui->SQ->size());
+
+    pixmapS2 = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square2.png");
+    ButtonIcon2 = new QIcon(*pixmapS2);
+    ui->SQ2->setIcon(*ButtonIcon2);
+    ui->SQ2->setIconSize(ui->SQ2->size());
+
+    pixmapS3 = new QPixmap("D:\\Projects\\Observer\\CROSS\\Square4.png");
+    ButtonIcon3 = new QIcon(*pixmapS3);
+    ui->SQ3->setIcon(*ButtonIcon3);
+    ui->SQ3->setIconSize(ui->SQ3->size());
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 }
 
 void MainWindow::GetQuantCamer(){
@@ -119,7 +140,11 @@ MainWindow::~MainWindow()
     delete select_camera_;
 }
 
+<<<<<<< HEAD
 void MainWindow::on_SettingButton_clicked()
+=======
+void MainWindow::on_pushButton_clicked()
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 {
     settings_->show();
     this->hide();
@@ -141,6 +166,38 @@ void MainWindow::CloseTags()
 {
     video_tag_->hide();
     settings_->show();
+<<<<<<< HEAD
+=======
+}
+
+void MainWindow::CloseSelectCamera()
+{
+    select_camera_->hide();
+    video_tag_->show();
+}
+
+void MainWindow::OpenSelectCamera()
+{
+    video_tag_->hide();
+    select_camera_->showWindow(0);
+}
+
+
+void MainWindow::on_SQ2_clicked()
+{
+
+}
+
+void MainWindow::on_SQ_clicked()
+{
+SoloSteam = new QLabel;
+
+}
+
+void MainWindow::on_SQ3_clicked()
+{
+
+>>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 }
 
 void MainWindow::CloseSelectCamera()
