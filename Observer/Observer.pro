@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,8 +19,7 @@ SOURCES += main.cpp\
     tagclass.cpp \
     movableframe.cpp \
     myqframe.cpp \
-    settingswindow.cpp \
-    settingsfile.cpp
+    settingswindow.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
@@ -28,8 +27,7 @@ HEADERS  += mainwindow.h \
     tagclass.h \
     movableframe.h \
     myqframe.h \
-    settingswindow.h \
-    settingsfile.h
+    settingswindow.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \
@@ -51,4 +49,7 @@ LIBS += -LC:\\OpenCV\\opencv_mingw\\install\\x86\\mingw\\lib \
     libopencv_imgproc2413d \
     libopencv_features2d2413d \
     libopencv_calib3d2413d \
+
+RESOURCES += \
+    image.qrc
 

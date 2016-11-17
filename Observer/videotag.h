@@ -36,6 +36,7 @@
 #include <QInputDialog>
 #include <QFont>
 #include <selectcamera.h>
+#include <QTime>
 using namespace cv;
 
 namespace Ui {
@@ -57,7 +58,6 @@ private slots:
     void on_Back_clicked();
     void on_Next_clicked();
     void ReceiveImage(Mat imgsrc);
-
 signals:
     void SendID(int id);
     void OpenSettings();
@@ -65,7 +65,7 @@ signals:
 private:
    Ui::VideoTag *ui;
    QFont setF;
-   Mat TM;
+   Mat *TM;
    TagClass *NewTag;
    QVector <TagClass*> TagContainer;
    QThread MainV,ChildV;
@@ -86,6 +86,7 @@ private:
    volatile bool start=false;
    volatile bool lock_rect = false;
    volatile bool stream = true;
+   bool LabelEmpty = true;
    VideoCapture cap;
    Mat frame;
    void ThreadStream();

@@ -2,14 +2,12 @@
 #define SELECTCAMERA_H
 #include <QMainWindow>
 #include "opencv2/opencv.hpp"
-#include "opencv2/video.hpp"
 #include <QWidget>
 #include <QPainter>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_2_0>
 #include <QTimer>
 #include <mutex>
-#include "settingsfile.h"
 using namespace cv;
 namespace Ui {
 class SelectCamera;
@@ -25,15 +23,14 @@ public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
     Mat ProcessingImage(Mat);
-    void showWindow(QString &);
-    void showWindow();
+    void showWindow(int id);
 private slots:
     void paintEvent(QPaintEvent *);
     void getImage(int);
     void resizeEvent(QResizeEvent *);
     void addImage(Mat);
     void on_timer_show();
-    void on_timer_send();
+    void on_timer_send(); // emits the signal
     void send_stop();
     void on_select_from_listButton_clicked();
     void ResizeImage();
@@ -49,14 +46,12 @@ signals:
     void RepaintLines(QVector<QPoint> &);
     void SizeChange(QResizeEvent *);
     void SendImage(Mat);
-    void OpenTagsWindow(QString &);
-    void OpenTagsWindow(settings_file::SettingsFile &);
+    void OpenTagsWindow();
 private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
     void CalculateHomography();
     void InitializationFrame();
-    void InitializeFromFile(QString &);
     void ShowImg ();
     void ShowDeviceList();
     Ui::SelectCamera *ui;
@@ -73,7 +68,5 @@ private:
     bool run_=false;
     QTimer *timer_show_;
     QTimer *timer_send_;
-    QString file_name_;
-    settings_file::SettingsFile settings_;
 };
 #endif // SELECTCAMERA_H

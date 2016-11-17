@@ -77,17 +77,6 @@ temp = it->text();
 
 }
 
-void VideoTag::on_Start_clicked()
-{
-    if(VideoTag::start==true){
-        return;
-    }
-    VideoTag::start = true;
-    stream=true;
-    std::thread thr(&VideoTag::ThreadStream, this);
-    thr.detach();
-}
-
 void VideoTag::on_AddTag_clicked()
 {
 
@@ -135,54 +124,44 @@ void VideoTag::on_AddTag_clicked()
         GetTagName = nullptr;
         VPos++;
         NewTag->TagPosition = CropArea;
-        NewTag->tag_id = VPos;  //
-        NewTag->tag_name = TagName;   // setName for the tag
+        NewTag->tag_id = VPos;
+        NewTag->tag_name = TagName;
         TagContainer.push_back(NewTag);
         NewTag = nullptr;
         ui->TagList->addItem(TagContainer.at(VPos)->tag_name);
-        firstTag = false;
-        std::thread thr (&VideoTag::TagStreamThread, this);
-        thr.detach();
+        firstTag = false; 
     }
-
 }
 
 void VideoTag::TagStreamThread(){
-
- while(stream){
     mutex.lock();
-    shot_ = shot_.copy(CropArea); // CROP function
+    shot_ = shot_.copy(CropArea); // <---- crops the area we need
     shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
     ui->TagVideo->setPixmap(QPixmap::fromImage(shot_));
     mutex.unlock();
- }
-
 }
 
 void VideoTag::ReceiveImage(Mat imgsrc){
-    qDebug()<<"received";
-    TM = imgsrc;
-    cvtColor(TM,TM,COLOR_BGR2RGB);
-    QImage qimgOriginal((uchar*)TM.data,TM.cols,TM.rows, TM.step,QImage::Format_RGB888);
-    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
+    if(!firstTag){TagStreamThread();}
+    mutex.lock();
+    frame = imgsrc;
+    cvtColor(frame,frame,COLOR_BGR2RGB);
+    QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
+    shot_ = qimgOriginal;
+    shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
-
+    mutex.unlock();
 }
 
-void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
-    cap = 0;
-    while(stream)
-    {
-      mutex.lock();
-      cap >> frame; // make frame receive imgsrc
-      cvtColor(frame,frame,COLOR_BGR2RGB);
-      QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
-      shot_ = qimgOriginal;
-      shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio);
-      qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
-      ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
-      mutex.unlock();
+void VideoTag::on_Start_clicked()
+{
+    if(VideoTag::start==true){
+        return;
     }
+    emit SendID(0);// Pass Camera ID. default is 0
+    VideoTag::start = true;
+    stream=true;
 }
 
 void VideoTag::mousePressEvent(QMouseEvent *event){
@@ -190,13 +169,12 @@ void VideoTag::mousePressEvent(QMouseEvent *event){
      rubber->close();
  }
 origin = ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()));
+qDebug()<<origin;
 rubber = new QRubberBand(QRubberBand::Rectangle,ui->MainVideo); // passing parent for QRubberBand
 rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));//
 rubber->show();
-
 }
 void VideoTag::mouseMoveEvent(QMouseEvent *event){
-
     rubber->setGeometry(QRect(origin,ui->MainVideo->mapFromGlobal(this->mapToGlobal(event->pos()))));
     qDebug()<<rubber->geometry();
 }
@@ -207,9 +185,8 @@ if(rubber->width() == 1 && rubber->height() == 1){
     CropArea = r; // on mouse release tag window will show the whole videoStream
     return;
 }
-CropArea = QRect(origin,rubber->size());
+CropArea =QRect(origin,rubber->size()); //QRect(origin,rubber->size());
 qDebug()<<CropArea;
-
 }
 void VideoTag::paintEvent(QPaintEvent *){
     QPainter p,p1;
@@ -225,11 +202,14 @@ void VideoTag::paintEvent(QPaintEvent *){
 void VideoTag::on_Back_clicked()
 {
    emit OpenSelectCamera();
+
 }
 
 void VideoTag::on_Next_clicked()
 {
+
     emit OpenSettings();
 }
+
 
 

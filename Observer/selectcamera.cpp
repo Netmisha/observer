@@ -150,14 +150,13 @@ void SelectCamera::resizeEvent(QResizeEvent *) {
     InitializationFrame();
 }
 
-void SelectCamera::showWindow(QString & file_name)
+void SelectCamera::showWindow(int id)
 {
-    InitializeFromFile(file_name);
-    this->show();
-}
-
-void SelectCamera::showWindow()
-{
+    if(id>=0) {
+        ui->list_of_cameras_comboBox->setCurrentIndex(id);
+        timer_show_->start(literals::kDefaultFPS);
+        run_=true;
+    }
     this->show();
 }
 Point2f SelectCamera::CrossingLine(std::vector<Point2f> &pts_src) {
@@ -240,8 +239,8 @@ void SelectCamera::CalculateHomography() {
     img_out_size_=Size(width, height);
 }
 void SelectCamera::on_nextButton_clicked() {
-    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
-    emit OpenTagsWindow(file_name_);
+    //ui->list_of_cameras_comboBox->setCurrentIndex(-1); // this line makes TagWindow crash
+    emit OpenTagsWindow();
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
     run_=false;
@@ -279,15 +278,6 @@ void SelectCamera::InitializationFrame() {
     ui->frame_point_3->setGeometry(ui->select_area->width()-w-1,ui->select_area->height()-h-1,w,h);
     ui->frame_point_4->setGeometry(1,ui->select_area->height()-h-1,w,h);
 }
-
-void SelectCamera::InitializeFromFile(QString &file_name)
-{
-    settings_.setFileName(file_name);
-    settings_.ReadSettings();
-    if(settings_.getCameraType()==settings_file::kLocalType)
-    ui->list_of_cameras_comboBox->setCurrentIndex(settings_.getCameraId());
-    timer_show_->start(literals::kDefaultFPS);
-}
 void SelectCamera::on_cutButton_clicked() {
     if(img_scr_.empty()) {
         return;
@@ -295,6 +285,7 @@ void SelectCamera::on_cutButton_clicked() {
     CalculateHomography();
     cuted_=true;
     resized_=!cuted_;
+    // emit that img is cutted
 }
 void SelectCamera::on_originalButton_clicked() {
     cuted_=false;
@@ -320,5 +311,5 @@ void SelectCamera::on_camera_connectButton_clicked() {
 
 void SelectCamera::closeEvent(QCloseEvent *) {
     ui->list_of_cameras_comboBox->setCurrentIndex(-1);
-    emit OpenTagsWindow(file_name_);
+    emit OpenTagsWindow();
 }
