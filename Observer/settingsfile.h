@@ -30,6 +30,9 @@ const QString kTagTimer="timer";
 const QString kAttrType="type";
 const QString kLocalType="local";
 const QString kRemoteType="remote";
+const QString kMonitoringTimer="timer";
+const QString kMonitoringTags="tags";
+const QString kMonitoringBoth="both";
 struct TagInfo{
     QString name_;
     QRect rect_;
@@ -50,6 +53,7 @@ public:
     QSize &getCameraSize();
     QVector<TagInfo> &getTagsList();
     QVector<QString> &getMonitoringTags();
+    QString &getMonitoringType();
     double &getTimer();
     void setFileName(QString &);
     void setCameraName(QString &);
@@ -60,6 +64,7 @@ public:
     void setCameraSize(QSize &);
     void setTagsList(QVector<TagInfo> &);
     void setMonitoringTags(QVector<QString>);
+    void setMonitoringType(QString);
     void setTimer(double);
     void SaveSettings();
     void ReadSettings();
@@ -77,6 +82,7 @@ private:
     QVector<TagInfo> tags_list_;
     QVector<QString> monitoring_tags_;
     double timer_;
+    QString monitoring_type_;
 };
 }
 #endif // SETTINGSFILE_H

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QListWidgetItem>
 #include "settingsfile.h"
 
 class XMLHighlighter;
@@ -19,25 +20,31 @@ class SettingsWindow : public QMainWindow
 public:
     explicit SettingsWindow(QWidget *parent = 0);
     ~SettingsWindow();
+    void ShowWindow(QString &);
 signals:
     void OpenMainWindow();
-    void OpenTagsWindow();
+    void OpenTagsWindow(QString &);
 private slots:
     void on_open_tags_window_clicked();
     void closeEvent(QCloseEvent *);
     void on_close_settings_clicked();
-
     void on_open_dialogButton_clicked();
-
     void on_setting_fileEdit_editingFinished();
-
     void on_save_fileButton_clicked();
-
+    void on_save_timeButton_clicked();
+    void on_both_radioButton_clicked();
+    void on_on_change_radioButton_clicked();
+    void on_timer_radioButton_clicked();
+    void on_tags_listWidget_itemChanged(QListWidgetItem *);
+    void on_setting_textEdit_textChanged();
 private:
     void ClearAll();
-    void Initialize();
+    void Initialize(QString &);
+    void ShowSettings();
+    void SaveSettings();
+    void WarningMessage();
     Ui::SettingsWindow *ui;
-    settings_file::SettingsFile s;
+    settings_file::SettingsFile settings_file_;
 };
 
 #endif // SETTINGSWINDOW_H

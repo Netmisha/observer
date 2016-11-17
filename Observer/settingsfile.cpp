@@ -4,23 +4,6 @@ SettingsFile::SettingsFile(){}
 
 SettingsFile::SettingsFile(QString file_name):file_name_(file_name) {
     ReadSettings();
-    /*camera_name_="Camera_1";
-    camera_type_="local";
-    camera_path_="";
-    camera_id_=1;
-    crop_points_.push_back(QPoint(0,0));
-    crop_points_.push_back(QPoint(100,0));
-    crop_points_.push_back(QPoint(100,100));
-    crop_points_.push_back(QPoint(0,100));
-    camera_size_=QSize(640,480);
-    tags_list_.push_back(TagInfo(QString("Tag_1"), QRect(QPoint(0,0),QSize(100,100))));
-    tags_list_.push_back(TagInfo(QString("Tag_2"), QRect(QPoint(0,0),QSize(100,100))));
-    tags_list_.push_back(TagInfo(QString("Tag_3"), QRect(QPoint(0,0),QSize(100,100))));
-    monitoring_tags_.push_back(QString("Tag_1"));
-    monitoring_tags_.push_back(QString("Tag_2"));
-    monitoring_tags_.push_back(QString("Tag_3"));
-    timer_=1.0;*/
-
 }
 QString & SettingsFile::getFileName() {
     return file_name_;
@@ -49,6 +32,9 @@ QVector<TagInfo> & SettingsFile::getTagsList() {
 QVector<QString> & SettingsFile::getMonitoringTags() {
     return monitoring_tags_;
 }
+QString &SettingsFile::getMonitoringType() {
+    return monitoring_type_;
+}
 double & SettingsFile::getTimer() {
     return timer_;
 }
@@ -68,16 +54,22 @@ void SettingsFile::setCameraId(int camera_id) {
     camera_id_=camera_id;
 }
 void SettingsFile::setCropPoints(QVector<QPoint> &crop_points) {
+    crop_points_.clear();
     crop_points_=crop_points;
 }
 void SettingsFile::setCameraSize(QSize &camera_size) {
     camera_size_=camera_size;
 }
 void SettingsFile::setTagsList(QVector<TagInfo> &tags_list) {
+    tags_list_.clear();
     tags_list_=tags_list;
 }
 void SettingsFile::setMonitoringTags(QVector<QString>monitoring_tags) {
+    monitoring_tags_.clear();
     monitoring_tags_=monitoring_tags;
+}
+void SettingsFile::setMonitoringType(QString type){
+    monitoring_type_=type;
 }
 void SettingsFile::setTimer(double timer) {
     timer_=timer;
@@ -88,6 +80,9 @@ void SettingsFile::SaveSettings() {
     GenerateSettingsFile(file);
 }
 void SettingsFile::ReadSettings() {
+    tags_list_.clear();
+    monitoring_tags_.clear();
+    crop_points_.clear();
     QFile file(file_name_);
     file.open(QIODevice::ReadOnly);
     ParseSettingsFile(file);
@@ -139,6 +134,7 @@ void SettingsFile::GenerateSettingsFile(QFile &file) {
     }
     xmlWriter.writeEndElement();
     xmlWriter.writeStartElement(kTagSettings);
+    xmlWriter.writeAttribute(kAttrType,monitoring_type_);
     xmlWriter.writeStartElement(kTagEvents);
     for(auto & it:monitoring_tags_) {
         xmlWriter.writeTextElement(kTagName,it);
@@ -237,6 +233,7 @@ void SettingsFile::ParseSettingsFile(QFile &file) {
             }
             if(Rxml.name() == kTagSettings)
             {
+                monitoring_type_ = Rxml.attributes().value(kAttrType).toString();
                 Rxml.readNext();
                 while (Rxml.name() != kTagTimer) {
                     if(Rxml.name() == kTagName) {

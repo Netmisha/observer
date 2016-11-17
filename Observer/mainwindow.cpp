@@ -44,7 +44,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    settings_->show();
+    QString file_name="1.xml";
+    settings_->ShowWindow(file_name);
     this->hide();
 }
 
@@ -75,7 +76,7 @@ void MainWindow::CloseSelectCamera()
 void MainWindow::OpenSelectCamera()
 {
     video_tag_->hide();
-    select_camera_->showWindow(0);
+    select_camera_->showWindow();
 }
 
 
