@@ -39,7 +39,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 }
 void MainWindow::Stream2nd(Mat imgsrc){
     SecondFrame = imgsrc;
-    QImage qimgOriginal((uchar*)SecondFrame.data,SecondFrame.cols,SecondFrame.rows, SecondFrame.step,QImage::Format_RGB444);
+    QImage qimgOriginal((uchar*)SecondFrame.data,SecondFrame.cols,SecondFrame.rows, SecondFrame.step,QImage::Format_RGB666);
     qimgOriginal =  qimgOriginal.scaled(ui->Stream2_1->width(),ui->Stream2_1->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->Stream2_1->setPixmap(QPixmap::fromImage(qimgOriginal));
 }
@@ -66,6 +66,7 @@ void MainWindow::showContextMenu(QPoint pos){
     if(rightclick && rightclick->text().contains("Add to 2nd subscreen")){
        qDebug()<<"Begin stream to second window";
        emit CameraID2_1(ui->CameraList->currentRow());
+
     }
     else if(rightclick && rightclick->text().contains("Add to 3rd subscreen")){
        emit CameraID3_2(ui->CameraList->currentRow());
