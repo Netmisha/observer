@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,12 +19,7 @@ SOURCES += main.cpp\
     tagclass.cpp \
     movableframe.cpp \
     myqframe.cpp \
-<<<<<<< HEAD
     settingswindow.cpp
-=======
-    settingswindow.cpp \
-    settingsfile.cpp
->>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
@@ -32,12 +27,7 @@ HEADERS  += mainwindow.h \
     tagclass.h \
     movableframe.h \
     myqframe.h \
-<<<<<<< HEAD
     settingswindow.h
-=======
-    settingswindow.h \
-    settingsfile.h
->>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

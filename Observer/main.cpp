@@ -4,10 +4,6 @@
 #include <QApplication>
 #include <videotag.h>
 #include <iostream>
-<<<<<<< HEAD
-=======
-#include "settingsfile.h"
->>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 int main(int argc, char *argv[])
 {
 

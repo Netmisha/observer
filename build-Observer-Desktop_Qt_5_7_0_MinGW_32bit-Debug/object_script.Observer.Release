@@ -1,0 +1,17 @@
+INPUT(
+./release/main.o
+./release/mainwindow.o
+./release/selectcamera.o
+./release/videotag.o
+./release/tagclass.o
+./release/movableframe.o
+./release/myqframe.o
+./release/settingswindow.o
+./release/qrc_image.o
+./release/moc_mainwindow.o
+./release/moc_selectcamera.o
+./release/moc_videotag.o
+./release/moc_movableframe.o
+./release/moc_myqframe.o
+./release/moc_settingswindow.o
+);
