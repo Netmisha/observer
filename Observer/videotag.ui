@@ -113,6 +113,7 @@
    </item>
   </layout>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   <zorder>TagList</zorder>
   <zorder>Start</zorder>
@@ -125,6 +126,8 @@
   <zorder>horizontalSpacer</zorder>
   <zorder>horizontalSpacer_2</zorder>
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+>>>>>>> master
  </widget>
  <resources/>
  <connections/>

@@ -59,9 +59,12 @@ private slots:
     void on_Next_clicked();
     void ReceiveImage(Mat imgsrc);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+>>>>>>> master
 signals:
     void SendID(int id);
     void OpenSettings();
@@ -70,10 +73,14 @@ private:
    Ui::VideoTag *ui;
    QFont setF;
 <<<<<<< HEAD
+<<<<<<< HEAD
    Mat *TM;
 =======
    Mat TM;
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+   Mat *TM;
+>>>>>>> master
    TagClass *NewTag;
    QVector <TagClass*> TagContainer;
    QThread MainV,ChildV;

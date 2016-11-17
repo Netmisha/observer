@@ -78,6 +78,7 @@ temp = it->text();
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 void VideoTag::on_Start_clicked()
 {
@@ -91,6 +92,8 @@ void VideoTag::on_Start_clicked()
 }
 
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+>>>>>>> master
 void VideoTag::on_AddTag_clicked()
 {
 
@@ -150,16 +153,41 @@ void VideoTag::on_AddTag_clicked()
 =======
 
 void VideoTag::TagStreamThread(){
+<<<<<<< HEAD
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
 
 void VideoTag::TagStreamThread(){
+=======
+>>>>>>> master
     mutex.lock();
     shot_ = shot_.copy(CropArea); // <---- crops the area we need
     shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
     ui->TagVideo->setPixmap(QPixmap::fromImage(shot_));
     mutex.unlock();
+<<<<<<< HEAD
 }
 
+void VideoTag::ReceiveImage(Mat imgsrc){
+    if(!firstTag){TagStreamThread();}
+    mutex.lock();
+    frame = imgsrc;
+    cvtColor(frame,frame,COLOR_BGR2RGB);
+    QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
+    shot_ = qimgOriginal;
+    shot_ = shot_.scaled(ui->TagVideo->width(),ui->TagVideo->height(), Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
+    mutex.unlock();
+=======
+>>>>>>> master
+}
+
+<<<<<<< HEAD
+void VideoTag::on_Start_clicked()
+{
+    if(VideoTag::start==true){
+        return;
+=======
 void VideoTag::ReceiveImage(Mat imgsrc){
     if(!firstTag){TagStreamThread();}
     mutex.lock();
@@ -174,21 +202,6 @@ void VideoTag::ReceiveImage(Mat imgsrc){
 }
 
 <<<<<<< HEAD
-void VideoTag::on_Start_clicked()
-{
-    if(VideoTag::start==true){
-        return;
-=======
-void VideoTag::ReceiveImage(Mat imgsrc){
-    qDebug()<<"received";
-    TM = imgsrc;
-    cvtColor(TM,TM,COLOR_BGR2RGB);
-    QImage qimgOriginal((uchar*)TM.data,TM.cols,TM.rows, TM.step,QImage::Format_RGB888);
-    qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::KeepAspectRatio);
-    ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
-
-}
-
 void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
     cap = 0;
     while(stream)
@@ -203,6 +216,12 @@ void VideoTag::ThreadStream(){ // Stream to MainStreamWindow
       ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
       mutex.unlock();
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+void VideoTag::on_Start_clicked()
+{
+    if(VideoTag::start==true){
+        return;
+>>>>>>> master
     }
     emit SendID(0);// Pass Camera ID. default is 0
     VideoTag::start = true;
@@ -248,22 +267,34 @@ void VideoTag::on_Back_clicked()
 {
    emit OpenSelectCamera();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+
+>>>>>>> master
 }
 
 void VideoTag::on_Next_clicked()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+
+>>>>>>> master
     emit OpenSettings();
 }
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+
+>>>>>>> master

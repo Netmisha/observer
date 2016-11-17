@@ -35,10 +35,14 @@ private slots:
     void addImage(Mat);
     void on_timer_show();
 <<<<<<< HEAD
+<<<<<<< HEAD
     void on_timer_send(); // emits the signal
 =======
     void on_timer_send();
 >>>>>>> 6d8eb3eafc2e8426feb8594babd77383d6c11e84
+=======
+    void on_timer_send(); // emits the signal
+>>>>>>> master
     void send_stop();
     void on_select_from_listButton_clicked();
     void ResizeImage();

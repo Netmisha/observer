@@ -38,12 +38,15 @@ private slots:
     void closeEvent(QCloseEvent *);
     void on_close_settings_clicked();
 <<<<<<< HEAD
+<<<<<<< HEAD
     void on_open_dialogButton_clicked();
 
 private:
     Ui::SettingsWindow *ui;
 =======
 
+=======
+>>>>>>> master
     void on_open_dialogButton_clicked();
 
     void on_setting_fileEdit_editingFinished();
