@@ -32,6 +32,14 @@ Mat SelectCamera::ProcessingImage(Mat img_src) {
     warpPerspective(img_src, img_out, homography_, img_out_size_);
     return img_out;
 }
+
+QVector<QString> &SelectCamera::getCameraList(){
+    return camera_list_;
+}
+void SelectCamera::showWindow(QString &file_name){
+    InitializeFromFile(file_name);
+    this->show();
+}
 void SelectCamera::ShowDeviceList() {
     int device_count=0;
     while (device_count<100) {
@@ -40,6 +48,7 @@ void SelectCamera::ShowDeviceList() {
             break;
         cap_.release();
         ui->list_of_cameras_comboBox->addItem(QString("Camera_%1").arg(++device_count));
+        camera_list_.push_back(QString("Camera_%1").arg(device_count));
         ui->list_of_cameras_comboBox->setCurrentIndex(-1);
     }
 }
@@ -63,8 +72,7 @@ void SelectCamera::on_remote_cameraButton_clicked() {
         run_=false;
     }
 }
-void SelectCamera::ShowImg () {
-
+void SelectCamera::ShowImg () { //need change for setting file;
     cap_ >> img_scr_;
     if(cuted_){
         img_scr_=ProcessingImage(img_scr_);
@@ -82,7 +90,7 @@ void SelectCamera::ShowImg () {
         }
     }
 }
-void SelectCamera::addImage( Mat img_scr_) {
+void SelectCamera::addImage( Mat img_scr_) {//need change for setting file;
     if(mtx_.try_lock()) {
         cvtColor(img_scr_,img_scr_,COLOR_BGR2RGB);
         image_ = QImage((const unsigned char*)(img_scr_.data),
@@ -103,15 +111,14 @@ void SelectCamera::on_timer_send() {
         emit SendImage(img_scr_);
     }
 }
-
 void SelectCamera::send_stop() {
     timer_send_->stop();
     cap_.release();
 }
-void SelectCamera::on_timer_show() {
+void SelectCamera::on_timer_show() {//need change for setting file;
     ShowImg();
 }
-void SelectCamera::ResizeImage() {
+void SelectCamera::ResizeImage() {//need change for setting file;
     int width=ui->widget->width();
     int height=ui->widget->height();
     float kof=(float)image_.width()/(float)width;
@@ -131,15 +138,14 @@ void SelectCamera::ResizeImage() {
 void SelectCamera::paintEvent(QPaintEvent *) {
     FrameMoving();
 }
-
-void SelectCamera::getImage(int id)
+void SelectCamera::getImage(int id) //need change for setting file;
 {
     cap_.open(id);
     if(!cap_.isOpened())
         return;
     timer_send_->start(literals::kDefaultFPS);
 }
-void SelectCamera::resizeEvent(QResizeEvent *) {
+void SelectCamera::resizeEvent(QResizeEvent *) {//need change for setting file;
     ResizeImage();
     if(img_size_.width()==0) {
         ui->image_scene->setGeometry(QRect(QPoint(0,0), ui->widget->size()));
@@ -149,14 +155,7 @@ void SelectCamera::resizeEvent(QResizeEvent *) {
     ui->select_area->setGeometry(QRect(ui->image_scene->pos(), ui->image_scene->size()));
     InitializationFrame();
 }
-
-void SelectCamera::showWindow(int id)
-{
-    if(id>=0) {
-        ui->list_of_cameras_comboBox->setCurrentIndex(id);
-        timer_show_->start(literals::kDefaultFPS);
-        run_=true;
-    }
+void SelectCamera::showWindow() {
     this->show();
 }
 Point2f SelectCamera::CrossingLine(std::vector<Point2f> &pts_src) {
@@ -277,6 +276,19 @@ void SelectCamera::InitializationFrame() {
     ui->frame_point_2->setGeometry(ui->select_area->width()-w-1,1,w,h);
     ui->frame_point_3->setGeometry(ui->select_area->width()-w-1,ui->select_area->height()-h-1,w,h);
     ui->frame_point_4->setGeometry(1,ui->select_area->height()-h-1,w,h);
+}
+
+void SelectCamera::InitializeFromFile(QString &file_name)
+{
+    settings_.setFileName(file_name);
+    settings_.ReadSettings();
+    if(settings_.getCameraType()==settings_file::kLocalType) {
+        ui->list_of_cameras_comboBox->setCurrentIndex(settings_.getCameraId());
+    }
+    else {
+        //ui->list_of_cameras_comboBox->setCurrentIndex(settings_.getCameraId()); // show stream from IP camera
+    }
+    timer_show_->start(literals::kDefaultFPS);
 }
 void SelectCamera::on_cutButton_clicked() {
     if(img_scr_.empty()) {

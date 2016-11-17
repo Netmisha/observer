@@ -180,7 +180,7 @@ void MainWindow::CloseSelectCamera()
 void MainWindow::OpenSelectCamera()
 {
     video_tag_->hide();
-    select_camera_->showWindow(0);
+    select_camera_->showWindow();
 }
 
 
