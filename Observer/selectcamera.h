@@ -8,7 +8,9 @@
 #include <QOpenGLFunctions_2_0>
 #include <QTimer>
 #include <mutex>
+#include <settingsfile.h>
 using namespace cv;
+using namespace  settings_file;
 namespace Ui {
 class SelectCamera;
 }
@@ -42,11 +44,12 @@ private slots:
     void on_originalButton_clicked();
     void on_camera_connectButton_clicked();
     void closeEvent(QCloseEvent *);
+    void ReceiveObj(SettingsFile *obj);
 signals:
     void RepaintLines(QVector<QPoint> &);
     void SizeChange(QResizeEvent *);
     void SendImage(Mat);
-    void OpenTagsWindow();
+    void OpenTagsWindow(SettingsFile *obj);
 private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
@@ -54,6 +57,7 @@ private:
     void InitializationFrame();
     void ShowImg ();
     void ShowDeviceList();
+    settings_file::SettingsFile *SF; // transfering to tags
     Ui::SelectCamera *ui;
     VideoCapture cap_;
     Mat homography_;

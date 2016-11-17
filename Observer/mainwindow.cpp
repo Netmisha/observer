@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     video_tag_=new VideoTag (parent);
     select_camera_=new SelectCamera(parent);
     connect(settings_, SIGNAL(OpenMainWindow()), this, SLOT(CloseSettings()));
-    connect(settings_, SIGNAL(OpenTagsWindow()), this, SLOT(OpenTags()));
-    connect(select_camera_, SIGNAL(OpenTagsWindow()), this, SLOT(CloseSelectCamera()));
+    connect(settings_, SIGNAL(OpenTagsWindow(QString&)), this, SLOT(OpenTags()));
+    connect(select_camera_, SIGNAL(OpenTagsWindow(SettingsFile*)), this, SLOT(CloseSelectCamera()));
     connect(video_tag_, SIGNAL(OpenSelectCamera()), this, SLOT(OpenSelectCamera()));
     connect(video_tag_, SIGNAL(OpenSettings()), this, SLOT(CloseTags()));
     QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
@@ -19,9 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this,SIGNAL(CameraID(int)),select_camera_,SLOT(getImage(int)));
     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
     QObject::connect(ui->CameraList,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(showContextMenu(QPoint)));
-
+    QObject::connect(select_camera_,SIGNAL(OpenTagsWindow(SettingsFile*)),video_tag_,SLOT(ReceiveSettings(SettingsFile*)));
     QObject::connect(this,SIGNAL(CameraID2_1(int)),select_camera_,SLOT(getImage(int)));
     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream2nd(Mat)));
+    QObject::connect(video_tag_,SIGNAL(OpenSelectCamer(SettingsFile*)),select_camera_,SLOT(ReceiveObj(SettingsFile*)));
 
     QObject::connect(this,SIGNAL(CameraID3_2(int)),select_camera_,SLOT(getImage(int)));
     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream4th(Mat)));

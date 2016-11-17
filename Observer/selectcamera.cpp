@@ -22,6 +22,7 @@ SelectCamera::SelectCamera(QWidget *parent) :
     InitializationFrame();
     ui->image_scene->setVisible(run_);
     ui->widget->resize(width()-2,height()-ui->verticalLayout_4->geometry().height()-ui->horizontalLayout->geometry().height()-ui->statusbar->height()-195);
+    SF = new settings_file::SettingsFile;
 }
 SelectCamera::~SelectCamera() {
     run_=false;
@@ -239,8 +240,12 @@ void SelectCamera::CalculateHomography() {
     img_out_size_=Size(width, height);
 }
 void SelectCamera::on_nextButton_clicked() {
-    //ui->list_of_cameras_comboBox->setCurrentIndex(-1); // this line makes TagWindow crash
-    emit OpenTagsWindow();
+    //ui->list_of_cameras_comboBox->setCurrentIndex(-1); // this line makes TagWindow cras
+    emit OpenTagsWindow(SF);
+}
+void SelectCamera::ReceiveObj(SettingsFile *obj){
+
+    SF = obj;
 }
 void SelectCamera::on_list_of_cameras_comboBox_currentIndexChanged(int index) {
     run_=false;
@@ -311,5 +316,5 @@ void SelectCamera::on_camera_connectButton_clicked() {
 
 void SelectCamera::closeEvent(QCloseEvent *) {
     ui->list_of_cameras_comboBox->setCurrentIndex(-1);
-    emit OpenTagsWindow();
+    emit OpenTagsWindow(SF);
 }

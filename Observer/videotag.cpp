@@ -15,12 +15,16 @@ VideoTag::VideoTag(QWidget *parent) :
        connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
        ui->TagVideo->setText("Offline"); ui->TagVideo->setAlignment(Qt::AlignCenter); setF = ui->TagVideo->font();setF.setItalic(true);setF.setPointSize(10); ui->TagVideo->setFont(setF);
        ui->MainVideo->setText("Offline"); ui->MainVideo->setAlignment(Qt::AlignCenter); ui->MainVideo->setFont(setF);
-
+        cop = nullptr;
 }
 
 VideoTag::~VideoTag()
 {
     delete ui;
+}
+void VideoTag::ReceiveSettings(settings_file::SettingsFile *obj){
+    cop = obj;
+
 }
 void VideoTag::itemClicked(){
     CropArea = TagContainer.at(ui->TagList->currentRow())->TagPosition;
@@ -201,8 +205,12 @@ void VideoTag::paintEvent(QPaintEvent *){
 }
 void VideoTag::on_Back_clicked()
 {
-   emit OpenSelectCamera();
+   if(cop == nullptr){
 
+   }
+   else{
+   emit OpenSelectCamer(cop);
+    }
 }
 
 void VideoTag::on_Next_clicked()

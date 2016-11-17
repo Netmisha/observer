@@ -16,8 +16,9 @@ SettingsWindow::~SettingsWindow()
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
-    WarningMessage();
-    emit OpenTagsWindow(settings_file_.getFileName());
+    //WarningMessage();
+
+    emit OpenTagsWindow(settings_file_.getCameraName());
 }
 
 void SettingsWindow::ShowWindow(QString &file_name)

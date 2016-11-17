@@ -9,6 +9,7 @@
 #include  <opencv2/highgui/highgui.hpp>
 #include <mutex>
 #include <QMouseEvent>
+#include <settingsfile.h>
 namespace Ui {
 class MainWindow;
 }
