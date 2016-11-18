@@ -25,6 +25,15 @@ VideoTag::~VideoTag()
 void VideoTag::itemClicked(){
     CropArea = TagContainer.at(ui->TagList->currentRow())->TagPosition;
 }
+void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
+    this->show();
+    qDebug()<<obj->getCameraId();
+    Tobj = obj;
+}
+void VideoTag::ReceiveFromSetting(SettingsFile *obj){
+    this->show();
+    Tobj = obj;
+}
 void VideoTag::showContextMenu(const QPoint &pos){
     QPoint item = ui->TagList->mapToGlobal(pos);
     TagListItem = item;
@@ -201,14 +210,17 @@ void VideoTag::paintEvent(QPaintEvent *){
 }
 void VideoTag::on_Back_clicked()
 {
-   emit OpenSelectCamera();
+    this->hide();
+    emit SendSettingSelectCamera(Tobj);
+    //emit OpenSelectCamera();
 
 }
 
 void VideoTag::on_Next_clicked()
 {
-
-    emit OpenSettings();
+    this->hide();
+    emit SendToSettingsWindow(Tobj);
+    //emit OpenSettings();
 }
 
 

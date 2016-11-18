@@ -56,10 +56,8 @@ public:
     QString &getMonitoringType();
     double &getTimer();
     void setFileName(QString &);
-    void addNewCamera(QString &, int);
-    void addNewCamera(QString &, QString &);
     void setCameraName(QString &);
-    void setCameraType(QString);
+    void setCameraType(QString &);
     void setCameraPath(QString &);
     void setCameraId(int);
     void setCropPoints(QVector<QPoint> &);

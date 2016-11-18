@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>995</width>
-    <height>665</height>
+    <height>672</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -253,7 +253,7 @@
       <item>
        <widget class="QWidget" name="widget" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -261,17 +261,23 @@
         <widget class="MyQFrame" name="select_area">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>0</y>
+           <x>20</x>
+           <y>10</y>
            <width>500</width>
            <height>304</height>
           </rect>
          </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -398,23 +404,17 @@
         <widget class="QLabel" name="image_scene">
          <property name="geometry">
           <rect>
-           <x>540</x>
-           <y>30</y>
-           <width>461</width>
-           <height>281</height>
+           <x>90</x>
+           <y>280</y>
+           <width>371</width>
+           <height>81</height>
           </rect>
          </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::Box</enum>
          </property>
          <property name="lineWidth">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="text">
           <string/>
@@ -488,6 +488,20 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Settings">
+          <property name="text">
+           <string>Settings</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="MainWindow">
+          <property name="text">
+           <string>MainWindow</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="nextButton">

@@ -20,8 +20,7 @@ SOURCES += main.cpp\
     movableframe.cpp \
     myqframe.cpp \
     settingswindow.cpp \
-    settingsfile.cpp \
-    videostream.cpp
+    settingsfile.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
@@ -30,8 +29,7 @@ HEADERS  += mainwindow.h \
     movableframe.h \
     myqframe.h \
     settingswindow.h \
-    settingsfile.h \
-    videostream.h
+    settingsfile.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

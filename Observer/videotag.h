@@ -37,8 +37,9 @@
 #include <QFont>
 #include <selectcamera.h>
 #include <QTime>
+#include <settingsfile.h>
 using namespace cv;
-
+using namespace settings_file;
 namespace Ui {
 class VideoTag;
 }
@@ -58,12 +59,17 @@ private slots:
     void on_Back_clicked();
     void on_Next_clicked();
     void ReceiveImage(Mat imgsrc);
+    void ReceiveFromSelectCamera(SettingsFile *obj);
+    void ReceiveFromSetting(SettingsFile *obj);
 signals:
     void SendID(int id);
     void OpenSettings();
     void OpenSelectCamera();
+    void SendToSettingsWindow(SettingsFile *obj);
+    void SendSettingSelectCamera(SettingsFile *obj);
 private:
    Ui::VideoTag *ui;
+   SettingsFile *Tobj;
    QFont setF;
    Mat *TM;
    TagClass *NewTag;

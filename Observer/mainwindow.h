@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <settingsfile.h>
 #include <QMainWindow>
 #include "videotag.h"
 #include "selectcamera.h"
@@ -9,6 +9,7 @@
 #include  <opencv2/highgui/highgui.hpp>
 #include <mutex>
 #include <QMouseEvent>
+using namespace settings_file;
 namespace Ui {
 class MainWindow;
 }
@@ -18,15 +19,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+     SettingsFile *SettingsF;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
-    void CloseSettings();
-    void OpenTags();
-    void CloseTags();
-    void CloseSelectCamera();
-    void OpenSelectCamera();
+
     void on_SQ2_clicked();
     void on_SQ_clicked();
     void on_SQ3_clicked();
@@ -38,13 +36,19 @@ private slots:
     //void Stream3rd(Mat img);
    // void Stream4th(Mat img);
  void showContextMenu(QPoint pos);
+ void on_SelectCameraButton_clicked();
+ void ReceiveSettingFromSetW(SettingsFile *obj);
+void ReceiveFromSC(SettingsFile *obj);
 signals:
     void CameraID(int id);
     void CameraID2_1(int id);
     void CameraID3_2(int id);
     void CameraID3_3(int id);
-private:
+    void OpenSCWindow();
+    void PassSettingFile(SettingsFile *obj);
+    void PassOnSelectCamera(SettingsFile *obj);
 
+private:
     typedef struct {int id; QString name;}cameras;
     void ShowListCamera();
     void GetQuantCamer();
