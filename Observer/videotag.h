@@ -61,6 +61,7 @@ private slots:
     void ReceiveImage(Mat imgsrc);
     void ReceiveFromSelectCamera(SettingsFile *obj);
     void ReceiveFromSetting(SettingsFile *obj);
+    void FillXML(TagClass *stuff);
 signals:
     void SendID(int id);
     void OpenSettings();
