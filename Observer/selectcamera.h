@@ -15,7 +15,7 @@ public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
     QVector<QString> &getCameraList();
-    void showWindow(settings_file::SettingsFile &);
+    void showWindow(settings_file::SettingsFile *);
     void showWindow();
 private slots:
     void on_select_from_listButton_clicked();
@@ -30,7 +30,7 @@ private slots:
     void on_camera_connectButton_clicked();
 
 signals:
-    OpenTagsWindow(settings_file::SettingsFile &);
+    OpenTagsWindow(settings_file::SettingsFile *);
     RepaintLines(QVector<QPoint> &);
 private:
     void Refresh();

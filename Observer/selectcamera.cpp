@@ -14,8 +14,8 @@ SelectCamera::~SelectCamera() {
 void SelectCamera::showWindow() {
     this->show();
 }
-void SelectCamera::showWindow(settings_file::SettingsFile &settings){
-    InitializeFromFile(settings);
+void SelectCamera::showWindow(settings_file::SettingsFile *settings){
+    InitializeFromFile(*settings);
     this->show();
 }
 QVector<QString> &SelectCamera::getCameraList(){
@@ -101,7 +101,7 @@ void SelectCamera::ShowImage(Mat img) {
 }
 void SelectCamera::on_nextButton_clicked() {
     Refresh();
-    emit OpenTagsWindow(video_stream_.getSettings());
+    emit OpenTagsWindow(&video_stream_.getSettings());
 }
 void SelectCamera::on_originalButton_clicked() {
    QVector<QPoint> p(0);
@@ -138,7 +138,7 @@ void SelectCamera::on_camera_connectButton_clicked() {
     ui->image_scene->setVisible(true);
     ui->select_area->setVisible(true);
     scan_camera_=true;
-    QString name("http://80.57.203.42:8001/mjpg/video.mjpg");
+    QString name("http://192.168.226.101:8080/video?x.mjpeg");
     video_stream_.addNewCamera(name,name);
     video_stream_.StartStream();
 }
