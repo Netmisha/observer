@@ -133,3 +133,12 @@ void SelectCamera::Refresh() {
     ui->image_scene->setVisible(false);
     ui->select_area->setVisible(false);
 }
+
+void SelectCamera::on_camera_connectButton_clicked() {
+    ui->image_scene->setVisible(true);
+    ui->select_area->setVisible(true);
+    scan_camera_=true;
+    QString name("http://80.57.203.42:8001/mjpg/video.mjpg");
+    video_stream_.addNewCamera(name,name);
+    video_stream_.StartStream();
+}

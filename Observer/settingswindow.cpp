@@ -17,14 +17,14 @@ SettingsWindow::~SettingsWindow()
 void SettingsWindow::on_open_tags_window_clicked()
 {
     WarningMessage();
-    emit OpenTagsWindow(settings_file_.getFileName());
+    emit OpenTagsWindow(settings_file_);
 }
 
-void SettingsWindow::ShowWindow(QString &file_name)
+void SettingsWindow::ShowWindow(settings_file::SettingsFile &settings)
 {
     this->show();
-    settings_file_.setFileName(file_name);
-    Initialize(file_name);
+    settings_file_=settings;
+    Initialize(settings.getFileName());
 }
 
 void SettingsWindow::closeEvent(QCloseEvent *)

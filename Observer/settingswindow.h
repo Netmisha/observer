@@ -20,10 +20,10 @@ class SettingsWindow : public QMainWindow
 public:
     explicit SettingsWindow(QWidget *parent = 0);
     ~SettingsWindow();
-    void ShowWindow(QString &);
+    void ShowWindow(settings_file::SettingsFile &);
 signals:
     void OpenMainWindow();
-    void OpenTagsWindow(QString &);
+    void OpenTagsWindow(settings_file::SettingsFile &);
 private slots:
     void on_open_tags_window_clicked();
     void closeEvent(QCloseEvent *);
