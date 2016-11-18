@@ -59,13 +59,17 @@ private slots:
     void on_Back_clicked();
     void on_Next_clicked();
     void ReceiveImage(Mat imgsrc);
-    void ReceiveSettings(SettingsFile *obj);
+    void ReceiveFromSelectCamera(SettingsFile *obj);
+    void ReceiveFromSetting(SettingsFile *obj);
 signals:
     void SendID(int id);
     void OpenSettings();
-    void OpenSelectCamer(SettingsFile *obj);
+    void OpenSelectCamera();
+    void SendToSettingsWindow(SettingsFile *obj);
+    void SendSettingSelectCamera(SettingsFile *obj);
 private:
    Ui::VideoTag *ui;
+   SettingsFile *Tobj;
    QFont setF;
    Mat *TM;
    TagClass *NewTag;
@@ -73,7 +77,6 @@ private:
    QThread MainV,ChildV;
    QRubberBand *rubber;
    QImage shot_; QImage EmptyList;
-   SettingsFile *cop;
    QImage TagImg;
    QRect CropArea;
    QMutex mutex;

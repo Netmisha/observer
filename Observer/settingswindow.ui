@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>882</width>
-    <height>565</height>
+    <height>570</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -503,6 +503,32 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="mainwindow">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>MainWindow</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectcamera">
+          <property name="text">
+           <string>select camera</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer_3">
           <property name="minimumSize">
            <size>
@@ -526,25 +552,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="close_settings">
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>80</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Close</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>

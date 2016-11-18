@@ -8,9 +8,11 @@
 #include <QOpenGLFunctions_2_0>
 #include <QTimer>
 #include <mutex>
+#include "settingsfile.h"
 #include <settingsfile.h>
+using namespace settings_file;
+
 using namespace cv;
-using namespace  settings_file;
 namespace Ui {
 class SelectCamera;
 }
@@ -25,8 +27,13 @@ public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
     Mat ProcessingImage(Mat);
-    void showWindow(int id);
+    QVector<QString> &getCameraList();
+    void showWindow(QString &);
+    void showWindow();
 private slots:
+    void ReceiveFromMainWindow(SettingsFile *obj);
+    void ReceiveFromTags(SettingsFile *obj);
+    void ReceiveSettingSW(SettingsFile *obj);
     void paintEvent(QPaintEvent *);
     void getImage(int);
     void resizeEvent(QResizeEvent *);
@@ -44,21 +51,28 @@ private slots:
     void on_originalButton_clicked();
     void on_camera_connectButton_clicked();
     void closeEvent(QCloseEvent *);
-    void ReceiveObj(SettingsFile *obj);
+    void on_MainWindow_clicked();
+    void on_Settings_clicked();
+
 signals:
     void RepaintLines(QVector<QPoint> &);
     void SizeChange(QResizeEvent *);
     void SendImage(Mat);
-    void OpenTagsWindow(SettingsFile *obj);
+    void OpenTagsWindow();
+    void PassToTagWindow(SettingsFile *obj);
+    void PassToMain(SettingsFile *obj);
+    void SendToSettings(SettingsFile *obj);
 private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
     void CalculateHomography();
     void InitializationFrame();
+    void InitializeFromFile(QString &);
     void ShowImg ();
     void ShowDeviceList();
-    settings_file::SettingsFile *SF; // transfering to tags
+
     Ui::SelectCamera *ui;
+    SettingsFile *SettingF;
     VideoCapture cap_;
     Mat homography_;
     Mat img_scr_;
@@ -72,5 +86,8 @@ private:
     bool run_=false;
     QTimer *timer_show_;
     QTimer *timer_send_;
+    QString file_name_;
+    settings_file::SettingsFile settings_;
+    QVector<QString> camera_list_;
 };
 #endif // SELECTCAMERA_H

@@ -1,7 +1,7 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
 #include <QMessageBox>
-
+#include <QDebug>
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SettingsWindow)
@@ -13,12 +13,23 @@ SettingsWindow::~SettingsWindow()
 {
     delete ui;
 }
+void SettingsWindow::ReceiveSettingsMainWindow(SettingsFile *SF){
+    this->show();
+    SettingS = SF;
+}
+void SettingsWindow::ReceiveSettingsFromTags(SettingsFile *SF){
+    this->show();
+    SettingS = SF;
+
+}
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
-    //WarningMessage();
 
-    emit OpenTagsWindow(settings_file_.getCameraName());
+    //WarningMessage();
+    this->hide();
+    emit SendSettingsTags(SettingS);
+    //emit OpenTagsWindow(settings_file_.getFileName());
 }
 
 void SettingsWindow::ShowWindow(QString &file_name)
@@ -36,8 +47,10 @@ void SettingsWindow::closeEvent(QCloseEvent *)
 
 void SettingsWindow::on_close_settings_clicked()
 {
-    WarningMessage();
-    emit OpenMainWindow();
+    //WarningMessage();
+    this->hide();
+    emit SendSettitoMainWindow(SettingS);
+    //emit OpenMainWindow();
 }
 
 void SettingsWindow::on_open_dialogButton_clicked()
@@ -203,4 +216,20 @@ void SettingsWindow::on_tags_listWidget_itemChanged(QListWidgetItem *item)
 void SettingsWindow::on_setting_textEdit_textChanged()
 {
     ui->save_fileButton->setEnabled(true);
+}
+
+void SettingsWindow::on_mainwindow_clicked()
+{
+ this->hide();
+ emit SendSettitoMainWindow(SettingS);
+}
+void SettingsWindow::ReceiveSettingsSC(SettingsFile *SF){
+    this->show();
+    SettingS = SF;
+}
+void SettingsWindow::on_selectcamera_clicked()
+{
+
+this->hide();
+emit SendSettingsSC(SettingS);
 }

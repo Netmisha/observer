@@ -5,7 +5,8 @@
 #include <QFileDialog>
 #include <QListWidgetItem>
 #include "settingsfile.h"
-
+#include <settingsfile.h>
+using namespace settings_file;
 class XMLHighlighter;
 namespace Ui {
 class SettingsWindow;
@@ -24,6 +25,9 @@ public:
 signals:
     void OpenMainWindow();
     void OpenTagsWindow(QString &);
+    void SendSettitoMainWindow(SettingsFile *obj);
+    void SendSettingsTags(SettingsFile *obj);
+    void SendSettingsSC(SettingsFile *obj);
 private slots:
     void on_open_tags_window_clicked();
     void closeEvent(QCloseEvent *);
@@ -37,12 +41,20 @@ private slots:
     void on_timer_radioButton_clicked();
     void on_tags_listWidget_itemChanged(QListWidgetItem *);
     void on_setting_textEdit_textChanged();
+    void ReceiveSettingsMainWindow(SettingsFile *SF);
+    void ReceiveSettingsFromTags(SettingsFile *SF);
+    void ReceiveSettingsSC(SettingsFile *SF);
+    void on_mainwindow_clicked();
+
+    void on_selectcamera_clicked();
+
 private:
     void ClearAll();
     void Initialize(QString &);
     void ShowSettings();
     void SaveSettings();
     void WarningMessage();
+    SettingsFile *SettingS;
     Ui::SettingsWindow *ui;
     settings_file::SettingsFile settings_file_;
 };

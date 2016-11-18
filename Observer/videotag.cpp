@@ -15,19 +15,24 @@ VideoTag::VideoTag(QWidget *parent) :
        connect(ui->TagList,SIGNAL(customContextMenuRequested(const QPoint&)),this,SLOT(showContextMenu(const QPoint&)));
        ui->TagVideo->setText("Offline"); ui->TagVideo->setAlignment(Qt::AlignCenter); setF = ui->TagVideo->font();setF.setItalic(true);setF.setPointSize(10); ui->TagVideo->setFont(setF);
        ui->MainVideo->setText("Offline"); ui->MainVideo->setAlignment(Qt::AlignCenter); ui->MainVideo->setFont(setF);
-        cop = nullptr;
+
 }
 
 VideoTag::~VideoTag()
 {
     delete ui;
 }
-void VideoTag::ReceiveSettings(settings_file::SettingsFile *obj){
-    cop = obj;
-
-}
 void VideoTag::itemClicked(){
     CropArea = TagContainer.at(ui->TagList->currentRow())->TagPosition;
+}
+void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
+    this->show();
+    qDebug()<<obj->getCameraId();
+    Tobj = obj;
+}
+void VideoTag::ReceiveFromSetting(SettingsFile *obj){
+    this->show();
+    Tobj = obj;
 }
 void VideoTag::showContextMenu(const QPoint &pos){
     QPoint item = ui->TagList->mapToGlobal(pos);
@@ -205,18 +210,17 @@ void VideoTag::paintEvent(QPaintEvent *){
 }
 void VideoTag::on_Back_clicked()
 {
-   if(cop == nullptr){
+    this->hide();
+    emit SendSettingSelectCamera(Tobj);
+    //emit OpenSelectCamera();
 
-   }
-   else{
-   emit OpenSelectCamer(cop);
-    }
 }
 
 void VideoTag::on_Next_clicked()
 {
-
-    emit OpenSettings();
+    this->hide();
+    emit SendToSettingsWindow(Tobj);
+    //emit OpenSettings();
 }
 
 
