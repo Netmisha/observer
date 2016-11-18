@@ -1,4 +1,5 @@
 #include "myqframe.h"
+#include <QMessageBox>
 MyQFrame::MyQFrame(QWidget *parent): QFrame(parent) {}
 void MyQFrame::setLinePos(QVector<QPoint> &points) {
     points_.clear();

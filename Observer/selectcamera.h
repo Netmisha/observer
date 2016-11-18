@@ -1,24 +1,19 @@
 #ifndef SELECTCAMERA_H
 #define SELECTCAMERA_H
 #include <QMainWindow>
-#include "opencv2/opencv.hpp"
-#include <QWidget>
 #include <QPainter>
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions_2_0>
-#include <QTimer>
 #include <mutex>
+<<<<<<< HEAD
 #include "settingsfile.h"
 #include <settingsfile.h>
 using namespace settings_file;
 
+=======
+#include "videostream.h"
+>>>>>>> 137c4eb47e4b6bfda7b1177f445e5eb2dd59b4bf
 using namespace cv;
 namespace Ui {
 class SelectCamera;
-}
-namespace literals {
-    const char kDefaultIndex=-1;
-    const int kDefaultFPS=40;
 }
 class SelectCamera : public QMainWindow
 {
@@ -26,11 +21,11 @@ class SelectCamera : public QMainWindow
 public:
     explicit SelectCamera(QWidget *parent = 0);
     ~SelectCamera();
-    Mat ProcessingImage(Mat);
     QVector<QString> &getCameraList();
-    void showWindow(QString &);
+    void showWindow(settings_file::SettingsFile &);
     void showWindow();
 private slots:
+<<<<<<< HEAD
     void ReceiveFromMainWindow(SettingsFile *obj);
     void ReceiveFromTags(SettingsFile *obj);
     void ReceiveSettingSW(SettingsFile *obj);
@@ -41,14 +36,15 @@ private slots:
     void on_timer_show();
     void on_timer_send(); // emits the signal
     void send_stop();
+=======
+>>>>>>> 137c4eb47e4b6bfda7b1177f445e5eb2dd59b4bf
     void on_select_from_listButton_clicked();
-    void ResizeImage();
     void on_remote_cameraButton_clicked();
-    void on_nextButton_clicked();
     void on_list_of_cameras_comboBox_currentIndexChanged(int);
-    void FrameMoving ();
-    void on_cutButton_clicked();
+    void ShowImage(Mat);
+    void on_nextButton_clicked();
     void on_originalButton_clicked();
+<<<<<<< HEAD
     void on_camera_connectButton_clicked();
     void closeEvent(QCloseEvent *);
     void on_MainWindow_clicked();
@@ -62,16 +58,23 @@ signals:
     void PassToTagWindow(SettingsFile *obj);
     void PassToMain(SettingsFile *obj);
     void SendToSettings(SettingsFile *obj);
+=======
+    void resizeEvent(QResizeEvent *);
+    void on_cutButton_clicked();
+    void FrameMoving();
+signals:
+    OpenTagsWindow(settings_file::SettingsFile &);
+    RepaintLines(QVector<QPoint> &);
+>>>>>>> 137c4eb47e4b6bfda7b1177f445e5eb2dd59b4bf
 private:
-    Point2f CrossingLine(std::vector<Point2f> &);
-    Point2f GravityCenter(std::vector<Point2f> &);
-    void CalculateHomography();
-    void InitializationFrame();
-    void InitializeFromFile(QString &);
-    void ShowImg ();
+    void Refresh();
+    void InitializeFromFile(settings_file::SettingsFile &);
+    void InitializeFrames();
+    void ResizeImage(QImage &);
+    void Initialize();
     void ShowDeviceList();
-
     Ui::SelectCamera *ui;
+<<<<<<< HEAD
     SettingsFile *SettingF;
     VideoCapture cap_;
     Mat homography_;
@@ -88,6 +91,12 @@ private:
     QTimer *timer_send_;
     QString file_name_;
     settings_file::SettingsFile settings_;
+=======
+    VideoStream video_stream_;
+>>>>>>> 137c4eb47e4b6bfda7b1177f445e5eb2dd59b4bf
     QVector<QString> camera_list_;
+    QPoint image_pos_;
+    QSize image_size_;
+    bool scan_camera_;
 };
 #endif // SELECTCAMERA_H
