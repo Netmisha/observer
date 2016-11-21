@@ -1,6 +1,7 @@
 #include "selectcamera.h"
 #include "ui_selectcamera.h"
 #include <QMessageBox>
+#define WINDOWNAME "openCV network-camera"
 SelectCamera::SelectCamera(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SelectCamera) {
@@ -41,6 +42,9 @@ void SelectCamera::ShowDeviceList() {
     scan_camera_=false;
 }
 void SelectCamera::InitializeFromFile(settings_file::SettingsFile &settings) {
+    ui->image_scene->setVisible(true);
+    ui->select_area->setVisible(true);
+    scan_camera_=true;
     video_stream_.setSettings(settings);
     video_stream_.StartStream();
 }
@@ -140,10 +144,12 @@ void SelectCamera::Refresh() {
 }
 
 void SelectCamera::on_camera_connectButton_clicked() {
+    Refresh();
     ui->image_scene->setVisible(true);
     ui->select_area->setVisible(true);
     scan_camera_=true;
-    QString name("http://192.168.226.101:8080/video?x.mjpeg");
-    video_stream_.addNewCamera(name,name);
+    QString path=ui->camera_pathEdit->text();//http://150.214.93.55/mjpg/video.mjpg
+    video_stream_.addNewCamera(path,path);
     video_stream_.StartStream();
 }
+

@@ -2,6 +2,7 @@
 #define VIDEOSTREAM_H
 #include <QWidget>
 #include "opencv2/opencv.hpp"
+#include "opencv2/imgproc.hpp"
 #include <QTimer>
 #include "settingsfile.h"
 

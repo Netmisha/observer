@@ -168,9 +168,9 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="5,0,0">
              <item>
-              <widget class="QLineEdit" name="camera_ipEdit">
+              <widget class="QLineEdit" name="camera_pathEdit">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -178,36 +178,7 @@
                 </size>
                </property>
                <property name="placeholderText">
-                <string>IP</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="camera_portEdit">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>25</height>
-                </size>
-               </property>
-               <property name="placeholderText">
-                <string>Port</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="camera_passwordEdit">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>25</height>
-                </size>
-               </property>
-               <property name="echoMode">
-                <enum>QLineEdit::Password</enum>
-               </property>
-               <property name="placeholderText">
-                <string>Password</string>
+                <string>Path</string>
                </property>
               </widget>
              </item>

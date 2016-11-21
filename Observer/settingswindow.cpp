@@ -16,6 +16,11 @@ SettingsWindow::~SettingsWindow()
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
+
+    if(settings_file_.getFileName()==tmp_file_name) {
+        QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
+        return;
+    }
     this->hide();
     WarningMessage();
     emit OpenTagsWindow(&settings_file_);
@@ -25,17 +30,27 @@ void SettingsWindow::ShowWindow(SettingsFile *settings)
 {
     this->show();
     settings_file_=*settings;
-    Initialize(settings->getFileName());
+    settings_file_.setFileName(tmp_file_name);
+    settings_file_.SaveSettings();
+    Initialize(settings_file_.getFileName());
 }
 
 void SettingsWindow::closeEvent(QCloseEvent *)
 {
+    if(settings_file_.getFileName()==tmp_file_name) {
+        QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
+        return;
+    }
     WarningMessage();
     emit OpenMainWindow(&settings_file_);
 }
 
 void SettingsWindow::on_close_settings_clicked()
 {
+    if(settings_file_.getFileName()==tmp_file_name) {
+        QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
+        return;
+    }
     WarningMessage();
     this->hide();
     emit OpenMainWindow(&settings_file_);
@@ -74,7 +89,6 @@ void SettingsWindow::Initialize(QString &file_name)
         ui->statusbar->showMessage("File didn`t open!",settings_ui::kMessageTimeout);
         return ;
     }
-    ui->setting_fileEdit->setText(file_name);
     ui->setting_textEdit->setPlainText(settings_file.readAll());
     settings_file.close();
     settings_file_.setFileName(file_name);
@@ -89,9 +103,15 @@ void SettingsWindow::Initialize(QString &file_name)
         ui->timer_radioButton->setChecked(true);
     }
     ShowSettings();
-    ui->save_fileButton->setEnabled(false);
+    if(settings_file_.getFileName()==tmp_file_name) {
+        ui->save_fileButton->setEnabled(true);
+    }
+    else {
+        ui->save_fileButton->setEnabled(false);
+        ui->setting_fileEdit->setText(file_name);
+    }
+    SaveSettings();
 }
-
 void SettingsWindow::ShowSettings()
 {
     ui->time_spinBox->setValue(settings_file_.getTimer());
@@ -141,7 +161,11 @@ void SettingsWindow::WarningMessage()
 
 void SettingsWindow::on_save_fileButton_clicked()
 {
-    QString file_name = ui->setting_fileEdit->text();
+    QString file_name;
+    if(settings_file_.getFileName()==tmp_file_name) {
+        file_name = QFileDialog::getSaveFileName(this, tr("Select a file"), QDir::currentPath());
+    }
+    ui->setting_fileEdit->setText(file_name);
     QFile settings_file(file_name);
     settings_file.open(QIODevice::WriteOnly);
     if(!settings_file.isOpen()) {

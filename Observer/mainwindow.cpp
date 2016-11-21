@@ -33,10 +33,17 @@ MainWindow::MainWindow(QWidget *parent) :
      QObject::connect(video_tag_,SIGNAL(SendSettingSelectCamera(SettingsFile*)),select_camera_,SLOT(showWindow(SettingsFile*)));
      QObject::connect(video_tag_,SIGNAL(SendToSettingsWindow(SettingsFile*)),settings_,SLOT(ShowWindow(SettingsFile*)));
      QObject::connect(settings_,SIGNAL(OpenTagsWindow(SettingsFile*)),video_tag_,SLOT(ReceiveFromSetting(SettingsFile*)));
+     QObject::connect(video_tag_,SIGNAL(SendToMainFromTag(SettingsFile*)),this,SLOT(ReceiveFromTags(SettingsFile*)));
 }
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
 
+}
+void MainWindow::ReceiveFromTags(SettingsFile *obj){
+
+    this->show();
+    SettingsF = obj;
+    StreamM.setSettings(*SettingsF);
 }
 void MainWindow::ReceiveSettingFromSetW(SettingsFile *obj){
     this->show();
@@ -49,8 +56,9 @@ void MainWindow::CloseSelectCamera()
 }
 
 void MainWindow::Stream2nd(Mat imgsrc){
+    qDebug()<<"rec";
     SecondFrame = imgsrc;
-    QImage qimgOriginal((uchar*)SecondFrame.data,SecondFrame.cols,SecondFrame.rows, SecondFrame.step,QImage::Format_RGB444);
+    QImage qimgOriginal((uchar*)SecondFrame.data,SecondFrame.cols,SecondFrame.rows, SecondFrame.step,QImage::Format_RGB888);
     qimgOriginal =  qimgOriginal.scaled(ui->Stream2_1->width(),ui->Stream2_1->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->Stream2_1->setPixmap(QPixmap::fromImage(qimgOriginal));
 }
@@ -87,8 +95,10 @@ void MainWindow::showContextMenu(QPoint pos){
 }
 
 void MainWindow::ReceiveImageM(Mat imgsrc){
+    cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     frameM = imgsrc;
     QImage qimgOriginal((uchar*)frameM.data,frameM.cols,frameM.rows, frameM.step,QImage::Format_RGB888);
+
     qimgOriginal =  qimgOriginal.scaled(ui->StreamArea->width(),ui->StreamArea->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     if(windows == 1){
     ui->StreamArea->setPixmap(QPixmap::fromImage(qimgOriginal));

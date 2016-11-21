@@ -31,7 +31,7 @@ private slots:
     void on_SQ3_clicked();
     void on_SettingButton_clicked();
     void itemClicked(QListWidgetItem *item);
-
+    void ReceiveFromTags(SettingsFile *obj);
      void ReceiveImageM(Mat imgsrc); // streams video to main LABEL
      void Stream2nd(Mat imgsrc);  // stream video to second label screen
     //void Stream3rd(Mat img);

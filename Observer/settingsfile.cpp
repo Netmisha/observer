@@ -70,9 +70,11 @@ void SettingsFile::setCropPoints(QVector<QPoint> &crop_points) {
 void SettingsFile::setCameraSize(QSize &camera_size) {
     camera_size_=camera_size;
 }
-void SettingsFile::setTagsList(QVector<TagInfo> &tags_list) {
+void SettingsFile::setTagsList(QVector<TagInfo *> &tags_list) {
     tags_list_.clear();
-    tags_list_=tags_list;
+    for(auto & it:tags_list) {
+        tags_list_.push_back(*it);
+    }
 }
 void SettingsFile::setMonitoringTags(QVector<QString>monitoring_tags) {
     monitoring_tags_.clear();

@@ -31,9 +31,29 @@ void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
     Tobj = obj;
     StreamM.setSettings(*Tobj);
 }
+bool VideoTag::getTagsFromXML(){
+
+if(Tobj->getTagsList().size() == -1){
+    qDebug()<<"No tags in XML";
+    return 0;
+}
+for (int i=0;i<Tobj->getTagsList().size();i++){
+    qDebug()<<"Not empty";
+   *NewTagS = Tobj->getTagsList().at(i);
+    qDebug()<<NewTagS->name_;
+    qDebug()<<NewTagS->rect_;
+    ui->TagList->addItem(NewTagS->name_);
+    ContainerT.push_back(NewTagS);
+    qDebug()<<ContainerT.at(0)->name_;
+    NewTagS = nullptr;
+}
+return 1;
+
+}
 void VideoTag::ReceiveFromSetting(SettingsFile *obj){
     this->show();
     Tobj = obj;
+    StreamM.setSettings(*Tobj);
 }
 void VideoTag::showContextMenu(const QPoint &pos){
     QPoint item = ui->TagList->mapToGlobal(pos);
@@ -151,7 +171,11 @@ void VideoTag::on_AddTag_clicked()
         firstTag = false;
     }
 }
+void VideoTag::closeEvent(QCloseEvent *){
 
+ emit SendToMainFromTag(Tobj);
+ this->hide();
+}
 void VideoTag::TagStreamThread(){
     mutex.lock();
     shot_ = shot_.copy(CropArea); // <---- crops the area we need
@@ -161,6 +185,7 @@ void VideoTag::TagStreamThread(){
 }
 
 void VideoTag::ReceiveImage(Mat imgsrc){
+    cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     if(!firstTag){TagStreamThread();}
     mutex.lock();
     frame = imgsrc;
@@ -175,6 +200,20 @@ void VideoTag::ReceiveImage(Mat imgsrc){
 
 void VideoTag::on_Start_clicked()
 {
+    if(Tobj->getTagsList().size() == -1){
+        qDebug()<<"No tags in XML";
+         return;
+    }
+    for (int i=0;i<Tobj->getTagsList().size();i++){
+        qDebug()<<"Not empty";
+        *NewTagS = Tobj->getTagsList().at(i);
+        qDebug()<<NewTagS->name_;
+        qDebug()<<NewTagS->rect_;
+        ui->TagList->addItem(NewTagS->name_);
+        ContainerT.push_back(NewTagS);
+        qDebug()<<ContainerT.at(0)->name_;
+        NewTagS = nullptr;
+    }
     if(VideoTag::start==true){
         return;
     }
@@ -184,6 +223,7 @@ void VideoTag::on_Start_clicked()
     connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
     VideoTag::start = true;
     stream=true;
+
 }
 
 void VideoTag::mousePressEvent(QMouseEvent *event){
@@ -224,7 +264,7 @@ void VideoTag::paintEvent(QPaintEvent *){
 void VideoTag::on_Back_clicked()
 {
     this->hide();
-    //Tobj->setTagsList(ContainerT); // set and pass setting to other window
+    Tobj->setTagsList(ContainerT); // set and pass setting to other window
     emit SendSettingSelectCamera(Tobj);
     //emit OpenSelectCamera();
 
@@ -233,7 +273,7 @@ void VideoTag::on_Back_clicked()
 void VideoTag::on_Next_clicked()
 {
     this->hide();
-    //Tobj->setTagsList(ContainerT);
+    Tobj->setTagsList(ContainerT);
     emit SendToSettingsWindow(Tobj);
     //emit OpenSettings();
 }

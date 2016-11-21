@@ -62,12 +62,14 @@ private slots:
     void ReceiveImage(Mat imgsrc);
     void ReceiveFromSelectCamera(SettingsFile *obj);
     void ReceiveFromSetting(SettingsFile *obj);
+    void closeEvent(QCloseEvent *);
 signals:
     void SendID(int id);
     void OpenSettings();
     void OpenSelectCamera();
     void SendToSettingsWindow(SettingsFile *obj);
     void SendSettingSelectCamera(SettingsFile *obj);
+    void SendToMainFromTag(SettingsFile *obj);
 private:
    Ui::VideoTag *ui;
    SettingsFile *Tobj;
@@ -104,6 +106,7 @@ private:
    void mouseMoveEvent(QMouseEvent *event);
    void mouseReleaseEvent(QMouseEvent *event);
    void paintEvent(QPaintEvent *event);
+   bool getTagsFromXML();
    VideoStream StreamM;
    QVector<settings_file::TagInfo*> ContainerT;
    settings_file::TagInfo *NewTagS;
