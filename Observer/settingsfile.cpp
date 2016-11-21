@@ -72,7 +72,7 @@ void SettingsFile::setCameraSize(QSize &camera_size) {
 }
 void SettingsFile::setTagsList(QVector<TagInfo *> &tags_list) {
     tags_list_.clear();
-    for(auto & it:tags_list) {
+    for(auto &it:tags_list) {
         tags_list_.push_back(*it);
     }
 }
