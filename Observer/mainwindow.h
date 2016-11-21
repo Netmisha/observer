@@ -9,6 +9,7 @@
 #include  <opencv2/highgui/highgui.hpp>
 #include <mutex>
 #include <QMouseEvent>
+#include <videostream.h>
 using namespace settings_file;
 namespace Ui {
 class MainWindow;
@@ -74,6 +75,7 @@ private:
     SelectCamera * select_camera_;
     SettingsWindow * settings_;
     VideoTag * video_tag_;
+    VideoStream StreamM;
 };
 
 #endif // MAINWINDOW_H

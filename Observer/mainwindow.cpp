@@ -104,7 +104,11 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
 }
 
 void MainWindow::itemClicked(QListWidgetItem *item){
- emit CameraID(ui->CameraList->currentRow());
+ //emit CameraID(ui->CameraList->currentRow());
+   QString name = "Camera1";
+  StreamM.addNewCamera(name,ui->CameraList->currentRow());
+  StreamM.StartStream();
+  connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
 }
 
 void MainWindow::GetQuantCamer(){
@@ -165,6 +169,7 @@ void MainWindow::on_SettingButton_clicked()
 void MainWindow::ReceiveFromSC(SettingsFile *obj){
     this->show();
     SettingsF = obj;
+    StreamM.setSettings(*SettingsF);
     qDebug()<<obj->getCameraId();
 
 }

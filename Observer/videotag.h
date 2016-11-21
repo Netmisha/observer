@@ -38,6 +38,7 @@
 #include <selectcamera.h>
 #include <QTime>
 #include <settingsfile.h>
+#include <videostream.h>
 using namespace cv;
 using namespace settings_file;
 namespace Ui {
@@ -103,6 +104,9 @@ private:
    void mouseMoveEvent(QMouseEvent *event);
    void mouseReleaseEvent(QMouseEvent *event);
    void paintEvent(QPaintEvent *event);
+   VideoStream StreamM;
+   QVector<settings_file::TagInfo*> ContainerT;
+   settings_file::TagInfo *NewTagS;
 };
 
 #endif // VIDEOTAG_H
