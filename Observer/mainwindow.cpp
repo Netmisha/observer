@@ -162,7 +162,6 @@ void MainWindow::on_SettingButton_clicked()
 void MainWindow::ReceiveFromSC(SettingsFile *obj){
     this->show();
     SettingsF = obj;
-    qDebug()<<obj->getCameraId();
 
 }
 void MainWindow::on_SelectCameraButton_clicked()

@@ -64,6 +64,10 @@ void SettingsFile::setTagsList(QVector<TagInfo> &tags_list) {
     tags_list_.clear();
     tags_list_=tags_list;
 }
+void SettingsFile::setTagInfo(QString tagname, QRect Tpos){
+
+
+}
 void SettingsFile::setMonitoringTags(QVector<QString>monitoring_tags) {
     monitoring_tags_.clear();
     monitoring_tags_=monitoring_tags;

@@ -23,6 +23,7 @@ VideoTag::~VideoTag()
     delete ui;
 }
 void VideoTag::itemClicked(){
+
     CropArea = TagContainer.at(ui->TagList->currentRow())->TagPosition;
 }
 void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){

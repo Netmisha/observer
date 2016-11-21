@@ -38,6 +38,7 @@
 #include <selectcamera.h>
 #include <QTime>
 #include <settingsfile.h>
+#include <settingsfile.h>
 using namespace cv;
 using namespace settings_file;
 namespace Ui {
@@ -74,6 +75,7 @@ private:
    Mat *TM;
    TagClass *NewTag;
    QVector <TagClass*> TagContainer;
+   //QVector <settings_file::TagInfo*>
    QThread MainV,ChildV;
    QRubberBand *rubber;
    QImage shot_; QImage EmptyList;
