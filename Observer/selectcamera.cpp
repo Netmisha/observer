@@ -1,6 +1,7 @@
 #include "selectcamera.h"
 #include "ui_selectcamera.h"
 #include <QMessageBox>
+#define WINDOWNAME "openCV network-camera"
 SelectCamera::SelectCamera(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SelectCamera) {
@@ -140,10 +141,35 @@ void SelectCamera::Refresh() {
 }
 
 void SelectCamera::on_camera_connectButton_clicked() {
-    ui->image_scene->setVisible(true);
+    /*ui->image_scene->setVisible(true);
     ui->select_area->setVisible(true);
     scan_camera_=true;
-    QString name("http://192.168.226.101:8080/video?x.mjpeg");
+    QString name("http://admin:admin@95.97.79.133:1024/video.cgi?.mjpg");
     video_stream_.addNewCamera(name,name);
-    video_stream_.StartStream();
+    video_stream_.StartStream();*/
+    char *ip = "95.97.79.133";
+        char *username = "admin";
+        char *password = "admin";
+        char *amppath = "/mpeg4/media.amp";
+        char url[256] = {0,};
+        sprintf(url,"http://%s:%s@%s%s",username,password,ip,amppath);
+        fprintf(stdout,"Camera URL: %s\n",url);
+        // connect to camera
+        CvCapture *capture = cvCreateFileCapture(url);
+        if ( !capture ) {
+            fprintf(stderr,"couldn't open Camera device %s",ip);
+            return;
+        }
+        // show images
+        IplImage *frame = cvQueryFrame(capture);
+        cvNamedWindow(WINDOWNAME,CV_WINDOW_AUTOSIZE);
+        while (frame != NULL) {
+            int key = cvWaitKey(10);
+            if (key == 27) break; // stop when ESC is pressed
+            cvShowImage(WINDOWNAME,frame);
+            frame = cvQueryFrame(capture);
+        }
+        // close camera:
+        cvReleaseCapture( &capture );
+        cvDestroyWindow(WINDOWNAME);
 }
