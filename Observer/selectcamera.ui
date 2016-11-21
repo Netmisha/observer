@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>995</width>
-    <height>672</height>
+    <height>665</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -488,20 +488,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Settings">
-          <property name="text">
-           <string>Settings</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="MainWindow">
-          <property name="text">
-           <string>MainWindow</string>
-          </property>
-         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="nextButton">

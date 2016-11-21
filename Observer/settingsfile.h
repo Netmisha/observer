@@ -56,16 +56,17 @@ public:
     QString &getMonitoringType();
     double &getTimer();
     void setFileName(QString &);
+    void addNewCamera(QString &, int);
+    void addNewCamera(QString &, QString &);
     void setCameraName(QString &);
-    void setCameraType(QString &);
+    void setCameraType(QString);
     void setCameraPath(QString &);
     void setCameraId(int);
     void setCropPoints(QVector<QPoint> &);
     void setCameraSize(QSize &);
-    void setTagsList(QVector<TagInfo> &);
+    void setTagsList(QVector<TagInfo> & );
     void setMonitoringTags(QVector<QString>);
     void setMonitoringType(QString);
-    void setTagInfo(QString tagname, QRect Tpos);
     void setTimer(double);
     void SaveSettings();
     void ReadSettings();
@@ -80,7 +81,6 @@ private:
     int camera_id_;
     QVector<QPoint> crop_points_;
     QSize camera_size_;
-    QVector<TagInfo> temp;
     QVector<TagInfo> tags_list_;
     QVector<QString> monitoring_tags_;
     double timer_;

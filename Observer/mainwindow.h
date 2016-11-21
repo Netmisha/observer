@@ -9,6 +9,7 @@
 #include  <opencv2/highgui/highgui.hpp>
 #include <mutex>
 #include <QMouseEvent>
+#include <videostream.h>
 using namespace settings_file;
 namespace Ui {
 class MainWindow;
@@ -38,6 +39,7 @@ private slots:
  void showContextMenu(QPoint pos);
  void on_SelectCameraButton_clicked();
  void ReceiveSettingFromSetW(SettingsFile *obj);
+ void CloseSelectCamera();
 void ReceiveFromSC(SettingsFile *obj);
 signals:
     void CameraID(int id);
@@ -46,7 +48,7 @@ signals:
     void CameraID3_3(int id);
     void OpenSCWindow();
     void PassSettingFile(SettingsFile *obj);
-    void PassOnSelectCamera(SettingsFile *obj);
+    void PassOnSelectCamera();
 
 private:
     typedef struct {int id; QString name;}cameras;
@@ -73,6 +75,7 @@ private:
     SelectCamera * select_camera_;
     SettingsWindow * settings_;
     VideoTag * video_tag_;
+    VideoStream StreamM;
 };
 
 #endif // MAINWINDOW_H

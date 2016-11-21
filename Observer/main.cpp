@@ -1,10 +1,5 @@
 #include "mainwindow.h"
-#include "selectcamera.h"
-#include "settingswindow.h"
 #include <QApplication>
-#include <videotag.h>
-#include <iostream>
-#include "settingsfile.h"
 int main(int argc, char *argv[])
 {
 
