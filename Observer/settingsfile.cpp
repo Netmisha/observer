@@ -41,10 +41,20 @@ double & SettingsFile::getTimer() {
 void SettingsFile::setFileName(QString &file_name) {
     file_name_=file_name;
 }
+void SettingsFile::addNewCamera(QString &name, int id) {
+    camera_name_=name;
+    camera_id_=id;
+    camera_type_=kLocalType;
+}
+void SettingsFile::addNewCamera(QString &name, QString &path) {
+    camera_name_=name;
+    camera_path_=path;
+    camera_type_=kRemoteType;
+}
 void SettingsFile::setCameraName(QString &camera_name) {
     camera_name_=camera_name;
 }
-void SettingsFile::setCameraType(QString &camera_type) {
+void SettingsFile::setCameraType(QString camera_type) {
     camera_type_=camera_type;
 }
 void SettingsFile::setCameraPath(QString &camera_path) {
@@ -63,10 +73,6 @@ void SettingsFile::setCameraSize(QSize &camera_size) {
 void SettingsFile::setTagsList(QVector<TagInfo> &tags_list) {
     tags_list_.clear();
     tags_list_=tags_list;
-}
-void SettingsFile::setTagInfo(QString tagname, QRect Tpos){
-
-
 }
 void SettingsFile::setMonitoringTags(QVector<QString>monitoring_tags) {
     monitoring_tags_.clear();

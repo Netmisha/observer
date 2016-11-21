@@ -10,31 +10,29 @@ MainWindow::MainWindow(QWidget *parent) :
      video_tag_=new VideoTag (parent);
      SettingsF = new SettingsFile();
      select_camera_=new SelectCamera(parent);
-     QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
-     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),video_tag_,SLOT(ReceiveImage(Mat)));
-     QObject::connect(this,SIGNAL(CameraID(int)),select_camera_,SLOT(getImage(int)));
-     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
+     //QObject::connect(video_tag_,SIGNAL(SendID(int)),select_camera_,SLOT(getImage(int)));
+     //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),video_tag_,SLOT(ReceiveImage(Mat)));
+     //QObject::connect(this,SIGNAL(CameraID(int)),select_camera_,SLOT(getImage(int)));
+     //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
      QObject::connect(ui->CameraList,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(showContextMenu(QPoint)));
-     QObject::connect(this,SIGNAL(CameraID2_1(int)),select_camera_,SLOT(getImage(int)));
-     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream2nd(Mat)));
-     QObject::connect(this,SIGNAL(CameraID3_2(int)),select_camera_,SLOT(getImage(int)));
-     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream4th(Mat)));
-     QObject::connect(this,SIGNAL(CameraID3_3(int)),select_camera_,SLOT(getImage(int)));
-     QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream3rd(Mat)));
+     //QObject::connect(this,SIGNAL(CameraID2_1(int)),select_camera_,SLOT(getImage(int)));
+     //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream2nd(Mat)));
+     //QObject::connect(this,SIGNAL(CameraID3_2(int)),select_camera_,SLOT(getImage(int)));
+     //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream4th(Mat)));
+     //QObject::connect(this,SIGNAL(CameraID3_3(int)),select_camera_,SLOT(getImage(int)));
+     //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream3rd(Mat)));
      GetQuantCamer();
      for (int i=0;i<C.size();i++){ ui->CameraList->addItem(C.at(i)->name);}
      connect(ui->CameraList,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(itemClicked(QListWidgetItem*)));
      ui->CameraList->setContextMenuPolicy(Qt::CustomContextMenu);
-     QObject::connect(this,SIGNAL(PassSettingFile(SettingsFile*)),settings_,SLOT(ReceiveSettingsMainWindow(SettingsFile*)));
-     QObject::connect(this,SIGNAL(PassOnSelectCamera(SettingsFile*)),select_camera_,SLOT(ReceiveFromMainWindow(SettingsFile*)));
-     QObject::connect(settings_,SIGNAL(SendSettitoMainWindow(SettingsFile*)),this,SLOT(ReceiveSettingFromSetW(SettingsFile*)));
-     QObject::connect(select_camera_,SIGNAL(PassToTagWindow(SettingsFile*)),video_tag_,SLOT(ReceiveFromSelectCamera(SettingsFile*)));
-     QObject::connect(video_tag_,SIGNAL(SendSettingSelectCamera(SettingsFile*)),select_camera_,SLOT(ReceiveFromTags(SettingsFile*)));
-     QObject::connect(video_tag_,SIGNAL(SendToSettingsWindow(SettingsFile*)),settings_,SLOT(ReceiveSettingsFromTags(SettingsFile*)));
-     QObject::connect(settings_,SIGNAL(SendSettingsTags(SettingsFile*)),video_tag_,SLOT(ReceiveFromSetting(SettingsFile*)));
-     QObject::connect(select_camera_,SIGNAL(PassToMain(SettingsFile*)),this,SLOT(ReceiveFromSC(SettingsFile*)));
-     QObject::connect(settings_,SIGNAL(SendSettingsSC(SettingsFile*)),select_camera_,SLOT(ReceiveSettingSW(SettingsFile*)));
-     QObject::connect(select_camera_,SIGNAL(SendToSettings(SettingsFile*)),settings_,SLOT(ReceiveSettingsSC(SettingsFile*)));
+     QObject::connect(this,SIGNAL(PassSettingFile(SettingsFile*)),settings_,SLOT(ShowWindow(SettingsFile*)));
+     QObject::connect(this,SIGNAL(PassOnSelectCamera()),select_camera_,SLOT(showWindow()));
+     QObject::connect(settings_,SIGNAL(OpenMainWindow(SettingsFile*)),this,SLOT(ReceiveSettingFromSetW(SettingsFile*)));
+     QObject::connect(select_camera_,SIGNAL(OpenMainWindow()),this,SLOT(CloseSelectCamera()));
+     QObject::connect(select_camera_,SIGNAL(OpenTagsWindow(SettingsFile*)),video_tag_,SLOT(ReceiveFromSelectCamera(SettingsFile*)));
+     QObject::connect(video_tag_,SIGNAL(SendSettingSelectCamera(SettingsFile*)),select_camera_,SLOT(showWindow(SettingsFile*)));
+     QObject::connect(video_tag_,SIGNAL(SendToSettingsWindow(SettingsFile*)),settings_,SLOT(ShowWindow(SettingsFile*)));
+     QObject::connect(settings_,SIGNAL(OpenTagsWindow(SettingsFile*)),video_tag_,SLOT(ReceiveFromSetting(SettingsFile*)));
 }
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
@@ -43,6 +41,11 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 void MainWindow::ReceiveSettingFromSetW(SettingsFile *obj){
     this->show();
     SettingsF = obj;
+}
+
+void MainWindow::CloseSelectCamera()
+{
+    this->show();
 }
 
 void MainWindow::Stream2nd(Mat imgsrc){
@@ -101,7 +104,11 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
 }
 
 void MainWindow::itemClicked(QListWidgetItem *item){
- emit CameraID(ui->CameraList->currentRow());
+ //emit CameraID(ui->CameraList->currentRow());
+   QString name = "Camera1";
+  StreamM.addNewCamera(name,ui->CameraList->currentRow());
+  StreamM.StartStream();
+  connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
 }
 
 void MainWindow::GetQuantCamer(){
@@ -162,12 +169,14 @@ void MainWindow::on_SettingButton_clicked()
 void MainWindow::ReceiveFromSC(SettingsFile *obj){
     this->show();
     SettingsF = obj;
+    StreamM.setSettings(*SettingsF);
+    qDebug()<<obj->getCameraId();
 
 }
 void MainWindow::on_SelectCameraButton_clicked()
 {
     SettingsF->setCameraId(14);
-    emit PassOnSelectCamera(SettingsF);
+    emit PassOnSelectCamera();
     this->hide();
     //select_camera_->show();
 }
@@ -190,6 +199,3 @@ void MainWindow::on_SQ3_clicked()
 windows = 4;
 this->update();
 }
-
-
-

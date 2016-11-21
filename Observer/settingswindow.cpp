@@ -1,7 +1,7 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
 #include <QMessageBox>
-#include <QDebug>
+
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SettingsWindow)
@@ -13,44 +13,32 @@ SettingsWindow::~SettingsWindow()
 {
     delete ui;
 }
-void SettingsWindow::ReceiveSettingsMainWindow(SettingsFile *SF){
-    this->show();
-    SettingS = SF;
-}
-void SettingsWindow::ReceiveSettingsFromTags(SettingsFile *SF){
-    this->show();
-    SettingS = SF;
-
-}
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
-
-    //WarningMessage();
     this->hide();
-    emit SendSettingsTags(SettingS);
-    //emit OpenTagsWindow(settings_file_.getFileName());
+    WarningMessage();
+    emit OpenTagsWindow(&settings_file_);
 }
 
-void SettingsWindow::ShowWindow(QString &file_name)
+void SettingsWindow::ShowWindow(SettingsFile *settings)
 {
     this->show();
-    settings_file_.setFileName(file_name);
-    Initialize(file_name);
+    settings_file_=*settings;
+    Initialize(settings->getFileName());
 }
 
 void SettingsWindow::closeEvent(QCloseEvent *)
 {
     WarningMessage();
-    emit OpenMainWindow();
+    emit OpenMainWindow(&settings_file_);
 }
 
 void SettingsWindow::on_close_settings_clicked()
 {
-    //WarningMessage();
+    WarningMessage();
     this->hide();
-    emit SendSettitoMainWindow(SettingS);
-    //emit OpenMainWindow();
+    emit OpenMainWindow(&settings_file_);
 }
 
 void SettingsWindow::on_open_dialogButton_clicked()
@@ -148,6 +136,7 @@ void SettingsWindow::WarningMessage()
     if (reply == QMessageBox::Yes) {
         on_save_fileButton_clicked();
     }
+    ui->save_fileButton->setEnabled(false);
 }
 
 void SettingsWindow::on_save_fileButton_clicked()
@@ -216,20 +205,4 @@ void SettingsWindow::on_tags_listWidget_itemChanged(QListWidgetItem *item)
 void SettingsWindow::on_setting_textEdit_textChanged()
 {
     ui->save_fileButton->setEnabled(true);
-}
-
-void SettingsWindow::on_mainwindow_clicked()
-{
- this->hide();
- emit SendSettitoMainWindow(SettingS);
-}
-void SettingsWindow::ReceiveSettingsSC(SettingsFile *SF){
-    this->show();
-    SettingS = SF;
-}
-void SettingsWindow::on_selectcamera_clicked()
-{
-
-this->hide();
-emit SendSettingsSC(SettingS);
 }
