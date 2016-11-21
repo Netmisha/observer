@@ -64,7 +64,7 @@ public:
     void setCameraId(int);
     void setCropPoints(QVector<QPoint> &);
     void setCameraSize(QSize &);
-    void setTagsList(QVector<TagInfo> & );
+    void setTagsList(QVector<TagInfo*> & );
     void setMonitoringTags(QVector<QString>);
     void setMonitoringType(QString);
     void setTimer(double);
