@@ -20,8 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
      //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream4th(Mat)));
      //QObject::connect(this,SIGNAL(CameraID3_3(int)),select_camera_,SLOT(getImage(int)));
      //QObject::connect(select_camera_,SIGNAL(SendImage(Mat)),this,SLOT(Stream3rd(Mat)));
-     GetQuantCamer();
-     for (int i=0;i<C.size();i++){ ui->CameraList->addItem(C.at(i)->name);}
+     //GetQuantCamer();
+     //for (int i=0;i<C.size();i++){ ui->CameraList->addItem(C.at(i)->name);}
+     ui->Stream1->setVisible(false);
+     ui->Stream2->setVisible(true); // main is Stream2
+     ui->Stream3->setVisible(false);
+     ui->Stream4->setVisible(false);
      connect(ui->CameraList,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(itemClicked(QListWidgetItem*)));
      ui->CameraList->setContextMenuPolicy(Qt::CustomContextMenu);
      QObject::connect(this,SIGNAL(PassSettingFile(SettingsFile*)),settings_,SLOT(ShowWindow(SettingsFile*)));
@@ -43,10 +47,13 @@ void MainWindow::ReceiveFromTags(SettingsFile *obj){
     this->show();
     SettingsF = obj;
     StreamM.setSettings(*SettingsF);
+    ui->CameraList->addItem(SettingsF->getCameraName());
 }
 void MainWindow::ReceiveSettingFromSetW(SettingsFile *obj){
     this->show();
     SettingsF = obj;
+    StreamM.setSettings(*SettingsF);
+    ui->CameraList->addItem(SettingsF->getCameraName());
 }
 
 void MainWindow::CloseSelectCamera()
@@ -55,7 +62,7 @@ void MainWindow::CloseSelectCamera()
 }
 
 void MainWindow::Stream2nd(Mat imgsrc){
-    qDebug()<<"rec";
+
     SecondFrame = imgsrc;
     QImage qimgOriginal((uchar*)SecondFrame.data,SecondFrame.cols,SecondFrame.rows, SecondFrame.step,QImage::Format_RGB888);
     qimgOriginal =  qimgOriginal.scaled(ui->Stream2->width(),ui->Stream2->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
@@ -97,17 +104,19 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
     cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     frameM = imgsrc;
     QImage qimgOriginal((uchar*)frameM.data,frameM.cols,frameM.rows, frameM.step,QImage::Format_RGB888);
-
-    qimgOriginal =  qimgOriginal.scaled(ui->Stream1->width(),ui->Stream1->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
+    qimgOriginal =  qimgOriginal.scaled(ui->Stream2->width(),ui->Stream2->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     if(windows == 1){
-    ui->Stream1->setPixmap(QPixmap::fromImage(qimgOriginal));
+    ui->Stream2->setPixmap(QPixmap::fromImage(qimgOriginal));
     }
     else if(windows == 2){
-        qimgOriginal = qimgOriginal.scaled(ui->Stream2->width(),ui->Stream2->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
+        ui->Stream1->setPixmap(QPixmap::fromImage(qimgOriginal));
         ui->Stream2->setPixmap(QPixmap::fromImage(qimgOriginal));
     }
     else if(windows == 4){
-
+        ui->Stream1->setPixmap(QPixmap::fromImage(qimgOriginal));
+        ui->Stream2->setPixmap(QPixmap::fromImage(qimgOriginal));
+        ui->Stream3->setPixmap(QPixmap::fromImage(qimgOriginal));
+        ui->Stream4->setPixmap(QPixmap::fromImage(qimgOriginal));
     }
 
 }
@@ -157,31 +166,36 @@ void MainWindow::ReceiveFromSC(SettingsFile *obj){
     this->show();
     SettingsF = obj;
     StreamM.setSettings(*SettingsF);
-    qDebug()<<obj->getCameraId();
-
 }
 void MainWindow::on_SelectCameraButton_clicked()
 {
     emit PassOnSelectCamera();
     this->hide();
-    //select_camera_->show();
 }
+
 void MainWindow::on_SQ2_clicked()
 {
-
-windows =2;
-
+    ui->Stream1->setVisible(true);
+    ui->Stream2->setVisible(true);
+    ui->Stream3->setVisible(false);
+    ui->Stream4->setVisible(false);
+    windows =2;
 }
 
 void MainWindow::on_SQ_clicked()
 {
-windows = 1;
-
-
+    ui->Stream1->setVisible(false);
+    ui->Stream2->setVisible(true); // main is Stream2
+    ui->Stream3->setVisible(false);
+    ui->Stream4->setVisible(false);
+    windows = 1;
 }
 
 void MainWindow::on_SQ3_clicked()
 {
+    ui->Stream1->setVisible(true);
+    ui->Stream2->setVisible(true);
+    ui->Stream3->setVisible(true);
+    ui->Stream4->setVisible(true);
 windows = 4;
-
 }

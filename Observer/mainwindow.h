@@ -25,7 +25,6 @@ public:
     ~MainWindow();
 
 private slots:
-
     void on_SQ2_clicked();
     void on_SQ_clicked();
     void on_SQ3_clicked();

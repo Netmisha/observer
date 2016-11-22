@@ -29,6 +29,11 @@ void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
     this->show();
     Tobj = obj;
     StreamM.setSettings(*Tobj);
+    getTagsFromXML();
+    //emit SendID(0);// Pass Camera ID. default is 0
+    StreamM.StartStream();
+    connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
+
 }
 bool VideoTag::getTagsFromXML(){
     if(out){return 0;}
@@ -158,12 +163,10 @@ void VideoTag::on_AddTag_clicked()
         ContainerT.push_back(NewTagS);
         NewTagS = nullptr;
         ui->TagList->addItem(ContainerT.at(VPos)->name_);
-
         firstTag = false;
     }
 }
 void VideoTag::closeEvent(QCloseEvent *){
-
  emit SendToMainFromTag(Tobj);
  this->hide();
 }
@@ -176,6 +179,7 @@ void VideoTag::TagStreamThread(){
 }
 
 void VideoTag::ReceiveImage(Mat imgsrc){
+    if (imgsrc.empty()){qDebug()<<"Nothing to display"; return;}
     cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     if(!firstTag){TagStreamThread();}
     mutex.lock();
@@ -187,21 +191,6 @@ void VideoTag::ReceiveImage(Mat imgsrc){
     qimgOriginal =  qimgOriginal.scaled(ui->MainVideo->width(),ui->MainVideo->height(),Qt::IgnoreAspectRatio, Qt::FastTransformation);
     ui->MainVideo->setPixmap(QPixmap::fromImage(qimgOriginal));
     mutex.unlock();
-}
-
-void VideoTag::on_Start_clicked()
-{
-    if(!getTagsFromXML()){
-    if(VideoTag::start==true){
-        return;
-    }
-    //emit SendID(0);// Pass Camera ID. default is 0
-    StreamM.StartStream();
-    connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
-    VideoTag::start = true;
-    stream=true;
-    }
-
 }
 
 void VideoTag::mousePressEvent(QMouseEvent *event){

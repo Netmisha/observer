@@ -52,7 +52,6 @@ public:
     explicit VideoTag(QWidget *parent = 0);
     ~VideoTag();
 private slots:
-    void on_Start_clicked();
     void on_AddTag_clicked();
     void on_dbl_clicked(QListWidgetItem *item);
     void showContextMenu(const QPoint&);
