@@ -98,6 +98,7 @@ private:
    bool LabelEmpty = true;
    VideoCapture cap;
    Mat frame;
+   bool out = false;
    void ThreadStream();
    void TagStreamThread();
    void OnDataRename(QWidget* EditLine);

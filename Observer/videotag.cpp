@@ -27,11 +27,12 @@ void VideoTag::itemClicked(){
 }
 void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
     this->show();
-    qDebug()<<obj->getCameraId();
     Tobj = obj;
     StreamM.setSettings(*Tobj);
 }
 bool VideoTag::getTagsFromXML(){
+    if(out){return 0;}
+    else{
     if(Tobj->getTagsList().size() == -1){
         qDebug()<<"No tags in XML";
          return 1;
@@ -43,9 +44,12 @@ bool VideoTag::getTagsFromXML(){
         ui->TagList->addItem(NewTagS->name_);
         ContainerT.push_back(NewTagS);
         NewTagS = nullptr;
+        VPos++;
     }
     firstTag = false;
+    out = true;
     return 0;
+    }
 
 }
 void VideoTag::ReceiveFromSetting(SettingsFile *obj){
@@ -105,7 +109,6 @@ temp = it->text();
 
 void VideoTag::on_AddTag_clicked()
 {
-
     if(firstTag == false){
       GetTagName = new QInputDialog;
       GetTagName->setOption(QInputDialog::NoButtons);
@@ -123,24 +126,18 @@ void VideoTag::on_AddTag_clicked()
       delete GetTagName;
       GetTagName = nullptr;
       VPos++;
-      //NewTag = new TagClass;
       NewTagS = new TagInfo;
       NewTagS->rect_ = CropArea;
       NewTagS->name_ = TagName;
-      //NewTag->TagPosition = CropArea;
-      //NewTag->tag_id = VPos;
-      //NewTag->tag_name = TagName;
-      //ContainerT.push_back(NewTag);
-      qDebug()<<ContainerT.size();
+
       ContainerT.push_back(NewTagS);
-      qDebug()<<ContainerT.at(ContainerT.size())->name_;
-      qDebug()<<ContainerT.at(ContainerT.size())->rect_;
+
       NewTagS = nullptr;
-      //NewTag = nullptr;
+
       ui->TagList->addItem(ContainerT.at(VPos)->name_);
     }
     else if(firstTag == true){
-        //NewTag = new TagClass;
+
         NewTagS = new TagInfo;
         GetTagName = new QInputDialog;
         GetTagName->setOption(QInputDialog::NoButtons);
@@ -163,12 +160,7 @@ void VideoTag::on_AddTag_clicked()
         ContainerT.push_back(NewTagS);
         NewTagS = nullptr;
         ui->TagList->addItem(ContainerT.at(VPos)->name_);
-        //NewTag->TagPosition = CropArea;
-        //NewTag->tag_id = VPos;
-        //NewTag->tag_name = TagName;
-        //TagContainer.push_back(NewTag);
-        //NewTag = nullptr;
-        //ui->TagList->addItem(TagContainer.at(VPos)->tag_name);
+
         firstTag = false;
     }
 }
@@ -201,15 +193,11 @@ void VideoTag::ReceiveImage(Mat imgsrc){
 
 void VideoTag::on_Start_clicked()
 {
-
-
     if(!getTagsFromXML()){
     if(VideoTag::start==true){
         return;
     }
     //emit SendID(0);// Pass Camera ID. default is 0
-
-
     StreamM.StartStream();
     connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
     VideoTag::start = true;
@@ -256,10 +244,14 @@ void VideoTag::paintEvent(QPaintEvent *){
 void VideoTag::on_Back_clicked()
 {
     this->hide();
+    StreamM.StopStream();
+    ui->MainVideo->clear();
+    ui->TagVideo->clear();
+    start = false;
+    ui->TagVideo->setText("Offline"); ui->TagVideo->setAlignment(Qt::AlignCenter); setF = ui->TagVideo->font();setF.setItalic(true);setF.setPointSize(10); ui->TagVideo->setFont(setF);
+    ui->MainVideo->setText("Offline"); ui->MainVideo->setAlignment(Qt::AlignCenter); ui->MainVideo->setFont(setF);
     Tobj->setTagsList(ContainerT); // set and pass setting to other window
     emit SendSettingSelectCamera(Tobj);
-    //emit OpenSelectCamera();
-
 }
 
 void VideoTag::on_Next_clicked()
@@ -267,5 +259,5 @@ void VideoTag::on_Next_clicked()
     this->hide();
     Tobj->setTagsList(ContainerT);
     emit SendToSettingsWindow(Tobj);
-    //emit OpenSettings();
+
 }

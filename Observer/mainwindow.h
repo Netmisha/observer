@@ -58,7 +58,6 @@ private:
     Ui::MainWindow *ui;
     void mousePressEvent(QMouseEvent *event);
     Mat frameM; Mat SecondFrame; Mat FourthFrame; Mat ThirdFrame;
-    void paintEvent(QPaintEvent *event);
     QFont setF;
     volatile int windows=1;
     QPainter P1,P2,P3,P4;
