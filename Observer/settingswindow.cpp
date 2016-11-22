@@ -44,6 +44,7 @@ void SettingsWindow::closeEvent(QCloseEvent *)
         return;
     }
     WarningMessage();
+    this->hide();
     emit OpenMainWindow(&settings_file_);
 }
 
@@ -83,6 +84,7 @@ void SettingsWindow::ClearAll()
 {
     ui->setting_fileEdit->clear();
     ui->setting_textEdit->clear();
+	settings_file_=settings_file::SettingsFile();
 }
 
 void SettingsWindow::Initialize(QString &file_name)
