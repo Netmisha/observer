@@ -20,8 +20,8 @@ void SelectCamera::closeEvent(QCloseEvent *) {
     emit OpenMainWindow();
 }
 void SelectCamera::showWindow(SettingsFile *settings){
-    InitializeFromFile(*settings);
     this->show();
+    InitializeFromFile(*settings);
 }
 QVector<QString> &SelectCamera::getCameraList(){
     return camera_list_;

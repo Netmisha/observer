@@ -115,12 +115,12 @@ void VideoTag::on_AddTag_clicked()
       while(1){
       ok = false;
       TagName = GetTagName->getText(NULL,"TagNameWindow","Set tag name:",QLineEdit::Normal,NULL,&ok);
-      if ((TagName.isEmpty() || TagName.isNull()) && ok){
+      if ((TagName.isEmpty()) && ok){
           QMessageBox::information(this,tr("Error"),tr("Set tag name"));
           TagName = TagName.null;
           continue;
       }
-      else if(ok && (!TagName.isEmpty() || !TagName.isNull())){break;}
+      else if(ok && (!TagName.isEmpty())){break;}
       return;
       }
       delete GetTagName;
@@ -129,9 +129,7 @@ void VideoTag::on_AddTag_clicked()
       NewTagS = new TagInfo;
       NewTagS->rect_ = CropArea;
       NewTagS->name_ = TagName;
-
       ContainerT.push_back(NewTagS);
-
       NewTagS = nullptr;
 
       ui->TagList->addItem(ContainerT.at(VPos)->name_);
