@@ -16,7 +16,6 @@ SettingsWindow::~SettingsWindow()
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
-
     if(settings_file_.getFileName()==tmp_file_name) {
         QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
         return;
@@ -112,7 +111,6 @@ void SettingsWindow::Initialize(QString &file_name)
         ui->save_fileButton->setEnabled(true);
     }
     else {
-        ui->save_fileButton->setEnabled(false);
         ui->setting_fileEdit->setText(file_name);
     }
 }
