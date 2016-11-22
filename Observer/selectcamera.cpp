@@ -138,6 +138,7 @@ void SelectCamera::FrameMoving() {
 }
 void SelectCamera::Refresh() {
     video_stream_.StopStream();
+    video_stream_.Clear();
     ui->list_of_cameras_comboBox->setCurrentIndex(-1);
     ui->image_scene->setVisible(false);
     ui->select_area->setVisible(false);

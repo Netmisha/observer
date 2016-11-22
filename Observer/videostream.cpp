@@ -5,9 +5,11 @@ VideoStream::VideoStream():QObject(nullptr) {
 }
 VideoStream::VideoStream(QString &file_name):QObject(nullptr) {
     setFileName(file_name);
+    connect(&timer_, SIGNAL(timeout()), this, SLOT(OnTimer()));
 }
 VideoStream::VideoStream(settings_file::SettingsFile &settings) {
     setSettings(settings);
+    connect(&timer_, SIGNAL(timeout()), this, SLOT(OnTimer()));
 }
 VideoStream::~VideoStream() {
     StopStream();
@@ -92,6 +94,10 @@ void VideoStream::OnTimer(){
 void VideoStream::StopStream() {
     timer_.stop();
     cap_.release();
+}
+void VideoStream::Clear()
+{
+    settings_=settings_file::SettingsFile();
 }
 Point2f VideoStream::CrossingLine(std::vector<Point2f> &pts_src) {
     Point2f cross;

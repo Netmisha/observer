@@ -2,13 +2,12 @@
 #include <QVector>
 MovableFrame::MovableFrame(QWidget *parent) : QFrame(parent), parent_(parent) {}
 bool MovableFrame::CheckLimits(const QPoint &pos) {
-    QVector<QObject *>children= parent_->children().toVector();
-    if(pos.x()<0 && pos.x()+this->width()>this->parent_->width()) {
-        if(pos.y()<0 && pos.y()+this->height()>parent_->height()) {
-            return false;
+    if(pos.x()>0 && pos.x()+this->width()<this->parent_->width()) {
+        if(pos.y()>0 && pos.y()+this->height()<parent_->height()) {
+            return true;
         }
     }
-    return true;
+    return false;
 }
 void MovableFrame::mousePressEvent(QMouseEvent *event) {
     start_pos_=event->pos();

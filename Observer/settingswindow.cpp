@@ -60,7 +60,7 @@ void SettingsWindow::on_close_settings_clicked()
 
 void SettingsWindow::on_open_dialogButton_clicked()
 {
-    QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath());
+    QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath(),tr("eXtensible Markup Language file(*.xml; *.xaml)"));
     settings_file_.setFileName(file_name);
     settings_file_.ReadSettings();
     Initialize(file_name);
@@ -165,7 +165,7 @@ void SettingsWindow::on_save_fileButton_clicked()
 {
     QString file_name;
     if(ui->setting_fileEdit->text().isEmpty()) {
-        file_name = QFileDialog::getSaveFileName(this, tr("Save a file"), QDir::currentPath());
+        file_name = QFileDialog::getSaveFileName(this, tr("Save a file"), QDir::currentPath(),tr("eXtensible Markup Language file(*.xml; *.xaml)"));
     }
     else {
         file_name=ui->setting_fileEdit->text();
