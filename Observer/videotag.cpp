@@ -32,22 +32,20 @@ void VideoTag::ReceiveFromSelectCamera(SettingsFile *obj){
     StreamM.setSettings(*Tobj);
 }
 bool VideoTag::getTagsFromXML(){
-
-if(Tobj->getTagsList().size() == -1){
-    qDebug()<<"No tags in XML";
+    if(Tobj->getTagsList().size() == -1){
+        qDebug()<<"No tags in XML";
+         return 1;
+    }
+    for (int i=0;i<Tobj->getTagsList().size();i++){
+        qDebug()<<"Not empty";
+        NewTagS = new TagInfo;
+        *NewTagS = Tobj->getTagsList().at(i);
+        ui->TagList->addItem(NewTagS->name_);
+        ContainerT.push_back(NewTagS);
+        NewTagS = nullptr;
+    }
+    firstTag = false;
     return 0;
-}
-for (int i=0;i<Tobj->getTagsList().size();i++){
-    qDebug()<<"Not empty";
-   *NewTagS = Tobj->getTagsList().at(i);
-    qDebug()<<NewTagS->name_;
-    qDebug()<<NewTagS->rect_;
-    ui->TagList->addItem(NewTagS->name_);
-    ContainerT.push_back(NewTagS);
-    qDebug()<<ContainerT.at(0)->name_;
-    NewTagS = nullptr;
-}
-return 1;
 
 }
 void VideoTag::ReceiveFromSetting(SettingsFile *obj){
@@ -133,7 +131,10 @@ void VideoTag::on_AddTag_clicked()
       //NewTag->tag_id = VPos;
       //NewTag->tag_name = TagName;
       //ContainerT.push_back(NewTag);
+      qDebug()<<ContainerT.size();
       ContainerT.push_back(NewTagS);
+      qDebug()<<ContainerT.at(ContainerT.size())->name_;
+      qDebug()<<ContainerT.at(ContainerT.size())->rect_;
       NewTagS = nullptr;
       //NewTag = nullptr;
       ui->TagList->addItem(ContainerT.at(VPos)->name_);
@@ -200,29 +201,20 @@ void VideoTag::ReceiveImage(Mat imgsrc){
 
 void VideoTag::on_Start_clicked()
 {
-    if(Tobj->getTagsList().size() == -1){
-        qDebug()<<"No tags in XML";
-         return;
-    }
-    for (int i=0;i<Tobj->getTagsList().size();i++){
-        qDebug()<<"Not empty";
-        *NewTagS = Tobj->getTagsList().at(i);
-        qDebug()<<NewTagS->name_;
-        qDebug()<<NewTagS->rect_;
-        ui->TagList->addItem(NewTagS->name_);
-        ContainerT.push_back(NewTagS);
-        qDebug()<<ContainerT.at(0)->name_;
-        NewTagS = nullptr;
-    }
+
+
+    if(!getTagsFromXML()){
     if(VideoTag::start==true){
         return;
     }
     //emit SendID(0);// Pass Camera ID. default is 0
-    QString C; C = "camera0";
+
+
     StreamM.StartStream();
     connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
     VideoTag::start = true;
     stream=true;
+    }
 
 }
 
