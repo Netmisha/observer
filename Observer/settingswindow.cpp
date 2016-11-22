@@ -21,8 +21,8 @@ void SettingsWindow::on_open_tags_window_clicked()
         QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
         return;
     }
-    this->hide();
     WarningMessage();
+    this->hide();
     emit OpenTagsWindow(&settings_file_);
 }
 
@@ -30,8 +30,10 @@ void SettingsWindow::ShowWindow(SettingsFile *settings)
 {
     this->show();
     settings_file_=*settings;
-    settings_file_.setFileName(tmp_file_name);
-    settings_file_.SaveSettings();
+    if(settings_file_.getFileName().isEmpty()) {
+        settings_file_.setFileName(tmp_file_name);
+        settings_file_.SaveSettings();
+    }
     Initialize(settings_file_.getFileName());
 }
 
@@ -59,6 +61,8 @@ void SettingsWindow::on_close_settings_clicked()
 void SettingsWindow::on_open_dialogButton_clicked()
 {
     QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath());
+    settings_file_.setFileName(file_name);
+    settings_file_.ReadSettings();
     Initialize(file_name);
 }
 
@@ -91,7 +95,6 @@ void SettingsWindow::Initialize(QString &file_name)
     }
     ui->setting_textEdit->setPlainText(settings_file.readAll());
     settings_file.close();
-    settings_file_.setFileName(file_name);
     settings_file_.ReadSettings();
     if(settings_file_.getMonitoringType()==settings_file::kMonitoringBoth) {
         ui->both_radioButton->setChecked(true);
@@ -110,7 +113,6 @@ void SettingsWindow::Initialize(QString &file_name)
         ui->save_fileButton->setEnabled(false);
         ui->setting_fileEdit->setText(file_name);
     }
-    SaveSettings();
 }
 void SettingsWindow::ShowSettings()
 {
@@ -162,19 +164,22 @@ void SettingsWindow::WarningMessage()
 void SettingsWindow::on_save_fileButton_clicked()
 {
     QString file_name;
-    if(settings_file_.getFileName()==tmp_file_name) {
-        file_name = QFileDialog::getSaveFileName(this, tr("Select a file"), QDir::currentPath());
+    if(ui->setting_fileEdit->text().isEmpty()) {
+        file_name = QFileDialog::getSaveFileName(this, tr("Save a file"), QDir::currentPath());
     }
-    ui->setting_fileEdit->setText(file_name);
+    else {
+        file_name=ui->setting_fileEdit->text();
+    }
     QFile settings_file(file_name);
     settings_file.open(QIODevice::WriteOnly);
     if(!settings_file.isOpen()) {
         ui->statusbar->showMessage("File didn`t open!",settings_ui::kMessageTimeout);
         return ;
     }
-    settings_file.write(ui->setting_textEdit->toPlainText().toLatin1());
+    settings_file.close();
+    ui->setting_fileEdit->setText(file_name);
     settings_file_.setFileName(file_name);
-    settings_file_.ReadSettings();
+    settings_file_.SaveSettings();
     ShowSettings();
     ui->save_fileButton->setEnabled(false);
 }
