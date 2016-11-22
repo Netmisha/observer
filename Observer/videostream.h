@@ -27,6 +27,7 @@ public:
     void addNewCamera(QString &, QString &);
     void StartStream();
     void StopStream();
+    void Clear();
 private slots:
     void OnTimer();
 signals:

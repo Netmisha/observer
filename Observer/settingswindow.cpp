@@ -16,7 +16,6 @@ SettingsWindow::~SettingsWindow()
 
 void SettingsWindow::on_open_tags_window_clicked()
 {
-
     if(settings_file_.getFileName()==tmp_file_name) {
         QMessageBox::question(this, "Warning", "File is not saved. Please, save the file?",QMessageBox::Ok);
         return;
@@ -28,6 +27,7 @@ void SettingsWindow::on_open_tags_window_clicked()
 
 void SettingsWindow::ShowWindow(SettingsFile *settings)
 {
+    ClearAll();
     this->show();
     settings_file_=*settings;
     if(settings_file_.getFileName().isEmpty()) {
@@ -61,7 +61,7 @@ void SettingsWindow::on_close_settings_clicked()
 
 void SettingsWindow::on_open_dialogButton_clicked()
 {
-    QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath());
+    QString file_name = QFileDialog::getOpenFileName(this, tr("Select a file"), QDir::currentPath(),tr("eXtensible Markup Language file(*.xml; *.xaml)"));
     settings_file_.setFileName(file_name);
     settings_file_.ReadSettings();
     Initialize(file_name);
@@ -85,6 +85,7 @@ void SettingsWindow::ClearAll()
     ui->setting_fileEdit->clear();
     ui->setting_textEdit->clear();
 	settings_file_=settings_file::SettingsFile();
+
 }
 
 void SettingsWindow::Initialize(QString &file_name)
@@ -112,7 +113,6 @@ void SettingsWindow::Initialize(QString &file_name)
         ui->save_fileButton->setEnabled(true);
     }
     else {
-        ui->save_fileButton->setEnabled(false);
         ui->setting_fileEdit->setText(file_name);
     }
 }
@@ -167,7 +167,7 @@ void SettingsWindow::on_save_fileButton_clicked()
 {
     QString file_name;
     if(ui->setting_fileEdit->text().isEmpty()) {
-        file_name = QFileDialog::getSaveFileName(this, tr("Save a file"), QDir::currentPath());
+        file_name = QFileDialog::getSaveFileName(this, tr("Save a file"), QDir::currentPath(),tr("eXtensible Markup Language file(*.xml; *.xaml)"));
     }
     else {
         file_name=ui->setting_fileEdit->text();

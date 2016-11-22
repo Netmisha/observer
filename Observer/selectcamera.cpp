@@ -13,6 +13,7 @@ SelectCamera::~SelectCamera() {
     Refresh();
 }
 void SelectCamera::showWindow() {
+    video_stream_.Clear();
     this->show();
 }
 void SelectCamera::closeEvent(QCloseEvent *) {
