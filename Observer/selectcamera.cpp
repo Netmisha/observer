@@ -13,6 +13,7 @@ SelectCamera::~SelectCamera() {
     Refresh();
 }
 void SelectCamera::showWindow() {
+    video_stream_.Clear();
     this->show();
 }
 void SelectCamera::closeEvent(QCloseEvent *) {
@@ -138,7 +139,6 @@ void SelectCamera::FrameMoving() {
 }
 void SelectCamera::Refresh() {
     video_stream_.StopStream();
-    video_stream_.Clear();
     ui->list_of_cameras_comboBox->setCurrentIndex(-1);
     ui->image_scene->setVisible(false);
     ui->select_area->setVisible(false);

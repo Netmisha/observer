@@ -77,6 +77,7 @@ void VideoStream::StartStream() {
     cap_>>img_scr_;
     img_size_.setWidth(img_scr_.cols);
     img_size_.setHeight(img_scr_.rows);
+    settings_.setCameraSize(img_size_);
     if(!settings_.getCropPoints().isEmpty()) {
         CalculateHomography();
     }

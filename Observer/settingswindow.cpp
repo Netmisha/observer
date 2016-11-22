@@ -28,6 +28,7 @@ void SettingsWindow::on_open_tags_window_clicked()
 
 void SettingsWindow::ShowWindow(SettingsFile *settings)
 {
+    ClearAll();
     this->show();
     settings_file_=*settings;
     if(settings_file_.getFileName().isEmpty()) {
@@ -83,6 +84,7 @@ void SettingsWindow::ClearAll()
 {
     ui->setting_fileEdit->clear();
     ui->setting_textEdit->clear();
+    settings_file_=settings_file::SettingsFile();
 }
 
 void SettingsWindow::Initialize(QString &file_name)
