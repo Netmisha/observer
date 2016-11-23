@@ -75,6 +75,7 @@ void VideoStream::StartStream() {
         }
     }
     cap_>>img_scr_;
+    img_old_=img_scr_;
     img_size_.setWidth(img_scr_.cols);
     img_size_.setHeight(img_scr_.rows);
     settings_.setCameraSize(img_size_);
@@ -85,6 +86,9 @@ void VideoStream::StartStream() {
 }
 void VideoStream::OnTimer(){
     cap_ >> img_scr_;
+    if(monitoring_) {
+        CheckChange();
+    }
     if(settings_.getCropPoints().isEmpty()){
         emit SendImage(img_scr_);
     }
@@ -99,6 +103,11 @@ void VideoStream::StopStream() {
 void VideoStream::Clear()
 {
     settings_=settings_file::SettingsFile();
+}
+
+void VideoStream::SetMonitoring(bool m)
+{
+    monitoring_=m;
 }
 Point2f VideoStream::CrossingLine(std::vector<Point2f> &pts_src) {
     Point2f cross;
@@ -143,6 +152,79 @@ Point2f VideoStream::GravityCenter(std::vector<Point2f> &pts_src) {
     cent.x=(c1.x*s1+c2.x*s2)/(s1+s2);
     cent.y=(c1.y*s1+c2.y*s2)/(s1+s2);
     return cent;
+}
+void VideoStream::CheckChange()
+{
+    if(CompareImage(img_scr_,img_old_)) {
+        for(auto& it:settings_.getMonitoringTags()) {
+            if(CompareImage(getImageCropped(img_scr_, it), getImageCropped(img_old_, it))) {
+                SaveChanges(getImageCropped(img_scr_, it), it);
+            }
+        }
+    }
+    img_old_=img_scr_;
+}
+
+Mat VideoStream::getImageCropped(Mat, QString)
+{
+
+}
+void VideoStream::SaveChanges(Mat img, QString name)
+{
+    QString file_name=QString("imgLogs\\%1%2.jpg").arg(name).arg(counter_++);
+    cv::imwrite(file_name.toStdString(), img);
+    emit OnSave(QString("Tag [%1] is changed. Image saved.").arg(name));
+}
+bool VideoStream::CompareImage(Mat img_scr, Mat img_old)
+{
+    size_t hash_scr = getImageHash(img_scr);
+    size_t hash_old = getImageHash(img_old);
+    size_t distance=getHammingDistance(hash_scr, hash_old);
+    if(distance) {
+        return true;
+    }
+    return false;
+}
+size_t VideoStream::getImageHash(Mat img)
+{
+        IplImage *res=0, *gray=0, *bin =0;
+        IplImage* src=cvCreateImage(cvSize(img.cols,img.rows),8,3);
+        IplImage ipltemp=img;
+        cvCopy(&ipltemp,src);
+            res = cvCreateImage( cvSize(8, 8), src->depth, src->nChannels);
+            gray = cvCreateImage( cvSize(8, 8), IPL_DEPTH_8U, 1);
+            bin = cvCreateImage( cvSize(8, 8), IPL_DEPTH_8U, 1);
+            cvResize(src, res);
+            cvCvtColor(res, gray, CV_BGR2GRAY);
+            CvScalar average = cvAvg(gray);
+            printf("[i] average: %.2f \n", average.val[0]);
+            cvThreshold(gray, bin, average.val[0], 255, CV_THRESH_BINARY);
+            size_t hash = 0;
+
+            int i=0;
+            for( int y=0; y<bin->height; y++ ) {
+                    uchar* ptr = (uchar*) (bin->imageData + y * bin->widthStep);
+                    for( int x=0; x<bin->width; x++ ) {
+                            if(ptr[x]){
+                                    hash |= 1<<i;
+                            }
+                            i++;
+                    }
+            }
+            cvReleaseImage(&res);
+            cvReleaseImage(&gray);
+            cvReleaseImage(&bin);
+            return hash;
+}
+size_t VideoStream::getHammingDistance(size_t x, size_t y)
+{
+    size_t dist = 0, val = x ^ y;
+    while(val)
+    {
+            ++dist;
+            val &= val - 1;
+    }
+    return dist;
 }
 void VideoStream::CalculateHomography() {
     std::vector<Point2f> pts_src;

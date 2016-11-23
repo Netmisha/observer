@@ -40,6 +40,7 @@ private slots:
  void ReceiveSettingFromSetW(SettingsFile *obj);
  void CloseSelectCamera();
 void ReceiveFromSC(SettingsFile *obj);
+void OnSave(QString);
 signals:
     void CameraID(int id);
     void CameraID2_1(int id);

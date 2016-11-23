@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
      QObject::connect(video_tag_,SIGNAL(SendToSettingsWindow(SettingsFile*)),settings_,SLOT(ShowWindow(SettingsFile*)));
      QObject::connect(settings_,SIGNAL(OpenTagsWindow(SettingsFile*)),video_tag_,SLOT(ReceiveFromSetting(SettingsFile*)));
      QObject::connect(video_tag_,SIGNAL(SendToMainFromTag(SettingsFile*)),this,SLOT(ReceiveFromTags(SettingsFile*)));
+     connect(&StreamM, SIGNAL(OnSave(QString)), this, SLOT(OnSave(QString)));
 }
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
@@ -118,7 +119,6 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
         ui->Stream3->setPixmap(QPixmap::fromImage(qimgOriginal));
         ui->Stream4->setPixmap(QPixmap::fromImage(qimgOriginal));
     }
-
 }
 
 void MainWindow::itemClicked(QListWidgetItem *item){
@@ -126,6 +126,7 @@ void MainWindow::itemClicked(QListWidgetItem *item){
    QString name = "Camera1";
   StreamM.addNewCamera(name,ui->CameraList->currentRow());
   StreamM.StartStream();
+  StreamM.SetMonitoring(true);
   connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
 }
 
@@ -166,6 +167,10 @@ void MainWindow::ReceiveFromSC(SettingsFile *obj){
     this->show();
     SettingsF = obj;
     StreamM.setSettings(*SettingsF);
+}
+void MainWindow::OnSave(QString msg)
+{
+    ui->logsBrowser->append(msg);
 }
 void MainWindow::on_SelectCameraButton_clicked()
 {
