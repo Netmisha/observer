@@ -46,13 +46,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 void MainWindow::ReceiveFromTags(SettingsFile *obj){
 
     this->show();
-    SettingsFile *t = new SettingsFile;
     SettingsF = obj;
-    t = SettingsF;
-    Sett.push_back(t);
-    StreamM.setSettings(*Sett.at(ui->CameraList->currentRow()+1));
-    ui->CameraList->addItem(Sett.at(ui->CameraList->currentRow()+1)->getCameraName());
-    t = nullptr;
+    StreamM.setSettings(*SettingsF);
+    ui->CameraList->addItem(SettingsF->getCameraName());
 }
 void MainWindow::ReceiveSettingFromSetW(SettingsFile *obj){
     this->show();
@@ -95,7 +91,7 @@ void MainWindow::showContextMenu(QPoint pos){
     QAction* rightclick = submenu.exec(item);
     if(rightclick && rightclick->text().contains("Add to 2nd subscreen")){
        qDebug()<<"Begin stream to second window";
-       emit CameraID2_1(SettingsF->getCameraId());
+       emit CameraID2_1(ui->CameraList->currentRow());
     }
     else if(rightclick && rightclick->text().contains("Add to 3rd subscreen")){
        emit CameraID3_2(ui->CameraList->currentRow());
@@ -127,7 +123,8 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
 
 void MainWindow::itemClicked(QListWidgetItem *item){
  //emit CameraID(ui->CameraList->currentRow());
-  //StreamM.addNewCamera(Sett.at(ui->CameraList->currentRow()+1)->getCameraName(),Sett.at(ui->CameraList->currentRow()+1)->getCameraId());
+   QString name = "Camera1";
+  StreamM.addNewCamera(name,ui->CameraList->currentRow());
   StreamM.StartStream();
   StreamM.SetMonitoring(true);
   connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));

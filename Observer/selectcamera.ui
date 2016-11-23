@@ -264,8 +264,8 @@
            <rect>
             <x>60</x>
             <y>30</y>
-            <width>5</width>
-            <height>5</height>
+            <width>10</width>
+            <height>10</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -276,9 +276,6 @@
           </property>
           <property name="cursor">
            <cursorShape>SizeFDiagCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 0, 255);</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -295,8 +292,8 @@
            <rect>
             <x>160</x>
             <y>30</y>
-            <width>5</width>
-            <height>5</height>
+            <width>10</width>
+            <height>10</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -307,9 +304,6 @@
           </property>
           <property name="cursor">
            <cursorShape>SizeBDiagCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 0, 255);</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -326,8 +320,8 @@
            <rect>
             <x>50</x>
             <y>120</y>
-            <width>5</width>
-            <height>5</height>
+            <width>10</width>
+            <height>10</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -338,9 +332,6 @@
           </property>
           <property name="cursor">
            <cursorShape>SizeBDiagCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 0, 255);</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -357,8 +348,8 @@
            <rect>
             <x>150</x>
             <y>120</y>
-            <width>5</width>
-            <height>5</height>
+            <width>10</width>
+            <height>10</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -369,9 +360,6 @@
           </property>
           <property name="cursor">
            <cursorShape>SizeFDiagCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 0, 255);</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>

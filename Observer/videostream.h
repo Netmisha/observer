@@ -39,7 +39,7 @@ private:
     Point2f CrossingLine(std::vector<Point2f> &);
     Point2f GravityCenter(std::vector<Point2f> &);
     void CheckChange();
-    Mat getImageCropped(Mat, QString);
+    Mat getImageCropped(Mat img,QString TagName);
     void SaveChanges(Mat, QString);
     bool CompareImage(Mat, Mat);
     size_t getImageHash(Mat);

@@ -75,8 +75,6 @@ private:
     SettingsWindow * settings_;
     VideoTag * video_tag_;
     VideoStream StreamM;
-    QVector <settings_file::SettingsFile*> Sett;
-    bool rec = false;
 };
 
 #endif // MAINWINDOW_H

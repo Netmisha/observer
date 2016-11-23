@@ -13,7 +13,6 @@ SelectCamera::~SelectCamera() {
     Refresh();
 }
 void SelectCamera::showWindow() {
-    video_stream_.Clear();
     this->show();
 }
 void SelectCamera::closeEvent(QCloseEvent *) {
@@ -21,8 +20,8 @@ void SelectCamera::closeEvent(QCloseEvent *) {
     emit OpenMainWindow();
 }
 void SelectCamera::showWindow(SettingsFile *settings){
-    this->show();
     InitializeFromFile(*settings);
+    this->show();
 }
 QVector<QString> &SelectCamera::getCameraList(){
     return camera_list_;

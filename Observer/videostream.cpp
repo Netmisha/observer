@@ -165,9 +165,17 @@ void VideoStream::CheckChange()
     img_old_=img_scr_;
 }
 
-Mat VideoStream::getImageCropped(Mat, QString)
-{
-
+Mat VideoStream::getImageCropped(Mat img,QString tagName){
+    if(settings_.getTagsList().isEmpty()){
+        return img;
+    }
+    int tagPos=-1;
+    for(int i=0;i<settings_.getTagsList().size();i++){
+        if(settings_.getTagsList().at(i).name_ == tagName){tagPos = i;}
+    }
+    if(tagPos == -1){return img;}
+    cv::Rect ROI(settings_.getTagsList().at(tagPos).rect_.x(),settings_.getTagsList().at(tagPos).rect_.y(),settings_.getTagsList().at(tagPos).rect_.width(),settings_.getTagsList().at(tagPos).rect_.height());
+    return img(ROI);
 }
 void VideoStream::SaveChanges(Mat img, QString name)
 {
