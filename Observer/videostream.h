@@ -5,7 +5,7 @@
 #include "opencv2/imgproc.hpp"
 #include <QTimer>
 #include "settingsfile.h"
-
+#include <qdebug.h>
 using namespace cv;
 namespace video_settings {
 }
@@ -47,6 +47,11 @@ private:
     QString file_name_;
     settings_file::SettingsFile settings_;
     int FPS_=40;
+    Mat getImageCroppedCu(Mat img,QString TagName);
+    Mat getImageCroppedPr(Mat img);
+    Mat currentimg;
+    Mat Previmg;
+    bool PREV = true;
 };
 
 #endif // VIDEOSTREAM_H

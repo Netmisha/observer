@@ -83,8 +83,32 @@ void VideoStream::StartStream() {
     }
     timer_.start(FPS_);
 }
+Mat VideoStream::getImageCroppedCu(Mat img,QString tagName){
+    if(settings_.getTagsList().isEmpty()){
+        //qDebug()<<"Tag List is empty.EXIT.";
+        return img;
+    }
+    int tagPos=-1;
+    for(int i=0;i<settings_.getTagsList().size();i++){
+        if(settings_.getTagsList().at(i).name_ == tagName){tagPos = i;}
+    }
+    if(tagPos == -1){return img;}
+    cv::Rect ROI(settings_.getTagsList().at(tagPos).rect_.x(),settings_.getTagsList().at(tagPos).rect_.y(),settings_.getTagsList().at(tagPos).rect_.width(),settings_.getTagsList().at(tagPos).rect_.height());
+    currentimg = img(ROI);
+    if (PREV){Previmg = currentimg; PREV = false;}
+    else{PREV = true;}
+    return currentimg;
+}
+Mat VideoStream::getImageCroppedPr(Mat img){
+    if(settings_.getTagsList().isEmpty()){
+        //qDebug()<<"Tag List is empty.EXIT.";
+        return img;
+    }
+    return Previmg;
+}
 void VideoStream::OnTimer(){
     cap_ >> img_scr_;
+    //img_scr_ =  getImageCroppedCu(img_scr_,"TAG");
     if(settings_.getCropPoints().isEmpty()){
         emit SendImage(img_scr_);
     }
