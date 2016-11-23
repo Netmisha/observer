@@ -110,6 +110,7 @@ private:
    VideoStream StreamM;
    QVector<settings_file::TagInfo*> ContainerT;
    settings_file::TagInfo *NewTagS;
+   bool rec = false;
 };
 
 #endif // VIDEOTAG_H
