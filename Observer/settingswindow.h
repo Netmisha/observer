@@ -44,7 +44,7 @@ private:
     void SaveSettings();
     void WarningMessage();
     Ui::SettingsWindow *ui;
-    settings_file::SettingsFile settings_file_;
+    settings_file::SettingsFile *settings_file_;
     QString tmp_file_name="tmp.xml";
 };
 

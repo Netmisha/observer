@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     myqframe.cpp \
     settingswindow.cpp \
     settingsfile.cpp \
-    videostream.cpp
+    videostream.cpp \
+    mylabel.cpp
 
 HEADERS  += mainwindow.h \
     selectcamera.h \
@@ -31,7 +32,8 @@ HEADERS  += mainwindow.h \
     myqframe.h \
     settingswindow.h \
     settingsfile.h \
-    videostream.h
+    videostream.h \
+    mylabel.h
 
 FORMS    += mainwindow.ui \
     selectcamera.ui \

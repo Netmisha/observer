@@ -29,7 +29,7 @@ private slots:
     void resizeEvent(QResizeEvent *);
     void on_cutButton_clicked();
     void FrameMoving();
-    void on_camera_connectButton_clicked();    
+    void on_camera_connectButton_clicked();
 signals:
     OpenTagsWindow(SettingsFile *);
     OpenMainWindow();

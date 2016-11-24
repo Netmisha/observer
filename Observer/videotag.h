@@ -105,8 +105,6 @@ private:
    void mousePressEvent(QMouseEvent *event);
    void mouseMoveEvent(QMouseEvent *event);
    void mouseReleaseEvent(QMouseEvent *event);
-   void paintEvent(QPaintEvent *event);
-   void resizeEvent(QResizeEvent *event);
    bool getTagsFromXML();
    VideoStream StreamM;
    QVector<settings_file::TagInfo*> ContainerT;

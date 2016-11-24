@@ -13,6 +13,7 @@ SelectCamera::~SelectCamera() {
     Refresh();
 }
 void SelectCamera::showWindow() {
+    video_stream_.Clear();
     this->show();
 }
 void SelectCamera::closeEvent(QCloseEvent *) {
@@ -20,8 +21,8 @@ void SelectCamera::closeEvent(QCloseEvent *) {
     emit OpenMainWindow();
 }
 void SelectCamera::showWindow(SettingsFile *settings){
-    InitializeFromFile(*settings);
     this->show();
+    InitializeFromFile(*settings);
 }
 QVector<QString> &SelectCamera::getCameraList(){
     return camera_list_;
@@ -138,7 +139,9 @@ void SelectCamera::FrameMoving() {
 }
 void SelectCamera::Refresh() {
     video_stream_.StopStream();
-    ui->list_of_cameras_comboBox->setCurrentIndex(-1);
+    if(ui->list_of_cameras_comboBox->count()) {
+        ui->list_of_cameras_comboBox->clear();
+    }
     ui->image_scene->setVisible(false);
     ui->select_area->setVisible(false);
 }
@@ -152,4 +155,3 @@ void SelectCamera::on_camera_connectButton_clicked() {
     video_stream_.addNewCamera(path,path);
     video_stream_.StartStream();
 }
-

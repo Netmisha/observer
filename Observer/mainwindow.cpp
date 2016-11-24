@@ -123,11 +123,7 @@ void MainWindow::ReceiveImageM(Mat imgsrc){
 
 void MainWindow::itemClicked(QListWidgetItem *item){
  //emit CameraID(ui->CameraList->currentRow());
-   QString name = "Camera1";
-  StreamM.addNewCamera(name,ui->CameraList->currentRow());
-  StreamM.StartStream();
-  StreamM.SetMonitoring(true);
-  connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
+
 }
 
 void MainWindow::GetQuantCamer(){
@@ -203,4 +199,13 @@ void MainWindow::on_SQ3_clicked()
     ui->Stream3->setVisible(true);
     ui->Stream4->setVisible(true);
 windows = 4;
+}
+
+void MainWindow::on_CameraList_currentRowChanged(int currentRow)
+{
+    StreamM.StopStream();
+    StreamM.setSettings(*SettingsF);
+    StreamM.StartStream();
+    StreamM.SetMonitoring(true);
+    connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImageM(Mat)));
 }

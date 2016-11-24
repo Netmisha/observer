@@ -29,6 +29,7 @@ public:
     void StopStream();
     void Clear();
     void SetMonitoring(bool m);
+    QSize getImageSize();
 private slots:
     void OnTimer();
 signals:

@@ -41,6 +41,8 @@ private slots:
  void CloseSelectCamera();
 void ReceiveFromSC(SettingsFile *obj);
 void OnSave(QString);
+void on_CameraList_currentRowChanged(int currentRow);
+
 signals:
     void CameraID(int id);
     void CameraID2_1(int id);

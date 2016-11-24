@@ -109,6 +109,11 @@ void VideoStream::SetMonitoring(bool m)
 {
     monitoring_=m;
 }
+
+QSize VideoStream::getImageSize()
+{
+    return img_size_;
+}
 Point2f VideoStream::CrossingLine(std::vector<Point2f> &pts_src) {
     Point2f cross;
     if(pts_src[0].x>=pts_src[1].x) {

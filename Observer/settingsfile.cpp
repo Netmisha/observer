@@ -119,7 +119,7 @@ void SettingsFile::GenerateSettingsFile(QFile &file) {
     for(auto & it:crop_points_) {
         xmlWriter.writeStartElement(kTagPoint);
         xmlWriter.writeTextElement(kTagX,QString::number(it.x()));
-        xmlWriter.writeTextElement(kTagY,QString::number(it.x()));
+        xmlWriter.writeTextElement(kTagY,QString::number(it.y()));
         xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
@@ -135,7 +135,7 @@ void SettingsFile::GenerateSettingsFile(QFile &file) {
         xmlWriter.writeStartElement(kTagRect);
         xmlWriter.writeStartElement(kTagPoint);
         xmlWriter.writeTextElement(kTagX,QString::number(it.rect_.x()));
-        xmlWriter.writeTextElement(kTagY,QString::number(it.rect_.x()));
+        xmlWriter.writeTextElement(kTagY,QString::number(it.rect_.y()));
         xmlWriter.writeEndElement();
         xmlWriter.writeStartElement(kTagSize);
         xmlWriter.writeTextElement(kTagWidth,QString::number(it.rect_.width()));
