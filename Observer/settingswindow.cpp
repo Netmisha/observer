@@ -165,7 +165,7 @@ void SettingsWindow::on_save_fileButton_clicked()
     settings_file.open(QIODevice::WriteOnly);
     if(!settings_file.isOpen()) {
         ui->statusbar->showMessage("File didn`t open!",settings_ui::kMessageTimeout);
-        return ;
+        return;
     }
     settings_file.close();
     ui->setting_fileEdit->setText(file_name);

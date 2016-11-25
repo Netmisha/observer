@@ -39,6 +39,8 @@
 #include <QTime>
 #include <settingsfile.h>
 #include <videostream.h>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 using namespace cv;
 using namespace settings_file;
 namespace Ui {
@@ -109,8 +111,9 @@ private:
    VideoStream StreamM;
    QVector<settings_file::TagInfo*> ContainerT;
    settings_file::TagInfo *NewTagS;
-   bool rec = false;
+   volatile bool cvt = true;
    QSize windold;
+   bool one=true;
 
 };
 

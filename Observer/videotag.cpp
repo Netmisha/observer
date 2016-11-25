@@ -46,10 +46,11 @@ bool VideoTag::getTagsFromXML(){
     }
     ui->MainVideo->Clear_Rubber();
     out = true;*/
+
     ui->MainVideo->Clear_Rubber();
-    if(out){return 0;}
-    else{
-    if(Tobj->getTagsList().size() == -1){
+    //if(out){return 0;}
+    //else{
+    if(Tobj->getTagsList().empty()){
         qDebug()<<"No tags in XML";
          return 1;
     }
@@ -63,19 +64,18 @@ bool VideoTag::getTagsFromXML(){
         VPos++;
     }
     firstTag = false;
-    out = true;
+    //out = true;
     return 0;
-    }
+    //}
 }
 void VideoTag::ReceiveFromSetting(SettingsFile *obj){
-
     this->show();
     Tobj = obj;
     StreamM.setSettings(*Tobj);
     getTagsFromXML();
     //emit SendID(0);// Pass Camera ID. default is 0
     StreamM.StartStream();
-    connect(&StreamM,SIGNAL(SendImage(Mat)),this,SLOT(ReceiveImage(Mat)));
+
 }
 void VideoTag::showContextMenu(const QPoint &pos){
 
@@ -127,7 +127,6 @@ void VideoTag::on_dbl_clicked(QListWidgetItem* it){
 it->setFlags(it->flags() | Qt::ItemIsEditable);
 ui->TagList->editItem(it);
 temp = it->text();
-
 }
 
 void VideoTag::on_AddTag_clicked()
@@ -203,11 +202,10 @@ void VideoTag::TagStreamThread(){
 
 void VideoTag::ReceiveImage(Mat imgsrc){
     if (imgsrc.empty()){qDebug()<<"Nothing to display"; return;}
-    //cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     if(!firstTag){TagStreamThread();}
+    //cvtColor(imgsrc,imgsrc,COLOR_BGR2RGB);
     mutex.lock();
     frame = imgsrc;
-    //cvtColor(frame,frame,COLOR_BGR2RGB);
     QImage qimgOriginal((uchar*)frame.data,frame.cols,frame.rows, frame.step,QImage::Format_RGB888);
     shot_ = qimgOriginal;
     shot_ = shot_.scaled(ui->frame_2->width(),ui->frame_2->height(), Qt::KeepAspectRatio, Qt::FastTransformation);
@@ -260,7 +258,6 @@ void VideoTag::on_Back_clicked()
     StreamM.StopStream();
     ui->MainVideo->clear();
     ui->TagVideo->clear();
-    start = false;
     ui->TagVideo->setText("Offline"); ui->TagVideo->setAlignment(Qt::AlignCenter); setF = ui->TagVideo->font();setF.setItalic(true);setF.setPointSize(10); ui->TagVideo->setFont(setF);
     ui->MainVideo->setText("Offline"); ui->MainVideo->setAlignment(Qt::AlignCenter); ui->MainVideo->setFont(setF);
     Tobj->setTagsList(ContainerT); // set and pass setting to other window
@@ -270,6 +267,7 @@ void VideoTag::on_Back_clicked()
 void VideoTag::on_Next_clicked()
 {
     this->hide();
+    StreamM.StopStream();
     Tobj->setTagsList(ContainerT);
     emit SendToSettingsWindow(Tobj);
 
